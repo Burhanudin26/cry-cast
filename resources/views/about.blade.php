@@ -75,29 +75,29 @@
       {{-- p1 --}}
       <div class="col-6 col-md-3">
         <div>
-          <img src="pictures/1.jpg" class="img-fluid rounded-circle shadow" alt="">
+          <img src="pictures/11.jpg" class="img-fluid rounded-circle shadow" alt="">
           <h3 class="text-center"> nama </h3>
         </div>
       </div>
       {{-- p2 --}}
       <div class="col-6 col-md-3">
         <div>
-          <img src="pictures/1.jpg" class="img-fluid rounded-circle shadow" alt="">
-                    <h3 class="text-center"> nama </h3>
+          <img src="pictures/11.jpg" class="img-fluid rounded-circle shadow" alt="">
+            <h3 class="text-center"> nama </h3>
         </div>
       </div>
       {{-- p3 --}}
       <div class="col-6 col-md-3">
         <div>
-          <img src="pictures/1.jpg" class="img-fluid rounded-circle shadow" alt="">
-                    <h3 class="text-center"> nama </h3>
+          <img src="pictures/11.jpg" class="img-fluid rounded-circle shadow" alt="">
+            <h3 class="text-center"> nama </h3>
         </div>
       </div>
       {{-- p4 --}}
       <div class="col-6 col-md-3">
         <div>
-          <img src="pictures/1.jpg" class="img-fluid rounded-circle shadow" alt="">
-                    <h3 class="text-center"> nama </h3>
+          <img src="pictures/11.jpg" class="img-fluid rounded-circle shadow" alt="">
+          <h3 class="text-center"> nama </h3>
         </div>
       </div>
     </div>
