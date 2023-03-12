@@ -3,7 +3,7 @@
 @section('content')
   <!-- content -->
   <div
-    class="container pt-5 d-flex flex-column vhis-md-100 justify-content-center align-items-center pt-5 pt-md-0 p-5 p-md-0">
+    class="container pt-5 d-flex flex-column vh-100 justify-content-center align-items-center pt-5 pt-md-0 p-5 p-md-0">
     <div class="row row-cols-2 row-cols-md-4 justify-content-center align-items-center gy-2">
       <div class="col justify-content-center align-items-center d-flex flex-column">
         <a href="/menu/eth" style="position: relative; z-index: 1;">
