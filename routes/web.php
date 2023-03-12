@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +21,13 @@ Route::get('/', function () {
 Route::get('/menu', function () {
     return view('menu');
 });
+// return to abour
+Route::get('/about', function () {
+    return view('about');
+});
+
 // route to eth
 Route::get('menu/eth', function () {
     return view('eth');
 });
+Route::post('/import', 'App\Http\Controllers\NewController@import');
