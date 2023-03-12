@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+.head {
+    font-family: 'Righteous', cursive;
+}
+.navbar {
+  background-color: transparent;
+  border-radius: 50px;
+  transition: all 0.3s ease-in-out;
+}
+.navbar.scrolled {
+  background-color: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
