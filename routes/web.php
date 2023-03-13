@@ -21,10 +21,6 @@ Route::get('/', function () {
 Route::get('/menu', function () {
     return view('menu');
 });
-// return to abour
-Route::get('/about', function () {
-    return view('about');
-});
 // route to login page
 Route::get('/login', function () {
     return view('login.login');

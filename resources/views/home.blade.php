@@ -9,7 +9,7 @@
                 <img src="pictures/coin-removebg.png" class="img-fluid rounded-lg" />
               </div>
               <div class="col-lg-6">
-                <h1 class="display-2 fw-bold head">Cry Cast</h1>
+                <h1 class="display-2 fw-bold head-cast">Cry Cast</h1>
                 <p class="lead py-4">Get accurate cryptocurrency forecasts with Cry Cast. Stay ahead of the game with real-time data and expert analysis. Join us now for profitable investments.</p>
                 <div class="button">
                   <a href="/login" style="position: relative; z-index: 1;">
@@ -20,5 +20,68 @@
             </div>
           </div>
         </div>
+</section>
+
+<section class="container-fluid justify-content-center align-items-center vh-100 d-flex flex-column">
+  <div class="container px-0 px-md-5">
+    <div class="row">
+      <div class="col">
+        <h1 class="display-2 fw-bold head-team">Cry Cast</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="card">
+        <div class="desc p-4">
+          Cry Cast adalah platform prediksi cryptocurrency yang akurat dengan teknik machine learning canggih seperti
+          Naive Bayes. Kami menggabungkan data real-time dan analisis ahli untuk membantu Anda selangkah lebih maju dan
+          membuat investasi yang menguntungkan. Dengan memanfaatkan kekuatan Naive Bayes, kami mampu mengklasifikasikan
+          dan memprediksi tren pasar dengan tingkat akurasi yang tinggi, sehingga memungkinkan pengguna kami membuat
+          keputusan yang terinformasi. Bergabunglah dengan kami sekarang untuk melihat bagaimana teknologi terbaru kami
+          dapat membantu Anda berhasil di pasar cryptocurrency.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{-- Page About --}}
+<section class="vh-100 d-flex flex-column justify-content-center align-items-center margin-team">
+  <div class="container">
+    <div class="row ">
+      <div class="col">
+        <h2 class="head-team text-center">Our Team</h2>
+      </div>
+    </div>
+    <div class="row">
+      {{-- p1 --}}
+      <div class="col-6 col-md-3">
+        <div>
+          <img src="pictures/11.jpg" class="img-fluid rounded-circle shadow" alt="">
+          <h3 class="text-center"> nama </h3>
+        </div>
+      </div>
+      {{-- p2 --}}
+      <div class="col-6 col-md-3">
+        <div>
+          <img src="pictures/11.jpg" class="img-fluid rounded-circle shadow" alt="">
+          <h3 class="text-center"> nama </h3>
+        </div>
+      </div>
+      {{-- p3 --}}
+      <div class="col-6 col-md-3">
+        <div>
+          <img src="pictures/11.jpg" class="img-fluid rounded-circle shadow" alt="">
+          <h3 class="text-center"> nama </h3>
+        </div>
+      </div>
+      {{-- p4 --}}
+      <div class="col-6 col-md-3">
+        <div>
+          <img src="pictures/11.jpg" class="img-fluid rounded-circle shadow" alt="">
+          <h3 class="text-center"> nama </h3>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 @endsection
