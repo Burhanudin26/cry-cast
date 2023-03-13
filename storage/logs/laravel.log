@@ -2219,3 +2219,83 @@
 #50 C:\\Users\\LENOVO\\AppData\\Roaming\\Composer\\vendor\\cretueusebiu\\valet-windows\\server.php(241): require('...')
 #51 {main}
 "} 
+[2023-03-13 01:50:42] local.ERROR: Class "Laravel\Ui\UiServiceProvider" not found {"exception":"[object] (Error(code: 0): Class \"Laravel\\Ui\\UiServiceProvider\" not found at C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php:829)
+[stacktrace]
+#0 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(763): Illuminate\\Foundation\\Application->resolveProvider()
+#1 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\ProviderRepository.php(75): Illuminate\\Foundation\\Application->register()
+#2 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(743): Illuminate\\Foundation\\ProviderRepository->load()
+#3 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterProviders.php(17): Illuminate\\Foundation\\Application->registerConfiguredProviders()
+#4 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(263): Illuminate\\Foundation\\Bootstrap\\RegisterProviders->bootstrap()
+#5 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(383): Illuminate\\Foundation\\Application->bootstrapWith()
+#6 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(153): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#7 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle()
+#8 {main}
+"} 
+[2023-03-13 01:50:43] local.ERROR: Uncaught ReflectionException: Class "translator" does not exist in C:\Laravel\cry-cast\vendor\laravel\framework\src\Illuminate\Container\Container.php:889
+Stack trace:
+#0 C:\Laravel\cry-cast\vendor\laravel\framework\src\Illuminate\Container\Container.php(889): ReflectionClass->__construct()
+#1 C:\Laravel\cry-cast\vendor\laravel\framework\src\Illuminate\Container\Container.php(770): Illuminate\Container\Container->build()
+#2 C:\Laravel\cry-cast\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(935): Illuminate\Container\Container->resolve()
+#3 C:\Laravel\cry-cast\vendor\laravel\framework\src\Illuminate\Container\Container.php(706): Illuminate\Foundation\Application->resolve()
+#4 C:\Laravel\cry-cast\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(920): Illuminate\Container\Container->make()
+#5 C:\Laravel\cry-cast\vendor\laravel\framework\src\Illuminate\Foundation\helpers.php(120): Illuminate\Foundation\Application->make()
+#6 Command line code(1): app()
+#7 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [translator] does not exist. in C:\Laravel\cry-cast\vendor\laravel\framework\src\Illuminate\Container\Container.php:891
+Stack trace:
+#0 C:\Laravel\cry-cast\vendor\laravel\framework\src\Illuminate\Container\Container.php(770): Illuminate\Container\Container->build()
+#1 C:\Laravel\cry-cast\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(935): Illuminate\Container\Container->resolve()
+#2 C:\Laravel\cry-cast\vendor\laravel\framework\src\Illuminate\Container\Container.php(706): Illuminate\Foundation\Application->resolve()
+#3 C:\Laravel\cry-cast\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(920): Illuminate\Container\Container->make()
+#4 C:\Laravel\cry-cast\vendor\laravel\framework\src\Illuminate\Foundation\helpers.php(120): Illuminate\Foundation\Application->make()
+#5 Command line code(1): app()
+#6 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught ReflectionException: Class \"translator\" does not exist in C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php:889
+Stack trace:
+#0 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(889): ReflectionClass->__construct()
+#1 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(770): Illuminate\\Container\\Container->build()
+#2 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(935): Illuminate\\Container\\Container->resolve()
+#3 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(706): Illuminate\\Foundation\\Application->resolve()
+#4 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(920): Illuminate\\Container\\Container->make()
+#5 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(120): Illuminate\\Foundation\\Application->make()
+#6 Command line code(1): app()
+#7 {main}
+
+Next Illuminate\\Contracts\\Container\\BindingResolutionException: Target class [translator] does not exist. in C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php:891
+Stack trace:
+#0 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(770): Illuminate\\Container\\Container->build()
+#1 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(935): Illuminate\\Container\\Container->resolve()
+#2 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(706): Illuminate\\Foundation\\Application->resolve()
+#3 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(920): Illuminate\\Container\\Container->make()
+#4 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(120): Illuminate\\Foundation\\Application->make()
+#5 Command line code(1): app()
+#6 {main}
+  thrown at C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php:891)
+[stacktrace]
+#0 {main}
+"} 
+[2023-03-13 01:51:18] local.ERROR: Class "Laravel\Ui\UiServiceProvider" not found {"exception":"[object] (Error(code: 0): Class \"Laravel\\Ui\\UiServiceProvider\" not found at C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php:829)
+[stacktrace]
+#0 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(763): Illuminate\\Foundation\\Application->resolveProvider()
+#1 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\ProviderRepository.php(75): Illuminate\\Foundation\\Application->register()
+#2 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(743): Illuminate\\Foundation\\ProviderRepository->load()
+#3 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterProviders.php(17): Illuminate\\Foundation\\Application->registerConfiguredProviders()
+#4 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(263): Illuminate\\Foundation\\Bootstrap\\RegisterProviders->bootstrap()
+#5 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(383): Illuminate\\Foundation\\Application->bootstrapWith()
+#6 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(153): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#7 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle()
+#8 {main}
+"} 
+[2023-03-13 01:51:18] local.ERROR: Class "Laravel\Ui\UiServiceProvider" not found {"exception":"[object] (Error(code: 0): Class \"Laravel\\Ui\\UiServiceProvider\" not found at C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php:829)
+[stacktrace]
+#0 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(763): Illuminate\\Foundation\\Application->resolveProvider()
+#1 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\ProviderRepository.php(75): Illuminate\\Foundation\\Application->register()
+#2 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(743): Illuminate\\Foundation\\ProviderRepository->load()
+#3 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterProviders.php(17): Illuminate\\Foundation\\Application->registerConfiguredProviders()
+#4 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(263): Illuminate\\Foundation\\Bootstrap\\RegisterProviders->bootstrap()
+#5 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(383): Illuminate\\Foundation\\Application->bootstrapWith()
+#6 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(153): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#7 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle()
+#8 {main}
+"} 
