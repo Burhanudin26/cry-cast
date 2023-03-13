@@ -1,0 +1,36 @@
+.head {
+    font-family: 'Righteous', cursive;
+    /* font-size: 3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #333;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem; */
+}
+
+.navbar.scrolled {
+    background-color: #ffffff;
+    margin: 5px 20px 0 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 50px;
+    transition: all 0.3s ease-in-out;
+}
+.navbar {
+  background-color: transparent;
+  border-radius: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* mengatur 2 kolom dengan lebar yang sama */
+  grid-gap: 10px; /* mengatur jarak antara grid item */
+}
+
+.grid-item {
+  width: 100%;
+  height: 100%;
+}

@@ -11,7 +11,11 @@
               <div class="col-lg-6">
                 <h1 class="display-2 fw-bold head">Cry Cast</h1>
                 <p class="lead py-4">Get accurate cryptocurrency forecasts with Cry Cast. Stay ahead of the game with real-time data and expert analysis. Join us now for profitable investments.</p>
-                <button class="btn btn-lg btn-primary">Get Started</button>
+                <div class="button">
+                  <a href="/login" style="position: relative; z-index: 1;">
+                    <button class="btn btn-lg btn-primary">Get Started</button>
+                  </a>
+                </div>
               </div>
             </div>
           </div>

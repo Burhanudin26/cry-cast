@@ -5,7 +5,7 @@
   <section class="container mt-5 pt-5 d-flex flex-column justify-content-center align-items-center">
     <div class="card" style="min-width: 700px;">
       <div class="card-header">
-        <h1 class="text-center">ETH</h1>
+        <h1 class="text-center">SOLANA</h1>
       </div>
       <div class="card-body p-4">
         <form method="POST" action="/import" enctype="multipart/form-data">
