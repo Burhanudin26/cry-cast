@@ -3,7 +3,8 @@
 @section('content')
   <!-- content -->
   <div
-    class="container pt-5 d-flex flex-column vh-100 justify-content-center align-items-center pt-5 pt-md-0 p-5 p-md-0 px-md-5 " style="margin: 0 auto;">
+    class="container pt-5 d-flex flex-column vh-100 justify-content-center align-items-center pt-5 pt-md-0 p-5 p-md-0 px-md-5 "
+    style="margin: 0 auto;">
     <div class="row row-cols-2 row-cols-md-4 justify-content-center align-items-center gy-2 p-md-5">
       {{-- bitcoin --}}
       <div class="col justify-content-center align-items-center d-flex flex-column">
@@ -22,7 +23,7 @@
           </div>
         </a>
       </div>
-      <div class="col justify-content-center align-items-center d-flex flex-column" >
+      <div class="col justify-content-center align-items-center d-flex flex-column">
         <a href="/menu/dogecoin" style="position: relative; z-index: 1;">
           <div style="pointer-events: none;">
             <img src="/pictures/icon3/dogecoin.png" class="img-fluid rounded-circle shadow" alt=""
@@ -77,12 +78,13 @@
       </div>
     </div>`
   </div>
-<style>
-  /* make a media query when md or more vh 100 when less display block */
-  @media (min-width: 768px) {
-    .vhis-md-100 {
-      min-height: 100vh;
-min-    }
-  }
-</style>
+  <style>
+    /* make a media query when md or more vh 100 when less display block */
+    @media (min-width: 768px) {
+      .vhis-md-100 {
+        min-height: 100vh;
+        min-
+      }
+    }
+  </style>
 @endsection
