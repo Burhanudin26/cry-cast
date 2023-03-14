@@ -19,7 +19,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
-
   <style>
     body::-webkit-scrollbar {
     width: 0.2em;
@@ -97,12 +96,9 @@ body::-webkit-scrollbar-thumb {
   </section>
 
   {{-- footer --}}
-<!-- Remove the container if you want to extend the Footer to full width. -->
-
-
-  <section class="">
+  <section class="bottom">
   <!-- Footer -->
-  <footer class="text-center text-white" style="background-color: #0a4275;">
+  <footer class="text-center text-white" style="background-color: #2872b8;">
     <!-- Grid container -->
     <div class="container p-4 pb-0">
       <!-- Section: CTA -->

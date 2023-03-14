@@ -1,6 +1,7 @@
 @extends('layouts.main')
 @section('content')
-  <section class="pt-5 pt-md-0">
+  <section class="">
+    {{-- bg --}}
     <!-- content -->
     <div data-bss-parallax-bg="true" class="mx-0"
       style="background-image: url(pictures/BGGG.png); background-size: cover; height:100vh; margin: auto 0;">
@@ -51,5 +52,6 @@
       </div>
     </div>
   </section>
-  <script src="{{ url('js/script.min.js') }}"></script>
+
+  <script src="{{ url('js/parallax.js') }}"></script>
 @endsection

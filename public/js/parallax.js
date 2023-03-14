@@ -1,9 +1,4 @@
-const swup = new Swup({
-    plugins: [new SwupScrollPlugin()],
-});
-
-swup.on("contentReplaced", function () {
-    // Re-run the parallax code on the new content
+(function () {
     if ("requestAnimationFrame" in window) {
         var e = [],
             t = document.querySelectorAll("[data-bss-parallax-bg]");
@@ -18,20 +13,21 @@ swup.on("contentReplaced", function () {
             a.style.top = 0;
             a.style.left = 0;
             a.style.zIndex = -100;
-            n.appendChild(a);
-            e.push(a);
-            n.style.position = "relative";
-            n.style.background = "transparent";
-            n.style.overflow = "hidden";
+            n.appendChild(a),
+                e.push(a),
+                (n.style.position = "relative"),
+                (n.style.background = "transparent"),
+                (n.style.overflow = "hidden");
         }
         if (e.length) {
             var o,
                 r = [];
-            window.addEventListener("scroll", i);
-            window.addEventListener("resize", i);
-            i();
+            window.addEventListener("scroll", i),
+                window.addEventListener("resize", i),
+                i();
         }
     }
+
     function i() {
         r.length = 0;
         for (var t = 0; t < e.length; t++) {
@@ -43,8 +39,7 @@ swup.on("contentReplaced", function () {
                     node: e[t],
                 });
         }
-        cancelAnimationFrame(o);
-        r.length && (o = requestAnimationFrame(l));
+        cancelAnimationFrame(o), r.length && (o = requestAnimationFrame(l));
     }
 
     function l() {
@@ -55,4 +50,4 @@ swup.on("contentReplaced", function () {
             n.style.transform = "translate3d(0, " + -50 * a + "%, 0)";
         }
     }
-});
+})();
