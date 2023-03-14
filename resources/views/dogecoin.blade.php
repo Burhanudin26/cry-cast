@@ -14,7 +14,7 @@
             <label for="dateInput" class="form-label">Masukkan Tanggal</label>
             <input type="date" class="form-control" id="dateInput">
           </div>
-          <!-- file -->
+          <!-- file input -->
           <div class="mb-3">
             <label for="file" class="form-label">Choose file:</label> <br>
             <button type="button" class="btn btn-secondary" id="file" data-bs-toggle="modal"
