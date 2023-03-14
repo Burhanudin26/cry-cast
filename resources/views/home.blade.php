@@ -2,6 +2,7 @@
 @section('content')
   <section class="">
     {{-- bg --}}
+
     <!-- content -->
     <div data-bss-parallax-bg="true" class="mx-0"
       style="background-image: url(pictures/BGGG.png); background-size: cover; height:100vh; margin: auto 0;">
