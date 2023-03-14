@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('content')
-<<<<<<< HEAD
+
 <section class="pt-5 pt-md-0">
         <!-- content -->
         <div class="hero min-vh-100 d-flex align-items-center">
@@ -85,33 +85,8 @@
     </div>
   </div>
 </section>
-@endsection
-=======
-  <section class="">
-    <!-- content -->
-    <div data-bss-parallax-bg="true" class="mx-0" style="background-image: url(pictures/bg.png); background-size: cover; height:100vh; margin: auto 0;">
-    <div class="hero min-vh-100 d-flex align-items-center pt-5 pt-md-0">
-      <div class="container">
-        <div class="row flex-lg-row-reverse align-items-center">
-          <div class="col-lg-6">
-            <img src="pictures/coin-removebg.png" class="img-fluid rounded-lg" />
-          </div>
-          <div class="col-lg-6">
-            <h1 class="display-2 fw-bold head">Cry Cast</h1>
-            <p class="lead py-4">Get accurate cryptocurrency forecasts with Cry Cast. Stay ahead of the game with real-time
-              data and expert analysis. Join us now for profitable investments.</p>
-            <div class="button">
-              <a href="/login" style="position: relative; z-index: 2;">
-                <button class="btn btn-lg btn-primary">Get Started</button>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
-  </section>
-  {{-- about --}}
+
+  {{-- about --}} 
   <section class="about pt-3" id="about"
     style="height: 100vh; display: flex;justify-content: center; align-items: center;" >
     <div class="container py-4 py-xl-5">
@@ -137,5 +112,4 @@
     </div>
   </section>
   <script src="{{ url('js/script.min.js') }}"></script>
-@endsection
->>>>>>> upstream/master
+  @endsection
