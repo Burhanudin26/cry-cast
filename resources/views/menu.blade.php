@@ -80,11 +80,11 @@
   </div>
   <style>
     /* make a media query when md or more vh 100 when less display block */
-    @media (min-width: 768px) {
+    /* @media (min-width: 768px) {
       .vhis-md-100 {
         min-height: 100vh;
         min-
       }
-    }
+    } */
   </style>
 @endsection

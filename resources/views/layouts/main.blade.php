@@ -19,6 +19,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+
+  <style>
+    body::-webkit-scrollbar {
+    width: 0.2em;
+}
+
+body::-webkit-scrollbar-track {
+	background: #242424;
+    -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgb(112, 190, 180);
+  outline: 1px solid rgb(0, 89, 255);
+}
+
+/* aneh ini ku taro di css ga aktif */
+  </style>
 </head>
 <body>
   <div id="loader"></div>
@@ -83,9 +101,6 @@
     {{-- main js --}}
     <script src="{{ url('js/main.js') }}"></script>
     <script>
-
-
-
     </script>
     {{-- swup.js | animasi pindah page --}}
     <script src="https://unpkg.com/swup@3"></script>
