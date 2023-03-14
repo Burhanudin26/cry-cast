@@ -51,6 +51,5 @@
       </div>
     </div>
   </section>
-
   <script src="{{ url('js/script.min.js') }}"></script>
 @endsection

@@ -97,12 +97,41 @@ body::-webkit-scrollbar-thumb {
   </section>
 
   {{-- footer --}}
+<!-- Remove the container if you want to extend the Footer to full width. -->
 
 
+  <section class="">
+  <!-- Footer -->
+  <footer class="text-center text-white" style="background-color: #0a4275;">
+    <!-- Grid container -->
+    <div class="container p-4 pb-0">
+      <!-- Section: CTA -->
+        <p class="d-flex justify-content-center align-items-center">
+          <span class="me-3">Register for free</span>
+          <a href="/register" style="position: relative; z-index: 1;">
+          <button type="button" class="btn btn-outline-light btn-rounded">
+            Sign up!
+          </button>
+          </a>
+        </p>
+      <!-- Section: CTA -->
+    </div>
+    <!-- Grid container -->
 
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © {{ date('Y') }} Copyright:
+      <a class="text-white" href="/"">CryCast</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+</section>
+<!-- End of .container -->
+  {{-- js --}}
+  <script src="{{ asset('js/Jquery.js') }}"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     {{-- swup.js | animasi pindah page --}}
     <script src="https://unpkg.com/swup@3"></script>
     <script src="{{ url('js/swup_trans.js') }}"></script>
