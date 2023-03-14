@@ -47,8 +47,8 @@ Route::get('menu/bitcoin', function () {
 });
 
 // route to biance
-Route::get('menu/biance', function () {
-    return view('biance');
+Route::get('menu/binance', function () {
+    return view('binance');
 });
 
 // route to dogecoin
