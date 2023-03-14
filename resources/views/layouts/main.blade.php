@@ -136,8 +136,11 @@
   <script src="{{ asset('js/Jquery.js') }}"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-        {{-- main js --}}
+  {{-- main js --}}
     <script src="{{ url('js/main.js') }}"></script>
+  {{-- swup.js | animasi pindah page --}}
+    <script src="https://unpkg.com/swup@3"></script>
+    <script src="{{ url('js/swup_trans.js') }}"></script>
 </body>
 
 </html>
