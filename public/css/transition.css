@@ -2,13 +2,16 @@ body {
     overflow-x: hidden; /* Hide horizontal scrollbar */
   }
   
-  .transition-fade { /* Fade in/out transition */
+  .transition-fade {
     opacity: 1;
-    transition: opacity 650ms;
+    transition: 500ms;
+    transform: translateX(0);
+    transform-origin: right;
   }
   
-  html.is-animating .transition-fade { /* Fade in/out transition */
-    opacity: 0;
+  html.is-animating .transition-fade {
+    opacity: 1;
+    transform: translateY(100%);
   }
   
   html.is-leaving .transition-fade {
@@ -17,10 +20,15 @@ body {
   }
   
   .transition-swipe {
-    transition: 500ms;
-    transform: translateX(0);
+    transition: 650ms;
+    transform: translateY(0);
   }
   
   html.is-animating .transition-swipe {
-    transform: translateY(100px);
+    opacity: 1;
+    transform: translateX(100%);
+  }
+
+  html.is-leaving .transition-swipe {
+    opacity: 0;
   }
