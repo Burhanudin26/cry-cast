@@ -8,7 +8,6 @@ body {
     transform: translateX(0);
     transform-origin: right;
   }
-  
   html.is-animating .transition-fade {
     opacity: 1;
     transform: translateY(100%);

@@ -21,6 +21,10 @@ Route::get('/', function () {
 Route::get('/menu', function () {
     return view('menu');
 });
+// route to about page
+Route::get('/about', function () {
+    return view('about');
+});
 // route to login page
 Route::get('/login', function () {
     return view('login.login');
