@@ -24,18 +24,19 @@
     width: 0.2em;
 }
 
-body::-webkit-scrollbar-track {
-	background: #242424;
-    -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
-}
+    body::-webkit-scrollbar-track {
+      background: #242424;
+        -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
+    }
 
-body::-webkit-scrollbar-thumb {
-  background-color: rgb(112, 190, 180);
-  outline: 1px solid rgb(0, 89, 255);
-}
+    body::-webkit-scrollbar-thumb {
+      background-color: rgb(112, 190, 180);
+      outline: 1px solid rgb(0, 89, 255);
+    }
 
-/* aneh ini ku taro di css ga aktif */
+    /* aneh ini ku taro di css ga aktif */
   </style>
+
 </head>
 <body>
   <div id="loader"></div>
@@ -69,9 +70,15 @@ body::-webkit-scrollbar-thumb {
 
 
     <!-- home -->
+    @if(Request::is('/'))
+    <div class="">
+      @else
     <div class="transition-fade">
+    @endif
       <div class="container-fluaid">
         <!-- bg -->
+        {{-- background melayang cuma di homepage --}}
+        @if (Request::is('/')) 
         <ul class="background">
           <li></li>
           <li></li>
@@ -82,6 +89,7 @@ body::-webkit-scrollbar-thumb {
           <li></li>
           <li></li>
         </ul>
+        @endif
         @yield('content')
       </div>
     </div>
@@ -120,9 +128,6 @@ body::-webkit-scrollbar-thumb {
   <script src="{{ asset('js/Jquery.js') }}"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    {{-- swup.js | animasi pindah page --}}
-    <script src="https://unpkg.com/swup@3"></script>
-    <script src="{{ url('js/swup_trans.js') }}"></script>
         {{-- main js --}}
     <script src="{{ url('js/main.js') }}"></script>
 </body>
