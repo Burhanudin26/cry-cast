@@ -62,7 +62,6 @@ body::-webkit-scrollbar-thumb {
           </ul>
         </div>
         <div>
-            @if(request()->is('/'))
             <button class="btn btn-outline-primary" type="button">
               <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
                 stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -73,7 +72,6 @@ body::-webkit-scrollbar-thumb {
               </svg>
               <span class="badge bg-primary rounded-pill">3</span>
             </button>
-            @endif
           </div>
       </div>
     </nav>

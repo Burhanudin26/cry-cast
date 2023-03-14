@@ -1,9 +1,25 @@
-const swup = new Swup({
-    plugins: [new SwupScrollPlugin()],
+const swup = new Swup();
+
+// Remove event listeners and clean up previous parallax elements
+swup.on("willReplaceContent", function () {
+    window.removeEventListener("scroll", i);
+    window.removeEventListener("resize", i);
+    var parallaxElems = document.querySelectorAll("[data-bss-parallax-bg]");
+    for (var i = 0; i < parallaxElems.length; i++) {
+        var parallaxElem = parallaxElems[i];
+        var parallaxWrapper = parallaxElem.parentNode;
+        parallaxWrapper.style.background = "";
+        parallaxWrapper.style.overflow = "";
+        var parallaxChild = parallaxWrapper.firstChild;
+        if (parallaxChild !== parallaxElem) {
+            parallaxWrapper.insertBefore(parallaxElem, parallaxChild);
+        }
+        parallaxWrapper.removeChild(parallaxChild);
+    }
 });
 
+// Re-run the parallax code on the new content
 swup.on("contentReplaced", function () {
-    // Re-run the parallax code on the new content
     if ("requestAnimationFrame" in window) {
         var e = [],
             t = document.querySelectorAll("[data-bss-parallax-bg]");
