@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [2023-03-07 15:14:44] production.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (Connection: mysql, SQL: select * from information_schema.tables where table_schema = forge and table_name = migrations and table_type = 'BASE TABLE') {"exception":"[object] (Illuminate\\Database\\QueryException(code: 1045): SQLSTATE[HY000] [1045] Access denied for user 'forge'@'localhost' (using password: NO) (Connection: mysql, SQL: select * from information_schema.tables where table_schema = forge and table_name = migrations and table_type = 'BASE TABLE') at E:\\Plus_Iso\\CODE\\WEB\\cry-cast-master\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:760)
 [stacktrace]
 #0 E:\\Plus_Iso\\CODE\\WEB\\cry-cast-master\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(720): Illuminate\\Database\\Connection->runQueryCallback('select * from i...', Array, Object(Closure))
@@ -4245,3 +4246,5 @@ Did you mean one of these?
 #50 D:\\AvanD\\Kuliah\\MateriSemester2TI22\\ProbStat\\ProbStat_Minggu_9\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('...')
 #51 {main}
 "} 
+=======
+>>>>>>> 4945f72ce74283ec4db29d02a4363f5a4d1abbdb
