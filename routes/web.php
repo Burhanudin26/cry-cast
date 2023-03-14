@@ -21,7 +21,7 @@ Route::get('/', function () {
 Route::get('/menu', function () {
     return view('menu');
 });
-// return to abour
+// route to about page
 Route::get('/about', function () {
     return view('about');
 });
