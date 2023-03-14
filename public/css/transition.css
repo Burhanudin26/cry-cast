@@ -5,8 +5,8 @@ body {
   .transition-fade {
     opacity: 1;
     transition: 500ms;
-    transform: translateX(0);
     transform-origin: right;
+    
   }
   html.is-animating .transition-fade {
     opacity: 1;
