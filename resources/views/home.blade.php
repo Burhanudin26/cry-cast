@@ -3,7 +3,7 @@
   <section class="pt-5 pt-md-0">
     <!-- content -->
     <div data-bss-parallax-bg="true" class="mx-0"
-      style="background-image: url(pictures/bg.png); background-size: cover; height:100vh; margin: auto 0;">
+      style="background-image: url(pictures/BGGG.png); background-size: cover; height:100vh; margin: auto 0;">
       <div class="hero min-vh-100 d-flex align-items-center">
         <div class="container">
           <div class="row flex-lg-row-reverse align-items-center">
