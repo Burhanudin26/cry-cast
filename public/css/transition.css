@@ -4,7 +4,7 @@ body {
 
   .transition-fade {
     opacity: 1;
-    transition: 500ms;
+    transition: 750ms;
     transform-origin: right;
     
   }
@@ -19,7 +19,7 @@ body {
   }
 
   .transition-swipe {
-    transition: 650ms;
+    transition: 1000ms;
     transform: translateY(0);
   }
 

@@ -25,18 +25,19 @@
     width: 0.2em;
 }
 
-body::-webkit-scrollbar-track {
-	background: #242424;
-    -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
-}
+    body::-webkit-scrollbar-track {
+      background: #242424;
+        -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
+    }
 
-body::-webkit-scrollbar-thumb {
-  background-color: rgb(112, 190, 180);
-  outline: 1px solid rgb(0, 89, 255);
-}
+    body::-webkit-scrollbar-thumb {
+      background-color: rgb(112, 190, 180);
+      outline: 1px solid rgb(0, 89, 255);
+    }
 
-/* aneh ini ku taro di css ga aktif */
+    /* aneh ini ku taro di css ga aktif */
   </style>
+
 </head>
 <body>
   <div id="loader"></div>
@@ -63,7 +64,6 @@ body::-webkit-scrollbar-thumb {
           </ul>
         </div>
         <div>
-            @if(request()->is('/'))
             <button class="btn btn-outline-primary" type="button">
               <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
                 stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -74,15 +74,20 @@ body::-webkit-scrollbar-thumb {
               </svg>
               <span class="badge bg-primary rounded-pill">3</span>
             </button>
-            @endif
           </div>
       </div>
     </nav>
 
     <!-- home -->
+    @if(Request::is('/'))
+    <div class="">
+      @else
     <div class="transition-fade">
+    @endif
       <div class="container-fluaid">
         <!-- bg -->
+        {{-- background melayang cuma di homepage --}}
+        @if (Request::is('/')) 
         <ul class="background">
           <li></li>
           <li></li>
@@ -93,6 +98,7 @@ body::-webkit-scrollbar-thumb {
           <li></li>
           <li></li>
         </ul>
+        @endif
         @yield('content')
       </div>
     </div>
@@ -108,6 +114,8 @@ body::-webkit-scrollbar-thumb {
     {{-- main js --}}
     <script src="{{ url('js/main.js') }}"></script>
     <script>
+
+
     </script>
     {{-- swup.js | animasi pindah page --}}
     <script src="https://unpkg.com/swup@3"></script>

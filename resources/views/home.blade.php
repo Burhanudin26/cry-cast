@@ -1,6 +1,7 @@
 @extends('layouts.main')
 @section('content')
 
+
   <section class="pt-5 pt-md-0">
     <!-- content -->
     <div data-bss-parallax-bg="true" class="mx-0"
