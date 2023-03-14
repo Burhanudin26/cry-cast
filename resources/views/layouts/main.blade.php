@@ -19,7 +19,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
-
   <style>
     body::-webkit-scrollbar {
     width: 0.2em;
@@ -105,22 +104,40 @@
   </section>
 
   {{-- footer --}}
+  <section class="bottom">
+  <!-- Footer -->
+  <footer class="text-center text-white" style="background-color: #2872b8;">
+    <!-- Grid container -->
+    <div class="container p-4 pb-0">
+      <!-- Section: CTA -->
+        <p class="d-flex justify-content-center align-items-center">
+          <span class="me-3">Register for free</span>
+          <a href="/register" style="position: relative; z-index: 1;">
+          <button type="button" class="btn btn-outline-light btn-rounded">
+            Sign up!
+          </button>
+          </a>
+        </p>
+      <!-- Section: CTA -->
+    </div>
+    <!-- Grid container -->
 
-
-
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © {{ date('Y') }} Copyright:
+      <a class="text-white" href="/"">CryCast</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+</section>
+<!-- End of .container -->
+  {{-- js --}}
+  <script src="{{ asset('js/Jquery.js') }}"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-    {{-- main js --}}
+        {{-- main js --}}
     <script src="{{ url('js/main.js') }}"></script>
-    <script>
-
-
-    </script>
-    {{-- swup.js | animasi pindah page --}}
-    <script src="https://unpkg.com/swup@3"></script>
-    <script src="{{ url('js/swup_trans.js') }}"></script>
-
 </body>
 
 </html>
