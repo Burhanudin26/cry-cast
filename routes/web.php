@@ -76,4 +76,4 @@ Route::get('menu/tron', function () {
     return view('tron');
 });
 
-Route::post('/import', 'App\Http\Controllers\NewController@import');
+Route::post('/import1', 'App\Http\Controllers\NewController@import1');

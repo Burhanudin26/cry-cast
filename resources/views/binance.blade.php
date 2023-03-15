@@ -8,7 +8,7 @@
         <h1 class="text-center">Binance</h1> {{-- ini kecilin--}}
       </div>
       <div class="card-body p-4" style="background-color: rgba(255, 255, 255, 0);"> {{-- ini bgc--}}
-        <form method="POST" action="/import" enctype="multipart/form-data">
+        <form method="POST" action="/import1" enctype="multipart/form-data">
           <!-- pilih tanggal -->
           <div class="mb-3">
             <label for="dateInput" class="form-label">Masukkan Tanggal</label>
@@ -35,7 +35,7 @@
                     <div class="mb-3">
                     @csrf
                       <label for="fileInput" class="form-label">Select a file:</label>
-                      <input type="file" name="csv_input" class="form-control" id="fileInput" accept=".csv,.xlsx">
+                      <input type="file" name="csv_input_binance" class="form-control" id="fileInput" accept=".csv,.xlsx">
                     </div>
                     <hr>
                     <!-- checkbox used data yang ada -->
