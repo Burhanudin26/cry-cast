@@ -5,16 +5,16 @@
   <section class="container mt-5 pt-5 d-flex flex-column justify-content-center align-items-center">
     <div class="card" style="min-width: 700px;">
       <div class="card-header">
-        <h1 class="text-center">BITCOIN</h1>
+        <h1 class="text-center">DOGECOIN</h1>
       </div>
       <div class="card-body p-4">
-        <form method="POST" action="/import" enctype="multipart/form-data">
+        <form method="POST" action="/import3" enctype="multipart/form-data">
           <!-- pilih tanggal -->
           <div class="mb-3">
             <label for="dateInput" class="form-label">Masukkan Tanggal</label>
             <input type="date" class="form-control" id="dateInput">
           </div>
-          <!-- file -->
+          <!-- file input -->
           <div class="mb-3">
             <label for="file" class="form-label">Choose file:</label> <br>
             <button type="button" class="btn btn-secondary" id="file" data-bs-toggle="modal"
@@ -35,7 +35,7 @@
                     <div class="mb-3">
                     @csrf
                       <label for="fileInput" class="form-label">Select a file:</label>
-                      <input type="file" name="csv_input" class="form-control" id="fileInput" accept=".csv,.xlsx">
+                      <input type="file" name="csv_input_dogecoin" class="form-control" id="fileInput" accept=".csv,.xlsx">
                     </div>
                     <hr>
                     <!-- checkbox used data yang ada -->
