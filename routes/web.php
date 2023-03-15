@@ -38,42 +38,42 @@ Route::get('/register', function () {
 
 // route to eth
 Route::get('menu/eth', function () {
-    return view('eth');
+    return view('menu.eth');
 });
 
 // route to bitcoin
 Route::get('menu/bitcoin', function () {
-    return view('bitcoin');
+    return view('menu.bitcoin');
 });
 
 // route to biance
 Route::get('menu/binance', function () {
-    return view('binance');
+    return view('menu.binance');
 });
 
 // route to dogecoin
 Route::get('menu/dogecoin', function () {
-    return view('dogecoin');
+    return view('menu.dogecoin');
 });
 
 // route to iota
 Route::get('menu/iota', function () {
-    return view('iota');
+    return view('menu.iota');
 });
 
 // route to solana
 Route::get('menu/solana', function () {
-    return view('solana');
+    return view('menu.solana');
 });
 
 // route to stellar
 Route::get('menu/stellar', function () {
-    return view('stellar');
+    return view('menu.stellar');
 });
 
 // route to tron
 Route::get('menu/tron', function () {
-    return view('tron');
+    return view('menu.tron');
 });
 
 Route::post('/import1', 'App\Http\Controllers\NewController@import1');
