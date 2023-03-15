@@ -21,12 +21,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
   <style>
     body::-webkit-scrollbar {
-    width: 0.2em;
-}
+      width: 0.2em;
+    }
 
     body::-webkit-scrollbar-track {
       background: #242424;
-        -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
+      -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
     }
 
     body::-webkit-scrollbar-thumb {
@@ -38,47 +38,49 @@
   </style>
 
 </head>
+
 <body>
   <div id="loader"></div>
   <section id="swup">
     <!-- navbar -->
-<nav class="navbar navbar-expand-lg fixed-top">
-  <div class="container">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand me-lg-5" href="#">CryCast</a>
-    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Homepage</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/about">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/menu">Forecast</a>
-        </li>
-      </ul>
-    </div>
-    <div class="d-flex align-items-center">
-      <img src="{{ url('pictures/guest.jpg') }}" alt="user" class="rounded-circle me-lg-4" width="40px" height="40px">
-    </div>
-  </div>
-</nav>
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand me-lg-5" href="#">CryCast</a>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Homepage</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/menu">Forecast</a>
+            </li>
+          </ul>
+        </div>
+        <div class="d-flex align-items-center">
+          <img src="{{ url('pictures/guest.jpg') }}" alt="user" class="rounded-circle me-lg-5" width="40px"
+            height="40px">
+        </div>
+      </div>
+    </nav>
 
 
     <!-- home -->
-    @if(Request::is('/'))
-    <div class="">
+    @if (Request::is('/'))
+      <div class="">
       @else
-    <div class="transition-fade">
+        <div class="transition-fade">
     @endif
-      <div class="container-fluaid">
-        <!-- bg -->
-        {{-- background melayang cuma di homepage --}}
-        @if (Request::is('/')) 
+    <div class="container-fluaid">
+      <!-- bg -->
+      {{-- background melayang cuma di homepage --}}
+      @if (Request::is('/'))
         <ul class="background">
           <li></li>
           <li></li>
@@ -89,47 +91,47 @@
           <li></li>
           <li></li>
         </ul>
-        @endif
-        @yield('content')
-      </div>
+      @endif
+      @yield('content')
+    </div>
     </div>
   </section>
 
   {{-- footer --}}
   <section class="bottom">
-  <!-- Footer -->
-  <footer class="text-center text-white" style="background-color: #2872b8;">
-    <!-- Grid container -->
-    <div class="container p-4 pb-0">
-      <!-- Section: CTA -->
+    <!-- Footer -->
+    <footer class="text-center text-white" style="background-color: #2872b8;">
+      <!-- Grid container -->
+      <div class="container p-4 pb-0">
+        <!-- Section: CTA -->
         <p class="d-flex justify-content-center align-items-center">
           <span class="me-3">Register for free</span>
           <a href="/register" style="position: relative; z-index: 1;">
-          <button type="button" class="btn btn-outline-light btn-rounded">
-            Sign up!
-          </button>
+            <button type="button" class="btn btn-outline-light btn-rounded">
+              Sign up!
+            </button>
           </a>
         </p>
-      <!-- Section: CTA -->
-    </div>
-    <!-- Grid container -->
+        <!-- Section: CTA -->
+      </div>
+      <!-- Grid container -->
 
-    <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-      © {{ date('Y') }} Copyright:
-      <a class="text-white" href="/"">CryCast</a>
-    </div>
-    <!-- Copyright -->
-  </footer>
-  <!-- Footer -->
-</section>
-<!-- End of .container -->
+      <!-- Copyright -->
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © {{ date('Y') }} Copyright:
+        <a class="text-white" href="/"">CryCast</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+  </section>
+  <!-- End of .container -->
   {{-- js --}}
   <script src="{{ asset('js/Jquery.js') }}"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-        {{-- main js --}}
-    <script src="{{ url('js/main.js') }}"></script>
+  {{-- main js --}}
+  <script src="{{ url('js/main.js') }}"></script>
 </body>
 
 </html>
