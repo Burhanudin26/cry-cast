@@ -18,8 +18,21 @@ swup.on("willReplaceContent", function () {
     }
 });
 
-// Re-run the parallax code on the new content
 swup.on("contentReplaced", function () {
+    // Add event listener to show password button
+    $("#showpass").off().on("click", function () {
+      if ($("#password").attr("type") === "password") {
+        $("#password").attr("type", "text");
+        $("#rpass").attr("type", "text");
+        $("#showpass").text("Hide Password");
+      } else {
+        $("#password").attr("type", "password");
+        $("#rpass").attr("type", "password");
+        $("#showpass").text("Show Password");
+      }
+    });
+    
+    // Re-run the parallax code on the new content
     if ("requestAnimationFrame" in window) {
         var e = [],
             t = document.querySelectorAll("[data-bss-parallax-bg]");
@@ -72,3 +85,5 @@ swup.on("contentReplaced", function () {
         }
     }
 });
+
+
