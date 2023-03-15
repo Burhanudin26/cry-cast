@@ -45,9 +45,10 @@
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
       <div class="container">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler p-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="border-radius: 50%">
+          <span class="navbar-toggler-icon">
+          </span>
         </button>
         <a class="navbar-brand me-lg-5" href="#">CryCast</a>
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
@@ -80,7 +81,7 @@
     <div class="container-fluaid">
       <!-- bg -->
       {{-- background melayang cuma di homepage --}}
-      @if (Request::is('/'))
+      @if (Request::is('/') or Request::is('about'))
         <ul class="background">
           <li></li>
           <li></li>

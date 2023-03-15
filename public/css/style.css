@@ -35,7 +35,6 @@ html {
     animation: animate 19s linear infinite;
 }
 
-
 .background li:nth-child(0) {
     left: 43%;
     width: 166px;

@@ -21,14 +21,17 @@
     color: #000000;
     margin-bottom: 1.5rem;
     text-align: justify;
+    z-index: 9999;
 }
 .card {
     background-color: rgba(255, 255, 255, 0);
     border-radius: 1rem;
     border: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);}
+    backdrop-filter: blur(10px);
+  }
   </style>
+
   <section class="container-fluid justify-content-center align-items-center vh-100 d-flex flex-column" style="background-image: url(pictures/bg.png); background-size: cover; height:100vh; margin: auto 0;">
     <div class="container px-0 px-md-5">
       <div class="row">
