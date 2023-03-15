@@ -130,4 +130,22 @@ class NewController extends Controller
     //Simple Moving Average
     public function SMA(){
     }
+
+    // get high data
+    public function getHighData(Request $request){
+        // get data as array from table binance and cokumn high and column id
+        $showAll = $request->input('showAll', false);
+        if ($request->input('showAll')) {
+            $data = DB::table('binance')->select('high')->get();
+            $id = DB::table('binance')->select('id')->get();
+        } else {
+            // only show 30 latest data
+            $data = DB::table('binance')->select('high')->orderBy('id', 'desc')->limit(30)->get();
+            $id = DB::table('binance')->select('id')->orderBy('id', 'desc')->limit(30)->get();
+
+        }
+
+        return view('output', compact('data', 'id', 'showAll'));
+
+    }
 }

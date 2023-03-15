@@ -84,3 +84,6 @@ Route::post('/import5', 'App\Http\Controllers\NewController@import5');
 Route::post('/import6', 'App\Http\Controllers\NewController@import6');
 Route::post('/import7', 'App\Http\Controllers\NewController@import7');
 Route::post('/import8', 'App\Http\Controllers\NewController@import8');
+
+// output
+Route::get('/output', 'App\Http\Controllers\NewController@getHighData')->name('output');
