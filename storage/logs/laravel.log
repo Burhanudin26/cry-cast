@@ -3868,7 +3868,7 @@ Stack trace:
 #55 C:\\Laravel\\cry-cast\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle()
 #56 C:\\Users\\LENOVO\\AppData\\Roaming\\Composer\\vendor\\cretueusebiu\\valet-windows\\server.php(241): require('...')
 #57 {main}
-"} 
+"}
 [2023-03-14 16:37:14] local.ERROR: could not find driver (Connection: mysql, SQL: truncate table `crypto`) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 0): could not find driver (Connection: mysql, SQL: truncate table `crypto`) at C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:760)
 [stacktrace]
 #0 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(720): Illuminate\\Database\\Connection->runQueryCallback()
@@ -3982,7 +3982,7 @@ Stack trace:
 #55 C:\\Laravel\\cry-cast\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle()
 #56 C:\\Users\\LENOVO\\AppData\\Roaming\\Composer\\vendor\\cretueusebiu\\valet-windows\\server.php(241): require('...')
 #57 {main}
-"} 
+"}
 [2023-03-14 16:37:31] local.ERROR: could not find driver (Connection: mysql, SQL: truncate table `crypto`) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 0): could not find driver (Connection: mysql, SQL: truncate table `crypto`) at C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:760)
 [stacktrace]
 #0 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(720): Illuminate\\Database\\Connection->runQueryCallback()
@@ -4096,7 +4096,7 @@ Stack trace:
 #55 C:\\Laravel\\cry-cast\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle()
 #56 C:\\Users\\LENOVO\\AppData\\Roaming\\Composer\\vendor\\cretueusebiu\\valet-windows\\server.php(241): require('...')
 #57 {main}
-"} 
+"}
 [2023-03-14 16:39:16] local.ERROR: could not find driver (Connection: mysql, SQL: truncate table `crypto`) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 0): could not find driver (Connection: mysql, SQL: truncate table `crypto`) at C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:760)
 [stacktrace]
 #0 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(720): Illuminate\\Database\\Connection->runQueryCallback()
@@ -4210,7 +4210,7 @@ Stack trace:
 #55 C:\\Laravel\\cry-cast\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle()
 #56 C:\\Users\\LENOVO\\AppData\\Roaming\\Composer\\vendor\\cretueusebiu\\valet-windows\\server.php(241): require('...')
 #57 {main}
-"} 
+"}
 [2023-03-14 16:44:45] local.ERROR: could not find driver (Connection: mysql, SQL: truncate table `crypto`) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 0): could not find driver (Connection: mysql, SQL: truncate table `crypto`) at C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:760)
 [stacktrace]
 #0 C:\\Laravel\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(720): Illuminate\\Database\\Connection->runQueryCallback()
@@ -4324,4 +4324,4 @@ Stack trace:
 #55 C:\\Laravel\\cry-cast\\public\\index.php(51): Illuminate\\Foundation\\Http\\Kernel->handle()
 #56 C:\\Users\\LENOVO\\AppData\\Roaming\\Composer\\vendor\\cretueusebiu\\valet-windows\\server.php(241): require('...')
 #57 {main}
-"} 
+"}
