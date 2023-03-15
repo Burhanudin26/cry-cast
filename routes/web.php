@@ -77,3 +77,10 @@ Route::get('menu/tron', function () {
 });
 
 Route::post('/import1', 'App\Http\Controllers\NewController@import1');
+Route::post('/import2', 'App\Http\Controllers\NewController@import2');
+Route::post('/import3', 'App\Http\Controllers\NewController@import3');
+Route::post('/import4', 'App\Http\Controllers\NewController@import4');
+Route::post('/import5', 'App\Http\Controllers\NewController@import5');
+Route::post('/import6', 'App\Http\Controllers\NewController@import6');
+Route::post('/import7', 'App\Http\Controllers\NewController@import7');
+Route::post('/import8', 'App\Http\Controllers\NewController@import8');

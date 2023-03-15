@@ -8,7 +8,7 @@
         <h1 class="text-center">SOLANA</h1>
       </div>
       <div class="card-body p-4">
-        <form method="POST" action="/import" enctype="multipart/form-data">
+        <form method="POST" action="/import6" enctype="multipart/form-data">
           <!-- pilih tanggal -->
           <div class="mb-3">
             <label for="dateInput" class="form-label">Masukkan Tanggal</label>
@@ -35,7 +35,7 @@
                     <div class="mb-3">
                     @csrf
                       <label for="fileInput" class="form-label">Select a file:</label>
-                      <input type="file" name="csv_input" class="form-control" id="fileInput" accept=".csv,.xlsx">
+                      <input type="file" name="csv_input_solana" class="form-control" id="fileInput" accept=".csv,.xlsx">
                     </div>
                     <hr>
                     <!-- checkbox used data yang ada -->
