@@ -108,7 +108,7 @@
         <p class="d-flex justify-content-center align-items-center">
           <span class="me-3">Register for free</span>
           <a href="/register" style="position: relative; z-index: 1;">
-            <button type="button" class="btn btn-outline-light btn-rounded">
+            <button id="register-button" type="button" class="btn btn-outline-light btn-rounded">
               Sign up!
             </button>
           </a>
