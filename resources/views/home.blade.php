@@ -20,7 +20,7 @@
 
 .animated-gradient:hover {
   animation-play-state: paused;
-  
+
 }
 
 @keyframes gradient {
@@ -35,6 +35,66 @@
   }
 }
 
+    .up {
+      text-align: center;
+    }
+
+    .bdy {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 8rem;
+      flex-wrap: wrap;
+    }
+
+    .c2 {
+      width: 250px;
+      height: 250px;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      border-radius: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      text-align: center;
+      padding-bottom: 1rem;
+      position: relative;
+      transition: .3s ease;
+    }
+
+
+    .c2 img {
+      border-radius: 100rem;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      top: 0;
+      transition: .3s ease;
+    }
+
+    .c2 .content h3 {
+      text-transform: uppercase;
+    }
+
+    .c2 .content p {
+      text-transform: capitalize;
+      letter-spacing: 2px;
+    }
+
+    .c2:hover {
+      transform: translate(2rem, 2rem);
+    }
+
+    .c2:hover img {
+      transform: translate(-8rem, -8rem);
+    }
+
+    .feautures {
+      background-color: #f5f5f5;
+      padding: 4rem 0 4rem 0;
+    }
 </style>
   <section class="">
     {{-- bg --}}
@@ -63,7 +123,42 @@
       </div>
     </div>
   </section>
+  <section class="feautures">
+    <div class="up mb-5">
+      <h1>Feautures</h1>
+    </div>
+    <div class="bdy">
+      <div class="c2">
+        <img src="/pictures/icon3/tren.jpg" alt="">
+        <div class="content">
+          <h3>Trend Chart</h3>
+          <p>make decision for investment</p>
+        </div>
+      </div>
 
+      <div class="c2">
+        <img src="/pictures/icon3/cry.jpg" alt="">
+        <div class="content">
+          <h3>Crypto Currency</h3>
+          <p>digital currency in the future</p>
+        </div>
+      </div>
+
+      <div class="c2">
+        <img src="/pictures/icon3/cast.jpg" alt="">
+        <div class="content">
+          <h3>Forecast</h3>
+          <p>Increase Investment Efficiency</p>
+        </div>
+      </div>
+    </div>
+    {{-- desc --}}
+    <div class="desc px-5 pt-4">
+      <div class="container">
+      <p>Tiga fitur yang diunggulkan adalah grafik tren, mata uang kripto, dan ramalan. Fitur grafik tren membantu pengguna membuat keputusan investasi yang terinformasi dengan menampilkan tren historis. Fitur mata uang kripto berfokus pada mata uang digital dan potensi dampaknya di masa depan. Terakhir, fitur ramalan bertujuan untuk meningkatkan efisiensi investasi dengan memberikan prediksi pasar kepada pengguna.</p>
+      </div>
+    </div>
+  </section>
   {{-- about --}}
   <section class="about pt-3" id="about"
     style="height: 100vh; display: flex;justify-content: center; align-items: center;">
