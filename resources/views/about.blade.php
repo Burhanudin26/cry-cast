@@ -87,6 +87,45 @@
   transform: translate(-8rem,-8rem);
 }
 
+.card {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.img-title {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to bottom, rgba(5, 5, 5, 0), rgba(5, 5, 5, 1)); 
+  top: 100%; /* ubah dari 200px menjadi 100% */
+  opacity: 0;
+  transition: all .5s ease-out; /* tambahkan properti untuk animasi transisi */
+}
+
+.img-title h4 {
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  line-height: 2; /* ubah dari 2px menjadi 2 */
+  position: absolute;
+  top: 50%; /* ubah dari 130px menjadi 50% */
+  left: 50%; /* tambahkan properti untuk memusatkan horizontal */
+  transform: translate(-50%, -50%); /* tambahkan properti untuk memusatkan vertikal dan horizontal */
+  text-shadow: 1px 1px rgba(5, 5, 5, .5);
+  opacity: 0; /* tambahkan properti untuk membuat nama tidak terlihat */
+  transition: all .5s ease-out; /* tambahkan properti untuk animasi transisi */
+}
+
+.card:hover .img-title {
+  top: 0;
+  opacity: 1;
+}
+
+.card:hover .img-title h4 {
+  opacity: 1; /* ubah dari 0 menjadi 1 saat di hover */
+  top: 80%;
+}
 
 
 
@@ -124,36 +163,32 @@
   <div class="bdy">
 
     <div class="container2">
-      <img src="/pictures/icon3/trenlogo.jpg" alt="">
+      <img src="/pictures/icon3/tren.jpg" alt="">
       <div class="content">
-        <h3>Grafik tren</h3>
-        <p>Determine Support and Resistance Levels</p>
+        <h3>Trend Chart</h3>
+        <p>make decision for investment</p>
       </div>
     </div>
 
     <div class="container2">
-      <img src="/pictures/icon3/rtrnlogo.jpg" alt="">
+      <img src="/pictures/icon3/cry.jpg" alt="">
+      <div class="content">
+        <h3>Crypto Currency</h3>
+        <p>digital currency in the future</p>
+      </div>
+    </div>
+
+    <div class="container2">
+      <img src="/pictures/icon3/cast.jpg" alt="">
       <div class="content">
         <h3>Forecast</h3>
         <p>Increase Investment Efficiency</p>
       </div>
     </div>
+
+  
     
-    <div class="container2">
-      <img src="/pictures/icon3/trenlogo.jpg" alt="">
-      <div class="content">
-        <h3>Grafik tren</h3>
-        <p>Determine Support and Resistance Levels</p>
-      </div>
-    </div>
-
-    <div class="container2">
-      <img src="/pictures/icon3/rtrnlogo.jpg" alt="">
-      <div class="content">
-        <h3>Forecast</h3>
-        <p>Increase Investment Efficiency</p>
-      </div>
-    </div>
+    
 
   </div>
 
@@ -167,33 +202,43 @@
           <h2 class="head text-center">Our Team</h2>
         </div>
       </div>
+
+      
       <div class="row">
         {{-- p1 --}}
         <div class="col-6 col-md-3">
-          <div>
-            <img src="pictures/11.jpg" class="img-fluid rounded-circle shadow" alt="">
-            <h3 class="text-center"> nama </h3>
+          <div class="card rounded-circle">
+            <img src="/pictures/icon3/coba1.jpeg" class="img-fluid rounded-circle shadow" alt="">
+            <div class="img-title">
+              <h4 class="text-center"> Alvalens </h4>
+            </div>
           </div>
         </div>
         {{-- p2 --}}
         <div class="col-6 col-md-3">
-          <div>
-            <img src="pictures/11.jpg" class="img-fluid rounded-circle shadow" alt="">
-            <h3 class="text-center"> nama </h3>
+          <div class="card rounded-circle">
+            <img src="/pictures/icon3/coba1.jpeg" class="img-fluid rounded-circle shadow" alt="">
+            <div class="img-title">
+              <h4 class="text-center"> Avanf </h4>
+            </div>
           </div>
         </div>
         {{-- p3 --}}
         <div class="col-6 col-md-3">
-          <div>
-            <img src="pictures/11.jpg" class="img-fluid rounded-circle shadow" alt="">
-            <h3 class="text-center"> nama </h3>
+          <div class="card rounded-circle">
+            <img src="/pictures/icon3/coba1.jpeg" class="img-fluid rounded-circle shadow" alt="">
+            <div class="img-title">
+              <h4 class="text-center"> Azaryaa </h4>
+            </div>
           </div>
         </div>
         {{-- p4 --}}
         <div class="col-6 col-md-3">
-          <div>
-            <img src="pictures/11.jpg" class="img-fluid rounded-circle shadow" alt="">
-            <h3 class="text-center"> nama </h3>
+          <div class="card rounded-circle">
+            <img src="/pictures/icon3/coba1.jpeg" class="img-fluid rounded-circle shadow" alt="">
+            <div class="img-title">
+              <h4 class="text-center"> Burhanuddiny </h4>
+            </div>
           </div>
         </div>
       </div>
