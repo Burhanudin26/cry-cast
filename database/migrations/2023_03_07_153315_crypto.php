@@ -4,12 +4,12 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Crypto extends Migration
+class crypto extends Migration
 {
     public function up()
     {
         //Biance
-        Schema::create('biance', function (Blueprint $table){
+        Schema::create('binance', function (Blueprint $table){
             $table->id();
             $table->float('high', 20, 10);
             $table->float('low' , 20, 10);
@@ -44,7 +44,7 @@ class Crypto extends Migration
             $table->float('volume', 30, 10);
         });
         //Solana
-        Schema::create('iota', function (Blueprint $table){
+        Schema::create('solana', function (Blueprint $table){
             $table->id();
             $table->float('high', 20, 10);
             $table->float('low' , 20, 10);
@@ -78,6 +78,15 @@ class Crypto extends Migration
     }
     public function down()
     {
-        Schema::dropIfExists('crypto');
+        Schema::dropIfExists('binance');
+        Schema::dropIfExists('bitcoin');
+        Schema::dropIfExists('dogecoin');
+        Schema::dropIfExists('etherium');
+        Schema::dropIfExists('iota');
+        Schema::dropIfExists('solana');
+        Schema::dropIfExists('stellar');
+        Schema::dropIfExists('tron');
+        Schema::dropIfExists('SMA');
+        Schema::dropIfExists('naive_bayes');
     }
 }

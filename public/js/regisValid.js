@@ -30,6 +30,8 @@ $(document).ready(function () {
 		}
 	});
 
+	
+
 	//password validation must greater than 6 and use regex to check if password contain number and string
 	$("#password").keyup(function () {
 		let password = $("#password").val();

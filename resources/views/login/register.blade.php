@@ -48,14 +48,14 @@
                     </div>
                   </div>
                   <!-- show password -->
-                  <div class="mb-3">
+                  <div class="">
                     <button type="button" class="btn spas" id="showpass">
                       Show Password
                     </button>
                   </div>
                   <!-- submit -->
                   <div class="mb-1">
-                    <input type="submit" id="submit" class="btn btn-outline-dark btn-lg px-5 mt-5" name="submit" value="Register">
+                    <input type="submit" id="submit" class="btn btn-outline-dark btn-lg px-5 mt-3" name="submit" value="Register">
                   </div>
                 </form>
               </div>
