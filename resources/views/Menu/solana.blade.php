@@ -1,13 +1,13 @@
 @extends('layouts.main')
 @section('content')
-
+<link rel="stylesheet" href="{{ url('css/menu-cry.css') }}">
   <!-- content -->
-  <section class="container mt-5 pt-5 d-flex flex-column justify-content-center align-items-center">
+  <section class="container mt-5 pt-5 d-flex flex-column justify-content-center align-items-center" style="height: 80vh;">
     <div class="card" style="min-width: 700px;">
       <div class="card-header">
-        <h1 class="text-center">SOLANA</h1>
+        <h1 class="text-center">Solana</h1>
       </div>
-      <div class="card-body p-4">
+      <div class="card-body p-4" style="background-color: rgba(255, 255, 255, 0);">
         <form method="POST" action="/import6" enctype="multipart/form-data">
           <!-- pilih tanggal -->
           <div class="mb-3">
