@@ -29,6 +29,68 @@
     border: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+.up {
+   text-align: center;
+}
+
+.bdy {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 8rem;
+    flex-wrap: wrap;
+}
+
+.container2{
+    width: 250px;
+    height: 250px;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 1rem;
+    position: relative;
+    transition: .3s ease;
+}
+
+
+.container2 img{
+  border-radius: 100rem;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  top: 0;
+  transition: .3s ease;
+}
+
+.container2 .content h3{
+  text-transform: uppercase;
+}
+
+.container2 .content p{
+  text-transform: capitalize;
+  letter-spacing: 2px;
+}
+
+.container2:hover{
+  transform: translate(2rem,2rem);
+}
+
+.container2:hover img{
+  transform: translate(-8rem,-8rem);
+}
+
+
+
+
+
   </style>
   <section class="container-fluid justify-content-center align-items-center vh-100 d-flex flex-column">
     <div class="container px-0 px-md-5">
@@ -51,6 +113,53 @@
       </div>
     </div>
   </section>
+
+
+  <section>
+
+    <div class="up">
+      <h1>Cryyy</h1>
+    </div>
+
+  <div class="bdy">
+
+    <div class="container2">
+      <img src="/pictures/icon3/trenlogo.jpg" alt="">
+      <div class="content">
+        <h3>Grafik tren</h3>
+        <p>Determine Support and Resistance Levels</p>
+      </div>
+    </div>
+
+    <div class="container2">
+      <img src="/pictures/icon3/rtrnlogo.jpg" alt="">
+      <div class="content">
+        <h3>Forecast</h3>
+        <p>Increase Investment Efficiency</p>
+      </div>
+    </div>
+    
+    <div class="container2">
+      <img src="/pictures/icon3/trenlogo.jpg" alt="">
+      <div class="content">
+        <h3>Grafik tren</h3>
+        <p>Determine Support and Resistance Levels</p>
+      </div>
+    </div>
+
+    <div class="container2">
+      <img src="/pictures/icon3/rtrnlogo.jpg" alt="">
+      <div class="content">
+        <h3>Forecast</h3>
+        <p>Increase Investment Efficiency</p>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
   <section class="vh-100 d-flex flex-column justify-content-center align-items-center">
     <div class="container">
       <div class="row">
