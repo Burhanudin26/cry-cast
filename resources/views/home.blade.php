@@ -125,7 +125,7 @@
     </div>
   </section>
 
-  {{-- feautures --}}
+    {{-- feautures --}}
   <section class="feautures">
     <div class="up mb-5">
       <h1>Feautures</h1>
@@ -164,7 +164,6 @@
       </div>
     </div>
   </section>
-
   {{-- about --}}
   <section class="about pt-3" id="about"
     style="height: 100vh; display: flex;justify-content: center; align-items: center;">
@@ -190,6 +189,7 @@
       </div>
     </div>
   </section>
+
 
   <script src="{{ url('js/parallax.js') }}"></script>
 @endsection

@@ -101,7 +101,6 @@ swup.on("contentReplaced", function () {
     });
 
     //enable submit button if all validation is true
-    console.log("nama: " + nama + ", email: " + email + ", password: " + password + ", rpass: " + rpass);
     $("#submit").addClass("disabled");
     $("input").keyup(function () {
       let nama = $("#nama").val();
@@ -124,7 +123,7 @@ swup.on("contentReplaced", function () {
         $("#submit").addClass("disabled");
       }
     });
-    
+
     // Re-run the parallax code on the new content
     if ("requestAnimationFrame" in window) {
         var e = [],
