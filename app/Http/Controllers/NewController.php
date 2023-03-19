@@ -37,7 +37,7 @@ class NewController extends Controller
                 'low' => is_numeric($row[5]) ? $row[5] : 0,
                 'volume' => is_numeric($row[8]) ? $row[8] : 0,
     ]);}}}
-    //Dogecoin
+    // Dogecoin
     public function import3(Request $request)
     {
     $file = $request->file('csv_input_dogecoin');
