@@ -6,9 +6,11 @@
       font-family: 'Righteous', cursive;
       font-size: 3rem;
       font-weight: bold;
+      text-transform: uppercase;
       letter-spacing: 0.1em;
       color: #333;
       text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid #ddd;
       margin-bottom: 1rem;
       padding-bottom: 0.5rem;
     }
@@ -29,6 +31,62 @@
       border: none;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       backdrop-filter: blur(10px);
+    }
+
+    .up {
+      text-align: center;
+    }
+
+    .bdy {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 8rem;
+      flex-wrap: wrap;
+    }
+
+    .c2 {
+      width: 250px;
+      height: 250px;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      border-radius: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      text-align: center;
+      padding-bottom: 1rem;
+      position: relative;
+      transition: .3s ease;
+    }
+
+
+    .c2 img {
+      border-radius: 100rem;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      top: 0;
+      transition: .3s ease;
+    }
+
+    .c2 .content h3 {
+      text-transform: uppercase;
+    }
+
+    .c2 .content p {
+      text-transform: capitalize;
+      letter-spacing: 2px;
+    }
+
+    .c2:hover {
+      transform: translate(2rem, 2rem);
+    }
+
+    .c2:hover img {
+      transform: translate(-8rem, -8rem);
     }
 
     .card {
@@ -79,6 +137,10 @@
       /* ubah dari 0 menjadi 1 saat di hover */
       top: 80%;
     }
+    .feautures {
+      background-color: #f5f5f5;
+      padding: 4rem 0 4rem 0;
+    }
   </style>
 
   <section class="container-fluid justify-content-center align-items-center vh-100 d-flex flex-column"
@@ -104,6 +166,44 @@
     </div>
   </section>
 
+
+  <section class="feautures">
+    <div class="up mb-5">
+      <h1>Feautures</h1>
+    </div>
+    <div class="bdy">
+      <div class="c2">
+        <img src="/pictures/icon3/tren.jpg" alt="">
+        <div class="content">
+          <h3>Trend Chart</h3>
+          <p>make decision for investment</p>
+        </div>
+      </div>
+
+      <div class="c2">
+        <img src="/pictures/icon3/cry.jpg" alt="">
+        <div class="content">
+          <h3>Crypto Currency</h3>
+          <p>digital currency in the future</p>
+        </div>
+      </div>
+
+      <div class="c2">
+        <img src="/pictures/icon3/cast.jpg" alt="">
+        <div class="content">
+          <h3>Forecast</h3>
+          <p>Increase Investment Efficiency</p>
+        </div>
+      </div>
+    </div>
+    {{-- desc --}}
+    <div class="desc px-5 pt-4">
+      <div class="container">
+      <p>Tiga fitur yang diunggulkan adalah grafik tren, mata uang kripto, dan ramalan. Fitur grafik tren membantu pengguna membuat keputusan investasi yang terinformasi dengan menampilkan tren historis. Fitur mata uang kripto berfokus pada mata uang digital dan potensi dampaknya di masa depan. Terakhir, fitur ramalan bertujuan untuk meningkatkan efisiensi investasi dengan memberikan prediksi pasar kepada pengguna.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="vh-100 d-flex flex-column justify-content-center align-items-center">
     <div class="container">
       <div class="row">
@@ -117,7 +217,7 @@
         {{-- p1 --}}
         <div class="col-6 col-md-3">
           <div class="card rounded-circle">
-            <img src="/pictures/profil/1.jpg" class="img-fluid rounded-circle shadow" alt="">
+            <img src="/pictures/icon3/coba1.jpeg" class="img-fluid rounded-circle shadow" alt="">
             <div class="img-title">
               <h4 class="text-center"> Alvalens </h4>
             </div>
@@ -126,7 +226,7 @@
         {{-- p2 --}}
         <div class="col-6 col-md-3">
           <div class="card rounded-circle">
-            <img src="/pictures/guest.jpg" class="img-fluid rounded-circle shadow" alt="">
+            <img src="/pictures/icon3/coba1.jpeg" class="img-fluid rounded-circle shadow" alt="">
             <div class="img-title">
               <h4 class="text-center"> Avanf </h4>
             </div>
@@ -135,7 +235,7 @@
         {{-- p3 --}}
         <div class="col-6 col-md-3">
           <div class="card rounded-circle">
-            <img src="/pictures/guest.jpg" class="img-fluid rounded-circle shadow" alt="">
+            <img src="/pictures/icon3/coba1.jpeg" class="img-fluid rounded-circle shadow" alt="">
             <div class="img-title">
               <h4 class="text-center"> Azaryaa </h4>
             </div>
@@ -144,7 +244,7 @@
         {{-- p4 --}}
         <div class="col-6 col-md-3">
           <div class="card rounded-circle">
-            <img src="/pictures/guest.jpg" class="img-fluid rounded-circle shadow" alt="">
+            <img src="/pictures/icon3/coba1.jpeg" class="img-fluid rounded-circle shadow" alt="">
             <div class="img-title">
               <h4 class="text-center"> Burhanuddiny </h4>
             </div>
