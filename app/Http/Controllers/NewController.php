@@ -144,7 +144,6 @@ class NewController extends Controller
             $id = DB::table('binance')->select('id')->orderBy('id', 'desc')->limit(30)->get();
 
         }
-
         return view('output', compact('data', 'id', 'showAll'));
 
     }
