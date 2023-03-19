@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {{-- icon --}}
-  <link rel="icon" href="{{ url('pictures/icon/crycast.png') }}">
+  <link rel="icon" href="{{ url('pictures/logo/crycast.png') }}">
   {{-- title --}}
   <title>@yield('title', 'Cry Cast')</title>
   {{-- css --}}
@@ -14,13 +14,15 @@
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <link rel="stylesheet" href="{{ url('css/style.css') }}">
   <link rel="stylesheet" href="{{ url('css/menu.css') }}">
+  <link rel="stylesheet" href="{{ url('css/transition.css') }}">
   {{-- font --}}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
 </head>
 <body>
-  <section style="background-image: url(pictures/bg.png); background-size: cover;">
+  <div id="loader"></div>
+  <section id="swup">
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
       <div class="container">
@@ -58,8 +60,8 @@
     </nav>
 
     <!-- home -->
-    <section>
-      <div class="container-fluid">
+    <section class="transition-fade">
+      <div class="container-fluaid">
         <!-- bg -->
         <ul class="background">
           <li></li>
@@ -75,18 +77,20 @@
       </div>
     </section>
   </section>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-
+    {{-- main js --}}
+    <script src="{{ url('js/main.js') }}"></script>
     <script>
-      window.addEventListener("scroll", function() {
-        const navbar = document.querySelector(".navbar");
-        navbar.classList.toggle("scrolled", window.scrollY > 0);
-      });
+
 
 
     </script>
+    {{-- swup.js | animasi pindah page --}}
+    <script src="https://unpkg.com/swup@3"></script>
+    <script src="{{ url('js/swup_trans.js') }}"></script>
+
 </body>
 
 </html>

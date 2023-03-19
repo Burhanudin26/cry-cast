@@ -1,4 +1,4 @@
-.head {
+.head-cast {
     font-family: 'Righteous', cursive;
     /* font-size: 3rem;
     font-weight: bold;
@@ -9,6 +9,21 @@
     border-bottom: 1px solid #ddd;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem; */
+    
+}
+
+.head-team {
+    font-family: 'Righteous', cursive;
+    font-size: 3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #333;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    
 }
 
 .navbar.scrolled {
@@ -33,4 +48,23 @@
 .grid-item {
   width: 100%;
   height: 100%;
+}
+
+.desc {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: #000000;
+  margin-bottom: 1.5rem;
+  text-align: justify;
+}
+.card {
+  background-color: rgba(255, 255, 255, 0.575);
+  border-radius: 1rem;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.margin-team {
+  margin-top: -20rem;
 }
