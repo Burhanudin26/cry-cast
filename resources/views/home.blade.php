@@ -1,5 +1,41 @@
 @extends('layouts.main')
 @section('content')
+<style>
+.btn-c {
+  /* bgc gradient blue and purple */
+  background: linear-gradient(45deg, #3a47d5 0%, rgb(0, 162, 255) 100%);
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 20px;
+  font-weight: 600;
+  transition: all ease-in-out 0.5s;
+}
+
+.animated-gradient {
+  background-size: 400% 400%;
+  animation: gradient 5s ease-in-out infinite;
+}
+
+.animated-gradient:hover {
+  animation-play-state: paused;
+  
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+</style>
   <section class="">
     {{-- bg --}}
 
@@ -18,7 +54,7 @@
                 real-time data and expert analysis. Join us now for profitable investments.</p>
               <div class="button">
                 <a href="/login" style="position: relative; z-index: 1;">
-                  <button class="btn btn-lg btn-primary">Get Started</button>
+                  <button class="btn btn-c aminated-gradient">Get Started</button>
                 </a>
               </div>
             </div>
