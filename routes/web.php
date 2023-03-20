@@ -17,10 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
-// route to menu page
+// route to menu page with name menu
 Route::get('/menu', function () {
     return view('menu');
-});
+})->name('menu');
 // route to about page
 Route::get('/about', function () {
     return view('about');
