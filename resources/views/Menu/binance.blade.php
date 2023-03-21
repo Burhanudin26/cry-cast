@@ -1,5 +1,7 @@
 @extends('layouts.main')
+@section('title', 'Binance')
 @section('content')
+
 <link rel="stylesheet" href="{{ url('css/menu-cry.css') }}">  {{-- ini --}}
   <!-- content -->
   <section class="container mt-5 pt-5 d-flex flex-column justify-content-center align-items-center" style="height: 80vh;">

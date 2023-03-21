@@ -1,4 +1,5 @@
 @extends('layouts.main')
+@section('title', 'Tron')
 @section('content')
 <link rel="stylesheet" href="{{ url('css/menu-cry.css') }}">
   <!-- content -->
