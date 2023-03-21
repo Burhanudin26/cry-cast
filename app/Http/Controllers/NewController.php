@@ -285,6 +285,26 @@ class NewController extends Controller
             ]);}}
             $this->AverageAll();
         }
+    //merefresh table crypto
+    public function clearTable($table)
+{
+    switch ($table) {
+        case 'A':
+            DB::table('A')->truncate();
+            break;
+        case 'B':
+            DB::table('B')->truncate();
+            break;
+        case 'C':
+            DB::table('C')->truncate();
+            break;
+        default:
+            // handle unknown table name here
+            break;
+    }
+
+    return redirect()->back()->with('success', 'Table cleared successfully.');
+}
 
     
 }

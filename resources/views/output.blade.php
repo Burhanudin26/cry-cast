@@ -105,7 +105,4 @@
       }
     });
   </script>
-
-
-  </script>
 @endsection
