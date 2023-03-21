@@ -1,4 +1,5 @@
 @extends('layouts.main')
+@section('title', 'Hasil')
 @section('content')
 <style>
   .tombol-terbang {
