@@ -87,9 +87,3 @@ Route::post('/import8', 'App\Http\Controllers\NewController@import8');
 
 // output
 Route::get('/output', 'App\Http\Controllers\NewController@getHighData')->name('output');
-
-//merefresh database
-Route::get('/page-A', 'YourController@showPageA')->name('page-A');
-Route::get('/page-B', 'YourController@showPageB')->name('page-B');
-Route::get('/page-C', 'YourController@showPageC')->name('page-C');
-Route::post('/clear-table/{table}', 'YourController@clearTable')->name('clear-table');

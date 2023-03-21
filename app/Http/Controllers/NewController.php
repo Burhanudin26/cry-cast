@@ -148,7 +148,7 @@ class NewController extends Controller
         $path = $file->getRealPath();
         $data = array_map('str_getcsv', file($path));
         $table = 'binance';
-        DB::table($table)->truncate();
+        DB::table('binance')->where('id', '<>','admin')->delete();
         foreach ($data as $row) {
             DB::table($table)->insert([
                 'date' => date('Y/m/d H:i:s', strtotime($row[3])),
@@ -285,26 +285,6 @@ class NewController extends Controller
             ]);}}
             $this->AverageAll();
         }
-    //merefresh table crypto
-    public function clearTable($table)
-{
-    switch ($table) {
-        case 'A':
-            DB::table('A')->truncate();
-            break;
-        case 'B':
-            DB::table('B')->truncate();
-            break;
-        case 'C':
-            DB::table('C')->truncate();
-            break;
-        default:
-            // handle unknown table name here
-            break;
-    }
-
-    return redirect()->back()->with('success', 'Table cleared successfully.');
-}
 
     
 }
