@@ -10,11 +10,12 @@
                 <h2 class="fw-bold mb-2 text-uppercase">Register</h2>
                 <p class="text-black-50 mb-5">Buat akun terlebih dahulu untuk melanjutkan ke form login.</p>
                 <!-- form -->
-                <form action="reg-proses.php" method="POST" id="form">
+                <form action="{{ route('registerPost') }}" method="POST" id="form">
+                  @csrf
                   <!-- nama -->
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="nama" name="nama" placeholder="nama">
-                    <label for="nama" class="text-dark">Nama</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="nama">
+                    <label for="name" class="text-dark">Nama</label>
                     <div class="invalid-feedback text-start">
                       Input tidak valid.
                     </div>
@@ -77,17 +78,17 @@
   <script src="{{ asset('js/regisValid.js') }}"></script>
   <script>
     //enable submit button if all validation is true
-    console.log("nama: " + nama + ", email: " + email + ", password: " + password + ", rpass: " + rpass);
+    console.log("name: " + name + ", email: " + email + ", password: " + password + ", rpass: " + rpass);
     $("#submit").addClass("disabled");
     $("input").keyup(function () {
-      let nama = $("#nama").val();
+      let name = $("#name").val();
       let email = $("#email").val();
       let password = $("#password").val();
       let rpass = $("#rpass").val();
       let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
       if (
-        nama.length > 3 &&
-        isNaN(nama) &&
+        name.length > 3 &&
+        isNaN(name) &&
         (email.length > 6 &&
           email.includes("@") &&
           email.includes(".")) &&

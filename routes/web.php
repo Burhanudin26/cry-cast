@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\NewController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Default route from laravel
 Route::get('/', function () {
     return view('home');
 });
+
+// Register & Login
+Route::get('/registerGet', [UserController::class, 'showRegistrationForm'])->name('registerGet');
+Route::post('/registerPost', [UserController::class, 'register'])->name('registerPost');
+Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [UserController::class, 'login']);
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+
 // route to menu page
 Route::get('/menu', function () {
     return view('menu');
@@ -26,15 +36,14 @@ Route::get('/about', function () {
     return view('about');
 });
 // route to login page
-Route::get('/login', function () {
+Route::get('/loginPage', function () {
     return view('login.login');
 });
 
 // route to register page
-Route::get('/register', function () {
+Route::get('/registerPage', function () {
     return view('login.register');
 });
-
 
 // route to eth
 Route::get('menu/eth', function () {
@@ -76,6 +85,7 @@ Route::get('menu/tron', function () {
     return view('menu.tron');
 });
 
+// Route to controller
 Route::post('/import1', 'App\Http\Controllers\NewController@import1');
 Route::post('/import2', 'App\Http\Controllers\NewController@import2');
 Route::post('/import3', 'App\Http\Controllers\NewController@import3');
@@ -85,5 +95,5 @@ Route::post('/import6', 'App\Http\Controllers\NewController@import6');
 Route::post('/import7', 'App\Http\Controllers\NewController@import7');
 Route::post('/import8', 'App\Http\Controllers\NewController@import8');
 
-// output
+// Output
 Route::get('/output', 'App\Http\Controllers\NewController@getHighData')->name('output');

@@ -107,7 +107,7 @@
         <!-- Section: CTA -->
         <p class="d-flex justify-content-center align-items-center">
           <span class="me-3">Register for free</span>
-          <a href="/register" style="position: relative; z-index: 1;">
+          <a href="/registerPage" style="position: relative; z-index: 1;">
             <button id="register-button" type="button" class="btn btn-outline-light btn-rounded">
               Sign up!
             </button>
@@ -120,7 +120,7 @@
       <!-- Copyright -->
       <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
         © {{ date('Y') }} Copyright:
-        <a class="text-white" href="/"">CryCast</a>
+        <a class="text-white" href="/">CryCast</a>
       </div>
       <!-- Copyright -->
     </footer>
