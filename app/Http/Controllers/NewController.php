@@ -148,7 +148,7 @@ class NewController extends Controller
         $path = $file->getRealPath();
         $data = array_map('str_getcsv', file($path));
         $table = 'binance';
-        DB::table($table)->truncate();
+        DB::table('binance')->where('id', '<>','admin')->delete();
         foreach ($data as $row) {
             DB::table($table)->insert([
                 'date' => date('Y/m/d H:i:s', strtotime($row[3])),
