@@ -20,6 +20,7 @@ Route::get('/', function () {
     return view('home');
 });
 
+
 // Register & Login
 Route::get('/registerGet', [UserController::class, 'showRegistrationForm'])->name('registerGet');
 Route::post('/registerPost', [UserController::class, 'register'])->name('registerPost');
@@ -27,10 +28,13 @@ Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
-// route to menu page
+
+
+// route to menu page with name menu
+
 Route::get('/menu', function () {
     return view('menu');
-});
+})->name('menu');
 // route to about page
 Route::get('/about', function () {
     return view('about');
@@ -95,5 +99,7 @@ Route::post('/import6', 'App\Http\Controllers\NewController@import6');
 Route::post('/import7', 'App\Http\Controllers\NewController@import7');
 Route::post('/import8', 'App\Http\Controllers\NewController@import8');
 
+
 // Output
 Route::get('/output', 'App\Http\Controllers\NewController@getHighData')->name('output');
+
