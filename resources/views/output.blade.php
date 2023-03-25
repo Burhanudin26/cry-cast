@@ -26,8 +26,8 @@
   <section class="container d-flex flex-column justify-content-center align-items-center mt-0 mt-md-5">
     <div class="table">
       <canvas id="data"></canvas>
-      <canvas id="data2" class="d"></canvas>
-      <canvas id="data3" class="d"></canvas>
+      <canvas id="data2" class="d-none"></canvas>
+      <canvas id="data3" class="d-none"></canvas>
     </div>
 
     <div class="button">
@@ -152,7 +152,7 @@
         plugins: {
           title: {
             display: true,
-            text: 'High values'
+            text: 'Low values'
           },
           tooltip: {
             mode: 'index',
@@ -202,7 +202,7 @@
         plugins: {
           title: {
             display: true,
-            text: 'High values'
+            text: 'Volume values'
           },
           tooltip: {
             mode: 'index',

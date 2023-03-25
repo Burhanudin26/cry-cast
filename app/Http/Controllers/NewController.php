@@ -19,6 +19,8 @@ class NewController extends Controller
             // only show 30 latest data
             $data = DB::table('binance')->select('high')->orderBy('id', 'desc')->limit(30)->get();
             $date = DB::table('binance')->select('date')->orderBy('id', 'desc')->limit(30)->get();
+            //! datanya kebalik benerin
+
 
         }
         return view('output', compact('data', 'date', 'showAll'));
