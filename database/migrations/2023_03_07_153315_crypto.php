@@ -11,7 +11,7 @@ class crypto extends Migration
         //Binance
         Schema::create('binance', function (Blueprint $table){
             $table->id();
-            $table->dateTime('date');
+            $table->date('date');
             $table->float('high', 20, 10);
             $table->float('low' , 20, 10);
             $table->float('volume', 20, 2);
@@ -19,7 +19,7 @@ class crypto extends Migration
         //Bitcoin
         Schema::create('bitcoin', function (Blueprint $table){
             $table->id();
-            $table->dateTime('date');
+            $table->date('date');
             $table->float('high', 20, 10);
             $table->float('low' , 20, 10);
             $table->float('volume', 20, 2);
@@ -27,7 +27,7 @@ class crypto extends Migration
         //Dogecoin
         Schema::create('dogecoin', function (Blueprint $table){
             $table->id();
-            $table->dateTime('date');
+            $table->date('date');
             $table->float('high', 20, 10);
             $table->float('low' , 20, 10);
             $table->float('volume', 20, 2);
@@ -35,7 +35,7 @@ class crypto extends Migration
         //Etherium
         Schema::create('etherium', function (Blueprint $table){
             $table->id();
-            $table->dateTime('date');
+            $table->date('date');
             $table->float('high', 20, 10);
             $table->float('low' , 20, 10);
             $table->float('volume', 20, 2);
@@ -43,7 +43,7 @@ class crypto extends Migration
         //Iota
         Schema::create('iota', function (Blueprint $table){
             $table->id();
-            $table->dateTime('date');
+            $table->date('date');
             $table->float('high', 20, 10);
             $table->float('low' , 20, 10);
             $table->float('volume', 20, 2);
@@ -51,7 +51,7 @@ class crypto extends Migration
         //Solana
         Schema::create('solana', function (Blueprint $table){
             $table->id();
-            $table->dateTime('date');
+            $table->date('date');
             $table->float('high', 20, 10);
             $table->float('low' , 20, 10);
             $table->float('volume', 20, 2);
@@ -59,7 +59,7 @@ class crypto extends Migration
         //Stellar
         Schema::create('stellar', function (Blueprint $table){
             $table->id();
-            $table->dateTime('date');
+            $table->date('date');
             $table->float('high', 20, 10);
             $table->float('low' , 20, 10);
             $table->float('volume', 20, 2);
@@ -67,7 +67,7 @@ class crypto extends Migration
         //Tron
         Schema::create('tron', function (Blueprint $table){
             $table->id();
-            $table->dateTime('date');
+            $table->date('date');
             $table->float('high', 20, 10);
             $table->float('low' , 20, 10);
             $table->float('volume', 20, 2);
