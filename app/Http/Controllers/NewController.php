@@ -24,6 +24,36 @@ class NewController extends Controller
         return view('output', compact('data', 'date', 'showAll'));
 
     }
+    public function getLowData(){
+        // get data as array from table binance and column high and column id
+        // $showAll = $request->input('showAll', false);
+        // if ($request->input('showAll')) {
+        //     $data = DB::table('binance')->select('high')->get();
+        //     $id = DB::table('binance')->select('date')->get();
+        // } else {
+            // only show 30 latest data
+            $data = DB::table('binance')->select('low')->orderBy('id', 'desc')->limit(30)->get();
+            $id = DB::table('binance')->select('date')->orderBy('id', 'desc')->limit(30)->get();
+
+        //}
+        return view('output', compact('data', 'date', 'showAll'));
+
+    }
+    public function getVolumeData(){
+        // get data as array from table binance and column high and column id
+        // $showAll = $request->input('showAll', false);
+        // if ($request->input('showAll')) {
+        //     $data = DB::table('binance')->select('high')->get();
+        //     $id = DB::table('binance')->select('date')->get();
+        // } else {
+            // only show 30 latest data
+            $data = DB::table('binance')->select('volume')->orderBy('id', 'desc')->limit(30)->get();
+            $id = DB::table('binance')->select('date')->orderBy('id', 'desc')->limit(30)->get();
+
+        //}
+        return view('output', compact('data', 'date', 'showAll'));
+
+    }
     //Mencari rata-rata low, high, volume setiap 5 kolom
     public function AverageAll()
     {
@@ -43,7 +73,7 @@ class NewController extends Controller
         $avg_lows = array();
         $avg_highs = array();
         $avg_volumes = array();
-    
+        DB::table('AverageAll')->truncate();
         // Calculate the average values for each column for each group of 5 rows
         for ($i = 1; $i < count($rows); $i++) {
             $row = $rows[$i];
@@ -55,7 +85,6 @@ class NewController extends Controller
             $avg_lows[] = $low;
             $avg_highs[] = $high;
             $avg_volumes[] = $volume;
-    
             // If we've reached a group of 5 rows, calculate the averages and insert them into the SMA table
             if (count($avg_lows)==5 && count($avg_highs)==5 && count($avg_volumes)==5) {
                 $avg_low = array_sum($avg_lows) / count($avg_lows);
@@ -101,7 +130,7 @@ class NewController extends Controller
         $sma_lows = array();
         $sma_highs = array();
         $sma_volumes = array();
-    
+        DB::table('SMA')->truncate();
         // Calculate the average values for each column for each group of 5 rows
         for ($i = 0; $i < count($rows); $i++) {
             $row = $rows[$i];
