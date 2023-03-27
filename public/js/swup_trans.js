@@ -20,16 +20,16 @@ swup.on("willReplaceContent", function () {
 
 swup.on("contentReplaced", function () {
     //nama validation
-	$("#nama").keyup(function () {
-		let nama = $("#nama").val();
+	$("#name").keyup(function () {
+		let nama = $("#name").val();
 		if (nama.length > 3 && isNaN(nama)) {
-			$("#nama").removeClass("is-invalid");
-			$("#nama").addClass("is-valid");
-			$("#nama").next().next().text("");
+			$("#name").removeClass("is-invalid");
+			$("#name").addClass("is-valid");
+			$("#name").next().next().text("");
 		} else {
-			$("#nama").removeClass("is-valid");
-			$("#nama").addClass("is-invalid");
-			$("#nama")
+			$("#name").removeClass("is-valid");
+			$("#name").addClass("is-invalid");
+			$("#name")
 				.next()
 				.next()
 				.text("nama must be string and length must be greater than 3");
@@ -103,7 +103,7 @@ swup.on("contentReplaced", function () {
     //enable submit button if all validation is true
     $("#submit").addClass("disabled");
     $("input").keyup(function () {
-      let nama = $("#nama").val();
+      let nama = $("#name").val();
       let email = $("#email").val();
       let password = $("#password").val();
       let rpass = $("#rpass").val();
