@@ -10,11 +10,11 @@
               <div class="mb-md-5 mt-md-4 pb-5">
                 <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                 <p class="text-black-50 mb-5">Please enter your login and password!</p>
-                <form action="log-proses.php" method="POST" id="login-form">
+                <form action="{{ route('login') }}" method="POST" id="login-form">
                   <!-- email -->
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="email" name="email" placeholder="mail">
-                    <label for="email" class="text-dark">Email</label>
+                    <input type="text" class="form-control" id="name_or_email" name="name_or_email" placeholder="mail">
+                    <label for="name_or_email" class="text-dark">Email</label>
                   </div>
                   <!-- password -->
                   <div class="form-floating mb-3">
