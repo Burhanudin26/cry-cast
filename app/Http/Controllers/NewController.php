@@ -9,18 +9,18 @@ use PDO;
 class NewController extends Controller
 {
     // get high data
-    public function getHighData(Request $request){
+    public function getHighData(){
         // get data as array from table binance and column high and column id
-        $showAll = $request->input('showAll', false);
-        if ($request->input('showAll')) {
-            $data = DB::table('binance')->select('high')->get();
-            $id = DB::table('binance')->select('date')->get();
-        } else {
+        // $showAll = $request->input('showAll', false);
+        // if ($request->input('showAll')) {
+        //     $data = DB::table('binance')->select('high')->get();
+        //     $id = DB::table('binance')->select('date')->get();
+        // } else {
             // only show 30 latest data
             $data = DB::table('binance')->select('high')->orderBy('id', 'desc')->limit(30)->get();
             $id = DB::table('binance')->select('date')->orderBy('id', 'desc')->limit(30)->get();
 
-        }
+        //}
         return view('output', compact('data', 'date', 'showAll'));
 
     }
@@ -138,7 +138,7 @@ class NewController extends Controller
                 $i=$i-4;
             }
         }
-        // $this->getHighData();
+        $this->getHighData();
     }
     //Binance
     public function import1(Request $request)
