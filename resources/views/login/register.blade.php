@@ -5,7 +5,8 @@
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-          <div class="card text-black mi" style="border-radius: 1rem;background-color: rgba(255, 255, 255, 0); backdrop-filter: blur(10px);">
+          <div class="card text-black mi"
+            style="border-radius: 1rem;background-color: rgba(255, 255, 255, 0); backdrop-filter: blur(10px);">
             <div class="card-body p-5 text-center">
               <div class="mb-md-5 mt-md-4 pb-5">
                 <h2 class="fw-bold mb-2 text-uppercase">Register</h2>
@@ -57,7 +58,8 @@
                   </div>
                   <!-- submit -->
                   <div class="mb-1">
-                    <input type="submit" id="submit" class="btn btn-outline-dark btn-lg px-5 mt-3" name="submit" value="Register">
+                    <input type="submit" id="submit" class="btn btn-outline-dark btn-lg px-5 mt-3" name="submit"
+                      value="Register">
                   </div>
                 </form>
               </div>
@@ -74,14 +76,13 @@
   <script src="https://code.jquery.com/jquery-3.6.3.min.js"
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-    crossorigin="anonymous"></script>
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
   <script src="{{ asset('js/regisValid.js') }}"></script>
   <script>
     //enable submit button if all validation is true
     console.log("name: " + name + ", email: " + email + ", password: " + password + ", rpass: " + rpass);
     $("#submit").addClass("disabled");
-    $("input").keyup(function () {
+    $("input").keyup(function() {
       let name = $("#name").val();
       let email = $("#email").val();
       let password = $("#password").val();

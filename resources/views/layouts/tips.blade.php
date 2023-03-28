@@ -11,6 +11,7 @@
         <ul>
           <li>Make sure to double-check your entries for accuracy</li>
           <li>Use the correct format for dates, numbers, and other data types</li>
+          <img src="{{ url('pictures/table.png') }}" alt="" class="img-fluid" style="max-width:">
           <li>Take your time and be thorough!</li>
         </ul>
         <div class="modal-footer">
