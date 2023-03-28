@@ -84,11 +84,12 @@ class crypto extends Migration
             $table->float('sma_low',20,10);
             $table->float('sma_volume',20 ,2);
         });
-        //Naive bayes
-        Schema::create('naive_bayes', function (Blueprint $table){
-            $table->float('avg_high',20,10);
-            $table->float('avg_low',20,10);
-            $table->float('avg_volume',20,10);
+        //Threshold naive bayes
+        Schema::create('threshold', function (Blueprint $table){
+            $table->date('date');
+            $table->float('hold_high',20,10);
+            $table->float('hold_low',20,10);
+            $table->float('hold_volume',20,2);
         });
     }
     public function down()
@@ -103,6 +104,6 @@ class crypto extends Migration
         Schema::dropIfExists('tron');
         Schema::dropIfExists('AverageAll');
         Schema::dropIfExists('SMA');
-        Schema::dropIfExists('naive_bayes');
+        Schema::dropIfExists('threshold');
     }
 }

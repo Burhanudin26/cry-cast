@@ -158,8 +158,12 @@
     // chart 2
     const ctx2 = document.getElementById('data2');
     // value
-    const data2 = {!! json_encode($data) !!};
-    const highValues2 = data2.map(datum => datum.high);
+    const data2 = {!! json_encode($low_data) !!};
+    const highValues2 = data2.map(datum => datum.low);
+    // trend
+    const trend = {!! json_encode($low_trend) !!}
+    const trendValues2 = trend.map(trend => trend.sma_low);
+
     // date
     const ids2 = {!! json_encode($date) !!};
     const idv2 = ids2.map(id2 => {
@@ -176,7 +180,14 @@
           data: highValues2,
           borderWidth: 1
          // pointRadius: ,
-        }]
+        }
+        {
+            label: 'Trend',
+            data: trendValues2, // ganti ini jadi trendnya
+            borderWidth: 1
+          //  pointRadius: ,
+          },
+      ]
       },
       options: {
         responsive: true,
@@ -209,8 +220,11 @@
 
     // chart 3
     const ctx3 = document.getElementById('data3');
-    const data3 = {!! json_encode($data) !!};
-    const highValues3 = data3.map(datum => datum.high);
+    const data3 = {!! json_encode($volume_data) !!};
+    const highValues3 = data3.map(datum => datum.volume);
+    // trend
+    const trend = {!! json_encode($volume_trend) !!}
+    const trendValues3 = trend.map(trend => trend.sma_volume);
     const ids3 = {!! json_encode($date) !!};
     const idv3 = ids3.map(id3 => {
       const date3 = new Date(id3.date);
@@ -226,7 +240,14 @@
           data: highValues3,
           borderWidth: 1
          // pointRadius: ,
-        }]
+        }
+        {
+            label: 'Trend',
+            data: trendValues3, // ganti ini jadi trendnya
+            borderWidth: 1
+          //  pointRadius: ,
+          },
+      ]
       },
       options: {
         responsive: true,
