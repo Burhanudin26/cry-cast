@@ -192,8 +192,8 @@ class NewController extends Controller
 
         $sma = DB::table('SMA')->orderBy('id', 'desc')->take(2)->get();
         $high = DB::table('binance')->orderBy('id', 'desc')->take(2)->get();
-        $sma1 = $sma[0]->sma_low;
-        $sma2 = $sma[1]->sma_low;
+        $sma1 = $sma[0]->sma_high;
+        $sma2 = $sma[1]->sma_high;
         $high1 = $high[0]->high;
         $high2 = $high[1]->high;
         if($high1 > $sma1){
@@ -208,6 +208,17 @@ class NewController extends Controller
             $output = '0';
         }
         // retuen the output
+        // chech if sma1 < high1
+        if ($sma1 < $high1) {
+            echo "naik";
+        } else if ($sma1 > $high1) {
+            echo "turun";
+        }
+        // select
+
+        echo $sma1;
+        echo '<br>';
+        echo $high1;
         return $output;
     }
 

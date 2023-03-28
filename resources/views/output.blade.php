@@ -58,7 +58,7 @@
             <h3>Trend</h3>
             <p>Trend pada tanggal {{ date('Y/m/d', strtotime($date[count($date) - 1]->date . ' + 1 day')) }}</p> <br>
             <div class="card px-4">
-              <p class="pt-3">{{ $output }}</p>
+              <p class="pt-3">Trend cenderung {{ $output }}</p>
             </div>
           </div>
         </div>
