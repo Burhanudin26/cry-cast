@@ -151,84 +151,49 @@ class NewController extends Controller
     }
 
     //Threshold Naive bayes per bulan
-<<<<<<< HEAD
     public function Threshold()
     {
         // Create a PDO connection to the database
-    $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
-=======
-    //     public function Threshold()
-    //     {
-    //         // Create a PDO connection to the database
-    //     $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
->>>>>>> 5cb1a81510c93a8529ab473fdd592f8fc57fe934
+        $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
 
-    //     // Prepare the SQL query to get the low, high, and volume values from the binance table grouped by month
-    //     $stmt = $db->prepare('SELECT YEAR(date) AS year, MONTH(date) AS month, AVG(low) AS avg_low, AVG(high) AS avg_high, AVG(volume) AS avg_volume FROM binance GROUP BY YEAR(date), MONTH(date)');
+        // Prepare the SQL query to get the low, high, and volume values from the binance table grouped by month
+        $stmt = $db->prepare('SELECT YEAR(date) AS year, MONTH(date) AS month, AVG(low) AS avg_low, AVG(high) AS avg_high, AVG(volume) AS avg_volume FROM binance GROUP BY YEAR(date), MONTH(date)');
 
-    //     // Execute the query
-    //     $stmt->execute();
+        // Execute the query
+        $stmt->execute();
 
-    //     // Fetch the result as an array of rows
-    //     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // Fetch the result as an array of rows
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    //     // Loop through each row and insert the monthly averages into the MonthlyAverages table
-    //     foreach ($rows as $row) {
-    //         $year = $row['year'];
-    //         $month = $row['month'];
-    //         $avg_low = $row['avg_low'];
-    //         $avg_high = $row['avg_high'];
-    //         $avg_volume = $row['avg_volume'];
+        // Loop through each row and insert the monthly averages into the MonthlyAverages table
+        foreach ($rows as $row) {
+            $year = $row['year'];
+            $month = $row['month'];
+            $avg_low = $row['avg_low'];
+            $avg_high = $row['avg_high'];
+            $avg_volume = $row['avg_volume'];
 
-    //         // Prepare the SQL query to insert the average values into the MonthlyAverages table
-    //         $insert_stmt = $db->prepare('INSERT INTO MonthlyAverages (year, month, avg_low, avg_high, avg_volume) VALUES (:year, :month, :avg_low, :avg_high, :avg_volume)');
+            // Prepare the SQL query to insert the average values into the MonthlyAverages table
+            $insert_stmt = $db->prepare('INSERT INTO MonthlyAverages (year, month, avg_low, avg_high, avg_volume) VALUES (:year, :month, :avg_low, :avg_high, :avg_volume)');
 
-    //         // Bind the average values to the query parameters
-    //         $insert_stmt->bindParam(':year', $year);
-    //         $insert_stmt->bindParam(':month', $month);
-    //         $insert_stmt->bindParam(':avg_low', $avg_low);
-    //         $insert_stmt->bindParam(':avg_high', $avg_high);
-    //         $insert_stmt->bindParam(':avg_volume', $avg_volume);
+            // Bind the average values to the query parameters
+            $insert_stmt->bindParam(':year', $year);
+            $insert_stmt->bindParam(':month', $month);
+            $insert_stmt->bindParam(':avg_low', $avg_low);
+            $insert_stmt->bindParam(':avg_high', $avg_high);
+            $insert_stmt->bindParam(':avg_volume', $avg_volume);
 
-<<<<<<< HEAD
-        // Execute the query to insert the average values into the MonthlyAverages table
-        $insert_stmt->execute();
+            // Execute the query to insert the average values into the MonthlyAverages table
+            $insert_stmt->execute();
     }
 }
     //Membuat bullish dan bearish pada moving average
     public function BB(){
         
-=======
-    //         // Execute the query to insert the average values into the MonthlyAverages table
+    // Execute the query to insert the average values into the MonthlyAverages table
     //         $insert_stmt->execute();
-    //     }
-    // }
-    //Membuat bullish dan bearish pada moving average
-    public function BB()
-    {
-
-        $sma = DB::table('SMA')->orderBy('id', 'desc')->take(2)->get();
-        $high = DB::table('binance')->orderBy('id', 'desc')->take(2)->get();
-        $sma1 = $sma[0]->sma_high;
-        $sma2 = $sma[1]->sma_high;
-        $high1 = $high[0]->high;
-        $high2 = $high[1]->high;
-        if (($high2 > $sma2) && ($high1 < $sma1)) {
-            $output = 'menuju naik';
-        } else if (($high2 < $sma2) && ($high1 > $sma1)) {
-            $output = 'menuju turun';
-        } else if ($high1 > $sma1) {
-            $output = 'naik';
-        } else if ($high1 < $sma1) {
-            $output = 'turun';
-        } else {
-            $output = '';
-        }
-
-        return $output;
->>>>>>> 5cb1a81510c93a8529ab473fdd592f8fc57fe934
     }
-
+    //Membuat bullish dan bearish pada moving average
 
 
     //Binance
@@ -378,6 +343,4 @@ class NewController extends Controller
             ]);}}
             $this->AverageAll();
         }
-
-
 }
