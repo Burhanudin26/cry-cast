@@ -94,6 +94,13 @@
     const ctx = document.getElementById('data');
     const data = {!! json_encode($data) !!};
     const highValues = data.map(datum => datum.high);
+
+    // trend
+    const trend = {!! json_encode($trend) !!}
+    const trendValues = trend.map(trend => trend.sma_high);
+    //! ganti ini aktifkan trendnya
+    // date
+
     const ids = {!! json_encode($date) !!};
     const idv = ids.map(id => {
       const date = new Date(id.date);
@@ -168,14 +175,23 @@
 
 
     // chart 2
-const ctx2 = document.getElementById('data2');
-const data2 = {!! json_encode($data) !!};
-const highValues2 = data2.map(datum => datum.high);
-const ids2 = {!! json_encode($date) !!};
-const idv2 = ids2.map(id2 => {
-  const date2 = new Date(id2.date);
-  return `${date2.getFullYear()}/${(date2.getMonth() + 1).toString().padStart(2, '0')}/${date2.getDate().toString().padStart(2, '0')}`;
-});
+
+    const ctx2 = document.getElementById('data2');
+    // value
+    const data2 = {!! json_encode($low_data) !!};
+    const highValues2 = data2.map(datum => datum.low);
+    // trend
+    const trend = {!! json_encode($low_trend) !!}
+    const trendValues2 = trend.map(trend => trend.sma_low);
+
+    // date
+    const ids2 = {!! json_encode($date) !!};
+    const idv2 = ids2.map(id2 => {
+      const date2 = new Date(id2.date);
+      return `${date2.getFullYear()}/${(date2.getMonth() + 1).toString().padStart(2, '0')}/${date2.getDate().toString().padStart(2, '0')}`;
+    });
+
+
 let pointRadius2;
 let numDataPoints2 = 30; // default number of data points to display
 const dataPointsDropdown2 = document.getElementById('data-points');
@@ -209,7 +225,14 @@ const chart2 = new Chart(ctx2, {
       data: highValues2.slice(-numDataPoints2), // display the latest number of data points by default
       borderWidth: 1,
       pointRadius: pointRadius2, // dynamically set point radius based on number of data points
-    }]
+    }, 
+            {
+            label: 'Trend',
+            data: trendValues2, // ganti ini jadi trendnya
+            borderWidth: 1
+          //  pointRadius: ,
+          },
+      ]
   },
   options: {
     responsive: true,
@@ -242,13 +265,20 @@ const chart2 = new Chart(ctx2, {
 
     // chart 3
     const ctx3 = document.getElementById('data3');
-const data3 = {!! json_encode($data) !!};
-const highValues3 = data3.map(datum => datum.high);
-const ids3 = {!! json_encode($date) !!};
-const idv3 = ids3.map(id3 => {
-  const date3 = new Date(id3.date);
-  return `${date3.getFullYear()}/${(date3.getMonth() + 1).toString().padStart(2, '0')}/${date3.getDate().toString().padStart(2, '0')}`;
-});
+
+    const data3 = {!! json_encode($volume_data) !!};
+    const highValues3 = data3.map(datum => datum.volume);
+    // trend
+    const trend = {!! json_encode($volume_trend) !!}
+    const trendValues3 = trend.map(trend => trend.sma_volume);
+    const ids3 = {!! json_encode($date) !!};
+    const idv3 = ids3.map(id3 => {
+      const date3 = new Date(id3.date);
+      return `${date3.getFullYear()}/${(date3.getMonth() + 1).toString().padStart(2, '0')}/${date3.getDate().toString().padStart(2, '0')}`;
+    });
+
+
+
 let pointRadius3;
 let numDataPoints3 = 30; // default number of data points to display
 const dataPointsDropdown3 = document.getElementById('data-points');
@@ -282,7 +312,13 @@ const chart3 = new Chart(ctx3, {
       data: highValues3.slice(-numDataPoints3), // display the latest number of data points by default
       borderWidth: 1,
       pointRadius: pointRadius3, // dynamically set point radius based on number of data points
-    }]
+    },         {
+            label: 'Trend',
+            data: trendValues3, // ganti ini jadi trendnya
+            borderWidth: 1
+          //  pointRadius: ,
+          },
+      ]
   },
   options: {
     responsive: true,
