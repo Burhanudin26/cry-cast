@@ -144,8 +144,8 @@ class NewController extends Controller
                 $i=$i-4;
             }
         }
-        $this->getHighData();
         $this->BB();
+        $this->getHighData();
     }
     //Threshold Naive bayes per bulan
 //     public function Threshold()
@@ -194,8 +194,8 @@ class NewController extends Controller
         $rows = $stmt1->fetchAll(PDO::FETCH_ASSOC);
         $sma_highs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         DB::table('Bullish_Berrish')->truncate();
+        $status = false; // Set initial value to false
         foreach ($rows as $row){
-            $status = false; // Set initial value to false
             foreach ($sma_highs as $sma_high){
                 if ($row['high'] < $sma_high['sma_high']) {
                     $status = 0;
