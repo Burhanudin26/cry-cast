@@ -10,9 +10,8 @@ use PhpOption\None;
 class NewController extends Controller
 {
     // get high data
-    public function getHighData(Request $request){
+    public function getHighData(){
         // get data as array from table binance and column high and column id
-
         $showAll = $request->input('showAll', false);
         if ($request->input('showAll')) {
             $data = DB::table('binance')->select('high')->get();
@@ -39,36 +38,15 @@ class NewController extends Controller
             $date = DB::table('binance')->select('date')->get();
         } else {
             // only show 30 latest data
-            $data = DB::table('binance')->select('low')->orderBy('id', 'desc')->limit(30)->get()->reverse();
-            $trend = DB::table('SMA')->select('sma_low')->orderBy('id', 'desc')->limit(30)->get()->reverse();
-            $date = DB::table('binance')->select('date')->orderBy('id', 'desc')->limit(30)->get()->reverse();
+            $data = DB::table('binance')->select('high')->orderBy('id', 'desc')->limit(30)->get();
+            $date = DB::table('binance')->select('date')->orderBy('id', 'desc')->limit(30)->get();
             //! datanya kebalik benerin
 
 
-        //}
+        }
         return view('output', compact('data', 'date', 'showAll'));
 
     }
-}
-    public function getVolumeData(Request $request){
-        $showAll = $request->input('showAll', false);
-        if ($request->input('showAll')) {
-            $data = DB::table('binance')->select('volume')->get();
-            $trend = DB::table('SMA')->select('sma_volume')->get();
-            $date = DB::table('binance')->select('date')->get();
-        } else {
-            // only show 30 latest data
-            $data = DB::table('binance')->select('volume')->orderBy('id', 'desc')->limit(30)->get()->reverse();
-            $trend = DB::table('SMA')->select('sma_volume')->orderBy('id', 'desc')->limit(30)->get()->reverse();
-            $date = DB::table('binance')->select('date')->orderBy('id', 'desc')->limit(30)->get()->reverse();
-            //! datanya kebalik benerin
-
-
-        //}
-        return view('output', compact('data', 'date', 'showAll'));
-
-    }
-}
     //Mencari rata-rata low, high, volume setiap 5 kolom
     public function AverageAll()
     {

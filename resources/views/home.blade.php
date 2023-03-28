@@ -63,7 +63,6 @@
       transition: .3s ease;
     }
 
-
     .c2 img {
       border-radius: 100rem;
       position: absolute;
@@ -114,7 +113,7 @@
               <p class="lead py-4">Get accurate cryptocurrency forecasts with Cry Cast. Stay ahead of the game with
                 real-time data and expert analysis. Join us now for profitable investments.</p>
               <div class="button">
-                <a href="/login" style="position: relative; z-index: 1;">
+                <a href="{{ route('regis') }}" style="position: relative; z-index: 1;">
                   <button class="btn btn-c aminated-gradient">Get Started</button>
                 </a>
               </div>

@@ -41,17 +41,18 @@
     <div class="main">
       <div class="upperBtn mt-4 mb-4">
         <!-- Show latest 30 data button -->
-        <button onclick="location.href='{{ route('output', ['showAll' => 0]) }}'">Show latest 30 data</button>
+        <button>Show latest 30 data</button>
 
         <!-- Show all data button -->
-        <button onclick="location.href='{{ route('output', ['showAll' => 1]) }}'">Show all data</button>
+        <button>Show all data</button>
 
         {{-- show all table button --}}
         <button onclick='showAllt()'>Show all table</button>
       </div>
-      {{-- output bayes pada tanggal --}}
+      {{-- output pada tanggal --}}
       <div class="row">
         <div class="col">
+          {{-- sma --}}
           <div class="output text-center mt-5 mb-5">
             <h3>Trend</h3>
             <p>Trend pada tanggal {{ $date[0]->date }}</p> <br>
@@ -62,6 +63,7 @@
 
         </div>
         <div class="col">
+          {{-- bayes --}}
           <div class="output text-center mt-5 mb-5">
             <h3>Hasil prediksi</h3>
             <p>Hasil prediksi pada tanggal {{ $date[0]->date }}</p>
@@ -113,14 +115,14 @@
         datasets: [{
             label: 'high',
             data: highValues,
-            borderWidth: 1,
-            pointRadius: {{ $showAll ? 0 : 3 }},
+            borderWidth: 1
+          //  pointRadius: 0,
           },
           {
             label: 'Trend',
             data: highValues, // ganti ini jadi trendnya
-            borderWidth: 1,
-            pointRadius: {{ $showAll ? 0 : 3 }},
+            borderWidth: 1
+          //  pointRadius: ,
           },
         ]
       },
@@ -172,8 +174,8 @@
         datasets: [{
           label: 'high',
           data: highValues2,
-          borderWidth: 1,
-          pointRadius: {{ $showAll ? 0 : 3 }},
+          borderWidth: 1
+         // pointRadius: ,
         }]
       },
       options: {
@@ -222,8 +224,8 @@
         datasets: [{
           label: 'high',
           data: highValues3,
-          borderWidth: 1,
-          pointRadius: {{ $showAll ? 0 : 3 }},
+          borderWidth: 1
+         // pointRadius: ,
         }]
       },
       options: {

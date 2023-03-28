@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="{{ url('css/style.css') }}">
   <link rel="stylesheet" href="{{ url('css/menu.css') }}">
   <link rel="stylesheet" href="{{ url('css/transition.css') }}">
+
   {{-- font --}}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -118,15 +119,11 @@
         <!-- Section: CTA -->
       </div>
       <!-- Grid container -->
-
-      <!-- Copyright -->
       <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
         © {{ date('Y') }} Copyright:
         <a class="text-white" href="/">CryCast</a>
       </div>
-      <!-- Copyright -->
     </footer>
-    <!-- Footer -->
   </section>
   <!-- End of .container -->
   {{-- js --}}

@@ -4,6 +4,7 @@
 
   <link rel="stylesheet" href="{{ url('css/menu-cry.css') }}"> {{-- ini --}}
   <!-- content -->
+  @include('layouts.tips')
   <section class="container mt-5 pt-5 d-flex flex-column justify-content-center align-items-center" style="height: 80vh;">
     <div class="card">
       <div class="card-header">
@@ -74,6 +75,8 @@
       </div>
     </div>
   </section>
+  {{-- jq --}}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     // ini buat drag and drop
     const fileInput = document.getElementById("fileInput");
@@ -95,4 +98,9 @@
       }
     });
   </script>
+  <script>
+$(document).ready(function(){
+    $('#tips').modal('show');
+});
+</script>
 @endsection

@@ -62,7 +62,7 @@
                 </form>
               </div>
               <div>
-                <p class="mb-0">Alredy have an Account? <a href="login" class="text-black-50 fw-bold">Sign In</a>
+                <p class="mb-0">Alredy have an Account? <a href="/loginPage" class="text-black-50 fw-bold">Sign In</a>
                 </p>
               </div>
             </div>
