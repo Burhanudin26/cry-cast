@@ -14,16 +14,16 @@ class NewController extends Controller
         // get data as array from table binance and column high and column id
         $data = DB::table('binance')->select('high')->get();
         $trend = DB::table('SMA')->select('sma_high')->get();
-        
+
         // get data as array from table binance and column low and column id
         $low_data = DB::table('binance')->select('low')->get();
         $low_trend = DB::table('SMA')->select('sma_low')->get();
-        
+
         // get data as array from table binance and column volume and column id
         $volume_data = DB::table('binance')->select('volume')->get();
         $volume_trend = DB::table('SMA')->select('sma_volume')->get();
         $date = DB::table('binance')->select('date')->get();
-    
+
         return view('output')->with(compact('data','trend','low_data','low_trend','volume_data','volume_trend','date'));
     }
     //Mencari rata-rata low, high, volume setiap 5 kolom
@@ -148,44 +148,45 @@ class NewController extends Controller
         $this->getHighData();
     }
     //Threshold Naive bayes per bulan
-//     public function Threshold()
-//     {
-//         // Create a PDO connection to the database
-//     $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
+    //     public function Threshold()
+    //     {
+    //         // Create a PDO connection to the database
+    //     $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
 
-//     // Prepare the SQL query to get the low, high, and volume values from the binance table grouped by month
-//     $stmt = $db->prepare('SELECT YEAR(date) AS year, MONTH(date) AS month, AVG(low) AS avg_low, AVG(high) AS avg_high, AVG(volume) AS avg_volume FROM binance GROUP BY YEAR(date), MONTH(date)');
+    //     // Prepare the SQL query to get the low, high, and volume values from the binance table grouped by month
+    //     $stmt = $db->prepare('SELECT YEAR(date) AS year, MONTH(date) AS month, AVG(low) AS avg_low, AVG(high) AS avg_high, AVG(volume) AS avg_volume FROM binance GROUP BY YEAR(date), MONTH(date)');
 
-//     // Execute the query
-//     $stmt->execute();
+    //     // Execute the query
+    //     $stmt->execute();
 
-//     // Fetch the result as an array of rows
-//     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    //     // Fetch the result as an array of rows
+    //     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-//     // Loop through each row and insert the monthly averages into the MonthlyAverages table
-//     foreach ($rows as $row) {
-//         $year = $row['year'];
-//         $month = $row['month'];
-//         $avg_low = $row['avg_low'];
-//         $avg_high = $row['avg_high'];
-//         $avg_volume = $row['avg_volume'];
+    //     // Loop through each row and insert the monthly averages into the MonthlyAverages table
+    //     foreach ($rows as $row) {
+    //         $year = $row['year'];
+    //         $month = $row['month'];
+    //         $avg_low = $row['avg_low'];
+    //         $avg_high = $row['avg_high'];
+    //         $avg_volume = $row['avg_volume'];
 
-//         // Prepare the SQL query to insert the average values into the MonthlyAverages table
-//         $insert_stmt = $db->prepare('INSERT INTO MonthlyAverages (year, month, avg_low, avg_high, avg_volume) VALUES (:year, :month, :avg_low, :avg_high, :avg_volume)');
+    //         // Prepare the SQL query to insert the average values into the MonthlyAverages table
+    //         $insert_stmt = $db->prepare('INSERT INTO MonthlyAverages (year, month, avg_low, avg_high, avg_volume) VALUES (:year, :month, :avg_low, :avg_high, :avg_volume)');
 
-//         // Bind the average values to the query parameters
-//         $insert_stmt->bindParam(':year', $year);
-//         $insert_stmt->bindParam(':month', $month);
-//         $insert_stmt->bindParam(':avg_low', $avg_low);
-//         $insert_stmt->bindParam(':avg_high', $avg_high);
-//         $insert_stmt->bindParam(':avg_volume', $avg_volume);
+    //         // Bind the average values to the query parameters
+    //         $insert_stmt->bindParam(':year', $year);
+    //         $insert_stmt->bindParam(':month', $month);
+    //         $insert_stmt->bindParam(':avg_low', $avg_low);
+    //         $insert_stmt->bindParam(':avg_high', $avg_high);
+    //         $insert_stmt->bindParam(':avg_volume', $avg_volume);
 
-//         // Execute the query to insert the average values into the MonthlyAverages table
-//         $insert_stmt->execute();
-//     }
-// }
+    //         // Execute the query to insert the average values into the MonthlyAverages table
+    //         $insert_stmt->execute();
+    //     }
+    // }
     //Membuat bullish dan bearish pada moving average
-    public function BB(){
+    public function BB()
+    {
         $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
         $stmt1 = $db->prepare('SELECT high FROM binance');
         $stmt1->execute();
@@ -194,18 +195,16 @@ class NewController extends Controller
         $rows = $stmt1->fetchAll(PDO::FETCH_ASSOC);
         $sma_highs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         DB::table('Bullish_Berrish')->truncate();
-        $status = false; // Set initial value to false
         foreach ($rows as $row){
+            $status = false; // Set initial value to false
             foreach ($sma_highs as $sma_high){
                 if ($row['high'] < $sma_high['sma_high']) {
-                    $status = 0;
-                    break; // Stop looping if condition is met
-                } else if ($row['high'] > $sma_high['sma_high']) {
-                    $status = 1;
-                    break; // Stop looping if condition is met
+                    $status = false;
+                } else {
+                    $status = true;
                 }
             }
-            if ($status == 1) {
+            if ($status) {
                 $komen = "Naik"; // Add a comment
             } else {
                 $komen = "Turun"; // Add a comment
@@ -214,9 +213,13 @@ class NewController extends Controller
             $stmt3->bindParam(':Decis', $status, PDO::PARAM_BOOL);
             $stmt3->bindParam(':komen', $komen, PDO::PARAM_STR);
             $stmt3->execute();
+            // echo output
+            echo $status ? '1' : '0';
         }
     }
-        
+
+
+
     //Binance
     public function import1(Request $request)
     {
