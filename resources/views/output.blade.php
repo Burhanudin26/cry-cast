@@ -56,7 +56,7 @@
           {{-- sma --}}
           <div class="output text-center mt-5 mb-5">
             <h3>Trend</h3>
-            <p>Trend pada tanggal {{ $date[0]->date }}</p> <br>
+            <p>Trend pada tanggal {{ date('Y/m/d', strtotime($date[count($date) - 1]->date . ' + 1 day')) }}</p> <br>
             <div class="card px-4">
               <p class="pt-3">Cenderung Naik</p>
             </div>
@@ -66,7 +66,8 @@
           {{-- bayes --}}
           <div class="output text-center mt-5 mb-5">
             <h3>Hasil prediksi</h3>
-            <p>Hasil prediksi pada tanggal {{ $date[0]->date }}</p>
+            <p>Hasil prediksi pada tanggal {{ date('Y/m/d', strtotime($date[count($date) - 1]->date . ' + 1 day')) }}</p>
+
             <div class="card px-4">
               <p class="pt-3">99% Naik</p>
               <p>1% Turun</p>
@@ -311,11 +312,11 @@
         numDataPoints3 = parseInt(selectedOption);
       }
       chart3.data.labels = idv3.slice(-
-      numDataPoints3); // update chart labels to display the latest number of data points
+        numDataPoints3); // update chart labels to display the latest number of data points
       chart3.data.datasets[0].data = volumeValues3.slice(-
-      numDataPoints3); // update chart data to display the latest number of data points for high values
+        numDataPoints3); // update chart data to display the latest number of data points for high values
       chart3.data.datasets[1].data = trendValues3.slice(-
-      numDataPoints3); // update chart data to display the latest number of data points for trend values
+        numDataPoints3); // update chart data to display the latest number of data points for trend values
 
 
       if (numDataPoints3 > 100) {
@@ -327,8 +328,9 @@
       }
 
       chart3.data.datasets[0].pointRadius =
+        pointRadius3; // dynamically set point radius based on number of data points
+      chart3.data.datasets[1].pointRadius =
       pointRadius3; // dynamically set point radius based on number of data points
-      chart3.data.datasets[1].pointRadius = pointRadius3; // dynamically set point radius based on number of data points
       chart3.update(); // update the chart
     });
 
