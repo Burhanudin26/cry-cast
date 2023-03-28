@@ -107,3 +107,8 @@ Route::get('/output', 'App\Http\Controllers\NewController@getHighData')->name('o
 
 // run method BB
 Route::get('/bb', 'App\Http\Controllers\NewController@BB')->name('bb');
+
+// redirect import1 to output
+Route::get('/import1', function () {
+    return redirect()->route('output');
+});

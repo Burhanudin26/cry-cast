@@ -196,29 +196,18 @@ class NewController extends Controller
         $sma2 = $sma[1]->sma_high;
         $high1 = $high[0]->high;
         $high2 = $high[1]->high;
-        if($high1 > $sma1){
-            $output = 'naik';
-        } else if ($high1 < $sma1){
-            $output = 'turun';
-        } else if (($high2 > $sma2) && ($high1 < $sma1)){
+        if (($high2 > $sma2) && ($high1 < $sma1)) {
             $output = 'menuju naik';
-        } else if (($high2 < $sma2) && ($high1 > $sma1)){
+        } else if (($high2 < $sma2) && ($high1 > $sma1)) {
             $output = 'menuju turun';
+        } else if ($high1 > $sma1) {
+            $output = 'naik';
+        } else if ($high1 < $sma1) {
+            $output = 'turun';
         } else {
-            $output = '0';
+            $output = '';
         }
-        // retuen the output
-        // chech if sma1 < high1
-        if ($sma1 < $high1) {
-            echo "naik";
-        } else if ($sma1 > $high1) {
-            echo "turun";
-        }
-        // select
 
-        echo $sma1;
-        echo '<br>';
-        echo $high1;
         return $output;
     }
 
