@@ -60,7 +60,6 @@
               <p class="pt-3">Cenderung Naik</p>
             </div>
           </div>
-
         </div>
         <div class="col">
           {{-- bayes --}}
