@@ -163,8 +163,9 @@ public function getVolumeData(){
         // $this->getLowData();
         // $this->getVolumeData();
     }
+
     //Threshold Naive bayes per bulan
-    /*public function Threshold()
+    public function Threshold()
     {
         // Create a PDO connection to the database
     $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
@@ -199,10 +200,10 @@ public function getVolumeData(){
         // Execute the query to insert the average values into the MonthlyAverages table
         $insert_stmt->execute();
     }
-}*/
+}
     //Membuat bullish dan bearish pada moving average
     public function BB(){
-
+        
     }
     //Binance
     public function import1(Request $request)

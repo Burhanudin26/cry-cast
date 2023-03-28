@@ -302,7 +302,7 @@
 
     let pointRadius3;
     let numDataPoints3 = 30; // default number of data points to display
-    const dataPointsDropdown3 = document.getElementById('data-points');
+    const dataPointsDropdown3 = document.getElementById('data-points'); // get the dropdown element
     dataPointsDropdown3.addEventListener('change', function() {
       const selectedOption = dataPointsDropdown3.value;
       if (selectedOption === 'all') {
