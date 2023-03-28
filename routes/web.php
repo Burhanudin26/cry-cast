@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\NewController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -104,3 +105,10 @@ Route::post('/import8', 'App\Http\Controllers\NewController@import8');
 // Output
 Route::get('/output', 'App\Http\Controllers\NewController@getHighData')->name('output');
 
+// run method BB
+Route::get('/bb', 'App\Http\Controllers\NewController@BB')->name('bb');
+
+// redirect import1 to output
+Route::get('/import1', function () {
+    return redirect()->route('output');
+});
