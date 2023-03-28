@@ -86,6 +86,8 @@
       </div>
 
     </div>
+    {{-- ECHO ALL DATA --}}
+    {{ $low_trend }}
 
   </section>
   {{-- Chart.js --}}
@@ -140,6 +142,12 @@
         datasets: [{
           label: 'high',
           data: highValues.slice(-numDataPoints), // display the latest number of data points by default
+          borderWidth: 1,
+          pointRadius: pointRadius, // dynamically set point radius based on number of data points
+        },
+        {
+          label: 'trend',
+          data: trendValues.slice(-numDataPoints), // display the latest number of data points by default
           borderWidth: 1,
           pointRadius: pointRadius, // dynamically set point radius based on number of data points
         }]
@@ -226,12 +234,12 @@ const chart2 = new Chart(ctx2, {
       borderWidth: 1,
       pointRadius: pointRadius2, // dynamically set point radius based on number of data points
     },
-            {
-            label: 'Trend',
-            data: trendValues2, // ganti ini jadi trendnya
-            borderWidth: 1
-          //  pointRadius: ,
-          },
+    {
+      label: 'trend',
+      data: trendValues2.slice(-numDataPoints2), // display the latest number of data points by default
+      borderWidth: 1,
+      pointRadius: pointRadius2, // dynamically set point radius based on number of data points
+    }
       ]
   },
   options: {
@@ -312,12 +320,13 @@ const chart3 = new Chart(ctx3, {
       data: highValues3.slice(-numDataPoints3), // display the latest number of data points by default
       borderWidth: 1,
       pointRadius: pointRadius3, // dynamically set point radius based on number of data points
-    },         {
-            label: 'Trend',
-            data: trendValues3, // ganti ini jadi trendnya
-            borderWidth: 1
-          //  pointRadius: ,
-          },
+    },
+    {
+      label: 'trend',
+      data: trendValues3.slice(-numDataPoints3), // display the latest number of data points by default
+      borderWidth: 1,
+      pointRadius: pointRadius3, // dynamically set point radius based on number of data points
+    }
       ]
   },
   options: {
