@@ -69,10 +69,14 @@ class UserController extends Controller
 
     public function logout()
     {
-        // Update email_verified_at column for authenticated user 
-        Auth::user()->update(['email_verified_at' => null]); // Set waktu ketika user logout
-        Auth::logout();
-
+        $user = Auth::user(); // Get the authenticated user
+    
+        if ($user) {
+            $user->update(['email_verified_at' => null]); // Set email_verified_at to null
+        }
+        
+        Auth::logout(); // Log the user out
+        
         return view('home');
     }
 
