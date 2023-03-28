@@ -9,22 +9,13 @@ use PDO;
 class NewController extends Controller
 {
     // get high data
-    public function getHighData(Request $request){
+    public function getHighData(){
         // get data as array from table binance and column high and column id
-        $showAll = $request->input('showAll', false);
-        if ($request->input('showAll')) {
             $data = DB::table('binance')->select('high')->get();
             $date = DB::table('binance')->select('date')->get();
-        } else {
-            // only show 30 latest data
-            $data = DB::table('binance')->select('high')->orderBy('id', 'desc')->limit(30)->get();
-            $date = DB::table('binance')->select('date')->orderBy('id', 'desc')->limit(30)->get();
             //! datanya kebalik benerin
 
-
-        }
-        return view('output', compact('data', 'date', 'showAll'));
-
+        return view('output', compact('data', 'date'));
     }
     //Mencari rata-rata low, high, volume setiap 5 kolom
     public function AverageAll()

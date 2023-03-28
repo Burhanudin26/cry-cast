@@ -19,39 +19,74 @@
     }
 
     /* add height to the canvas */
-    .table canvas {
-      height: 400px;
+    .chart canvas {
+      width: 800px;
+    }
+
+    .card {
+      /* transparent white bg and shadow */
+      background-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.329);
+      /* also blur */
+      backdrop-filter: blur(10px);
     }
   </style>
   <section class="container d-flex flex-column justify-content-center align-items-center mt-0 mt-md-5">
-    <div class="table">
+    <div class="chart">
       <canvas id="data"></canvas>
       <canvas id="data2" class="d-none"></canvas>
       <canvas id="data3" class="d-none"></canvas>
     </div>
 
-    <div class="button">
-      <!-- Show latest 30 data button -->
-      <button onclick="location.href='{{ route('output', ['showAll' => 0]) }}'">Show latest 30 data</button>
+    <div class="main">
+      <div class="upperBtn mt-4 mb-4">
+        <!-- Show latest 30 data button -->
+        <button>Show latest 30 data</button>
 
-      <!-- Show all data button -->
-      <button onclick="location.href='{{ route('output', ['showAll' => 1]) }}'">Show all data</button>
+        <!-- Show all data button -->
+        <button>Show all data</button>
 
-      {{-- show all table button --}}
-      <button onclick='showAllt()'>Show all table</button>
+        {{-- show all table button --}}
+        <button onclick='showAllt()'>Show all table</button>
+      </div>
+      {{-- output pada tanggal --}}
+      <div class="row">
+        <div class="col">
+          {{-- sma --}}
+          <div class="output text-center mt-5 mb-5">
+            <h3>Trend</h3>
+            <p>Trend pada tanggal {{ $date[0]->date }}</p> <br>
+            <div class="card px-4">
+              <p class="pt-3">Cenderung Naik</p>
+            </div>
+          </div>
 
-      {{-- show latest 30 table button --}}
+        </div>
+        <div class="col">
+          {{-- bayes --}}
+          <div class="output text-center mt-5 mb-5">
+            <h3>Hasil prediksi</h3>
+            <p>Hasil prediksi pada tanggal {{ $date[0]->date }}</p>
+            <div class="card px-4">
+              <p class="pt-3">99% Naik</p>
+              <p>1% Turun</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {{-- back button float --}}
       <div class="tombol">
         <a href="{{ url('/menu') }}" class="tombol-terbang" role="button" type="button">
           <i class="fa-solid fa-reply"></i></a>
       </div>
       {{-- back button biasa --}}
-      <div class="tombol2 mt-3 text-center">
+      <div class="tombol2 mt-3 mb-3 text-center">
         <a href="{{ url('/menu') }}" class="btn btn-primary" role="button" type="button"> Kembali</a>
       </div>
 
     </div>
+
   </section>
   {{-- Chart.js --}}
   <script src="{{ url('js/chart.js/dist/chart.umd.js') }}"></script>
@@ -64,7 +99,7 @@
     // trend
     // const trend = ;
     // const trendValues = trend.map(trend => trend.trend);
-    //! ganti ini
+    //! ganti ini aktifkan trendnya
     // date
     const ids = {!! json_encode($date) !!};
     const idv = ids.map(id => {
@@ -78,18 +113,19 @@
       data: {
         labels: idv,
         datasets: [{
-          label: 'high',
-          data: highValues,
-          borderWidth: 1,
-          pointRadius: {{ $showAll ? 0 : 3 }},
-        },
-        {
-          label: 'Trend',
-          data: highValues, // ganti ini jadi trendnya
-          borderWidth: 1,
-          pointRadius: {{ $showAll ? 0 : 3 }},
-        },
-      ]},
+            label: 'high',
+            data: highValues,
+            borderWidth: 1
+          //  pointRadius: 0,
+          },
+          {
+            label: 'Trend',
+            data: highValues, // ganti ini jadi trendnya
+            borderWidth: 1
+          //  pointRadius: ,
+          },
+        ]
+      },
       options: {
         responsive: true,
         scales: {
@@ -138,8 +174,8 @@
         datasets: [{
           label: 'high',
           data: highValues2,
-          borderWidth: 1,
-          pointRadius: {{ $showAll ? 0 : 3 }},
+          borderWidth: 1
+         // pointRadius: ,
         }]
       },
       options: {
@@ -188,8 +224,8 @@
         datasets: [{
           label: 'high',
           data: highValues3,
-          borderWidth: 1,
-          pointRadius: {{ $showAll ? 0 : 3 }},
+          borderWidth: 1
+         // pointRadius: ,
         }]
       },
       options: {
