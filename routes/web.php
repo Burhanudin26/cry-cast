@@ -29,12 +29,6 @@ Route::post('/loginPost', [UserController::class, 'login'])->name('loginPost');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 
-
-// route to menu page with name menu
-
-Route::get('/menu', function () {
-    return view('menu');
-})->name('menu');
 // route to about page
 Route::get('/about', function () {
     return view('about');
@@ -47,46 +41,53 @@ Route::get('/loginPage', function () {
 // route to register page
 Route::get('/registerPage', function () {
     return view('login.register');
-});
+})->name('regis');
 
-// route to eth
-Route::get('menu/eth', function () {
-    return view('menu.eth');
-});
+// menu route
+Route::get('/menu', function () {
+    return view('menu');
+})->name('menu');
 
-// route to bitcoin
-Route::get('menu/bitcoin', function () {
-    return view('menu.bitcoin');
-});
+Route::prefix('menu')->group(function () {
+    // route to eth
+    Route::get('eth', function () {
+        return view('menu.eth');
+    });
 
-// route to biance
-Route::get('menu/binance', function () {
-    return view('menu.binance');
-});
+    // route to bitcoin
+    Route::get('bitcoin', function () {
+        return view('menu.bitcoin');
+    });
 
-// route to dogecoin
-Route::get('menu/dogecoin', function () {
-    return view('menu.dogecoin');
-});
+    // route to biance
+    Route::get('binance', function () {
+        return view('menu.binance');
+    });
 
-// route to iota
-Route::get('menu/iota', function () {
-    return view('menu.iota');
-});
+    // route to dogecoin
+    Route::get('dogecoin', function () {
+        return view('menu.dogecoin');
+    });
 
-// route to solana
-Route::get('menu/solana', function () {
-    return view('menu.solana');
-});
+    // route to iota
+    Route::get('iota', function () {
+        return view('menu.iota');
+    });
 
-// route to stellar
-Route::get('menu/stellar', function () {
-    return view('menu.stellar');
-});
+    // route to solana
+    Route::get('solana', function () {
+        return view('menu.solana');
+    });
 
-// route to tron
-Route::get('menu/tron', function () {
-    return view('menu.tron');
+    // route to stellar
+    Route::get('stellar', function () {
+        return view('menu.stellar');
+    });
+
+    // route to tron
+    Route::get('tron', function () {
+        return view('menu.tron');
+    });
 });
 
 // Route to controller

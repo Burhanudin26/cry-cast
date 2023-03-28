@@ -2,14 +2,15 @@
 @section('title', 'Binance')
 @section('content')
 
-  <link rel="stylesheet" href="{{ url('css/menu-cry.css') }}"> {{-- ini --}}
+  <link rel="stylesheet" href="{{ url('css/menu-cry.css') }}">
   <!-- content -->
+  @include('layouts.tips') {{-- ini --}}
   <section class="container mt-5 pt-5 d-flex flex-column justify-content-center align-items-center" style="height: 80vh;">
     <div class="card">
       <div class="card-header">
-        <h1 class="text-center">Binance</h1> {{-- ini kecilin --}}
+        <h1 class="text-center">Binance</h1>
       </div>
-      <div class="card-body p-4" style="background-color: rgba(255, 255, 255, 0);"> {{-- ini bgc --}}
+      <div class="card-body p-4" style="background-color: rgba(255, 255, 255, 0);"> {
         <form method="POST" action="/import1" enctype="multipart/form-data">
           <!-- pilih tanggal -->
           <div class="mb-3">
@@ -74,6 +75,11 @@
       </div>
     </div>
   </section>
+  {{-- jq --}}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  {{-- swup --}}
+  <script src="/js/swup_trans.js"></script> {{-- ini --}}
+
   <script>
     // ini buat drag and drop
     const fileInput = document.getElementById("fileInput");
