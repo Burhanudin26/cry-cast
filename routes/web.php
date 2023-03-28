@@ -41,7 +41,7 @@ Route::get('/loginPage', function () {
 // route to register page
 Route::get('/registerPage', function () {
     return view('login.register');
-});
+})->name('regis');
 
 // menu route
 Route::get('/menu', function () {
