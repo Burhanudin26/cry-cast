@@ -147,46 +147,46 @@ class NewController extends Controller
                 $i = $i - 4;
             }
         }
+        $this->BB();
         $this->getHighData();
     }
     //Threshold Naive bayes per bulan
-    //     public function Threshold()
-    //     {
-    //         // Create a PDO connection to the database
-    //     $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
+    public function Threshold()
+{
+    // Create a PDO connection to the database
+    $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
 
-    //     // Prepare the SQL query to get the low, high, and volume values from the binance table grouped by month
-    //     $stmt = $db->prepare('SELECT YEAR(date) AS year, MONTH(date) AS month, AVG(low) AS avg_low, AVG(high) AS avg_high, AVG(volume) AS avg_volume FROM binance GROUP BY YEAR(date), MONTH(date)');
+    // Prepare the SQL query to get the monthly averages of low, high, and volume from the binance table
+    $stmt = $db->prepare('SELECT DATE_FORMAT(date, "%Y-%m-01") AS month, AVG(low) AS avg_low, AVG(high) AS avg_high, AVG(volume) AS avg_volume FROM binance GROUP BY month');
 
-    //     // Execute the query
-    //     $stmt->execute();
+    // Execute the query
+    $stmt->execute();
 
-    //     // Fetch the result as an array of rows
-    //     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Fetch the result as an array of rows
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    DB::table('threshold')->truncate();
+    // Loop through each row and insert the monthly averages into the threshold table
+    foreach ($rows as $row) {
+        $month = $row['month'];
+        $avg_low = $row['avg_low'];
+        $avg_high = $row['avg_high'];
+        $avg_volume = $row['avg_volume'];
 
-    //     // Loop through each row and insert the monthly averages into the MonthlyAverages table
-    //     foreach ($rows as $row) {
-    //         $year = $row['year'];
-    //         $month = $row['month'];
-    //         $avg_low = $row['avg_low'];
-    //         $avg_high = $row['avg_high'];
-    //         $avg_volume = $row['avg_volume'];
+        // Prepare the SQL query to insert the monthly averages into the threshold table
+        $insert_stmt = $db->prepare('INSERT INTO threshold (date, hold_low, hold_high, hold_volume) VALUES (:date, :hold_low, :hold_high, :hold_volume)');
 
-    //         // Prepare the SQL query to insert the average values into the MonthlyAverages table
-    //         $insert_stmt = $db->prepare('INSERT INTO MonthlyAverages (year, month, avg_low, avg_high, avg_volume) VALUES (:year, :month, :avg_low, :avg_high, :avg_volume)');
+        // Bind the monthly averages to the query parameters
+        $insert_stmt->bindParam(':date', $month);
+        $insert_stmt->bindParam(':hold_low', $avg_low);
+        $insert_stmt->bindParam(':hold_high', $avg_high);
+        $insert_stmt->bindParam(':hold_volume', $avg_volume);
 
-    //         // Bind the average values to the query parameters
-    //         $insert_stmt->bindParam(':year', $year);
-    //         $insert_stmt->bindParam(':month', $month);
-    //         $insert_stmt->bindParam(':avg_low', $avg_low);
-    //         $insert_stmt->bindParam(':avg_high', $avg_high);
-    //         $insert_stmt->bindParam(':avg_volume', $avg_volume);
+        // Execute the query to insert the monthly averages into the threshold table
+        $insert_stmt->execute();
+    }
+}
 
-    //         // Execute the query to insert the average values into the MonthlyAverages table
-    //         $insert_stmt->execute();
-    //     }
-    // }
-    //Membuat bullish dan bearish pada moving average
+    // Membuat bullish dan bearish pada moving average
     public function BB()
     {
 
@@ -213,30 +213,29 @@ class NewController extends Controller
 
 
 
+
     //Binance
     public function import1(Request $request)
     {
-        $file = $request->file('csv_input_binance');
-        if ($file && $file->isValid()) {
-            $path = $file->getRealPath();
-            $data = array_map('str_getcsv', file($path));
-            $data = array_slice($data, 1); // skip the first row
-            $table = 'binance';
-            DB::table('binance')->where('id', '<>', 'admin')->delete();
-            foreach ($data as $row) {
-                DB::table($table)->insert([
-                    'date' => date('Y/m/d', strtotime($row[3])),
-                    'high' => is_numeric($row[4]) ? $row[4] : 0,
-                    'low' => is_numeric($row[5]) ? $row[5] : 0,
-                    'volume' => is_numeric($row[8]) ? $row[8] : 0,
-                ]);
-            }
-        }
-        $this->AverageAll();
-        // $this->Threshold();
-        // redirect to the page to display the results output
-        return redirect()->route('output');
-    }
+    $file = $request->file('csv_input_binance');
+    if($file && $file->isValid()){
+        $path = $file->getRealPath();
+        $data = array_map('str_getcsv', file($path));
+        $data = array_slice($data, 1); // skip the first row
+        $table = 'binance';
+        DB::table('binance')->where('id', '<>','admin')->delete();
+        foreach ($data as $row) {
+            DB::table($table)->insert([
+                'date' => date('Y/m/d', strtotime($row[3])),
+                'high' => is_numeric($row[4]) ? $row[4] : 0,
+                'low' => is_numeric($row[5]) ? $row[5] : 0,
+                'volume' => is_numeric($row[8]) ? $row[8] : 0,
+    ]);}}
+    $this->AverageAll();
+    $this->Threshold();
+    // redirect to the page to display the results output
+    return redirect()->route('output');
+}
 
     //Bitcoin
     public function import2(Request $request)
