@@ -58,7 +58,7 @@
             <h3>Trend</h3>
             <p>Trend pada tanggal {{ date('Y/m/d', strtotime($date[count($date) - 1]->date . ' + 1 day')) }}</p> <br>
             <div class="card px-4">
-              <p class="pt-3">Cenderung Naik</p>
+              <p class="pt-3">{{ $output }}</p>
             </div>
           </div>
         </div>
@@ -67,7 +67,6 @@
           <div class="output text-center mt-5 mb-5">
             <h3>Hasil prediksi</h3>
             <p>Hasil prediksi pada tanggal {{ date('Y/m/d', strtotime($date[count($date) - 1]->date . ' + 1 day')) }}</p>
-
             <div class="card px-4">
               <p class="pt-3">99% Naik</p>
               <p>1% Turun</p>
@@ -87,8 +86,6 @@
       </div>
 
     </div>
-    {{-- ECHO ALL DATA --}}
-    {{ $low_trend }}
 
   </section>
   {{-- Chart.js --}}

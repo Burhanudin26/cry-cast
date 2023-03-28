@@ -24,7 +24,9 @@ class NewController extends Controller
         $volume_trend = DB::table('SMA')->select('sma_volume')->get();
         $date = DB::table('binance')->select('date')->get();
 
-        return view('output')->with(compact('data','trend','low_data','low_trend','volume_data','volume_trend','date'));
+        // get oyutput in function BB
+        $output = $this->BB();
+        return view('output')->with(compact('data','trend','low_data','low_trend','volume_data','volume_trend','date', 'output'));
     }
     //Mencari rata-rata low, high, volume setiap 5 kolom
     public function AverageAll()
@@ -187,35 +189,26 @@ class NewController extends Controller
     //Membuat bullish dan bearish pada moving average
     public function BB()
     {
-        $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
-        $stmt1 = $db->prepare('SELECT high FROM binance');
-        $stmt1->execute();
-        $stmt2 = $db->prepare('SELECT sma_high FROM sma');
-        $stmt2->execute();
-        $rows = $stmt1->fetchAll(PDO::FETCH_ASSOC);
-        $sma_highs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-        DB::table('Bullish_Berrish')->truncate();
-        foreach ($rows as $row) {
-            $status = false; // Set initial value to false
-            foreach ($sma_highs as $sma_high) {
-                if ($row['high'] < $sma_high['sma_high']) {
-                    $status = false;
-                } else {
-                    $status = true;
-                }
-            }
-            if ($status) {
-                $komen = "Naik"; // Add a comment
-            } else {
-                $komen = "Turun"; // Add a comment
-            }
-            $stmt3 = $db->prepare('INSERT INTO `Bullish_Berrish` (`Status`, `Komen`) VALUES (:Decis, :komen)');
-            $stmt3->bindParam(':Decis', $status, PDO::PARAM_BOOL);
-            $stmt3->bindParam(':komen', $komen, PDO::PARAM_STR);
-            $stmt3->execute();
-            // echo output
-            echo $status ? '1' : '0';
+
+        $sma = DB::table('SMA')->orderBy('id', 'desc')->take(2)->get();
+        $high = DB::table('binance')->orderBy('id', 'desc')->take(2)->get();
+        $sma1 = $sma[0]->sma_low;
+        $sma2 = $sma[1]->sma_low;
+        $high1 = $high[0]->high;
+        $high2 = $high[1]->high;
+        if($high1 > $sma1){
+            $output = 'naik';
+        } else if ($high1 < $sma1){
+            $output = 'turun';
+        } else if (($high2 > $sma2) && ($high1 < $sma1)){
+            $output = 'menuju naik';
+        } else if (($high2 < $sma2) && ($high1 > $sma1)){
+            $output = 'menuju turun';
+        } else {
+            $output = '0';
         }
+        // retuen the output
+        return $output;
     }
 
 
