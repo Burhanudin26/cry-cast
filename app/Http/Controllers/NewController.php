@@ -12,21 +12,21 @@ class NewController extends Controller
     // get high data
     public function getHighData(){
         // get data as array from table binance and column high and column id
-        $data = DB::table('binance')->select('high')->get()->reverse();
-        $trend = DB::table('SMA')->select('sma_high')->get()->reverse();
-        
+        $data = DB::table('binance')->select('high')->get();
+        $trend = DB::table('SMA')->select('sma_high')->get();
+
         // get data as array from table binance and column low and column id
-        $low_data = DB::table('binance')->select('low')->get()->reverse();
-        $low_trend = DB::table('SMA')->select('sma_low')->get()->reverse();
-        
+        $low_data = DB::table('binance')->select('low')->get();
+        $low_trend = DB::table('SMA')->select('sma_low')->get();
+
         // get data as array from table binance and column volume and column id
-        $volume_data = DB::table('binance')->select('volume')->get()->reverse();
-        $volume_trend = DB::table('SMA')->select('sma_volume')->get()->reverse();
-        $date = DB::table('binance')->select('date')->get()->reverse();
-    
+        $volume_data = DB::table('binance')->select('volume')->get();
+        $volume_trend = DB::table('SMA')->select('sma_volume')->get();
+        $date = DB::table('binance')->select('date')->get();
+
         return view('output')->with(compact('data','trend','low_data','low_trend','volume_data','volume_trend','date'));
     }
-    
+
   // get low data
 /*public function getLowData(){
     // get data as array from table binance and column low and column id
@@ -76,7 +76,7 @@ public function getVolumeData(){
             $avg_lows[] = $low;
             $avg_highs[] = $high;
             $avg_volumes[] = $volume;
-    
+
             // If we've reached a group of 5 rows, calculate the averages and insert them into the SMA table
             if (count($avg_lows)==5 && count($avg_highs)==5 && count($avg_volumes)==5) {
                 $avg_low = array_sum($avg_lows) / count($avg_lows);
