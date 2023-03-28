@@ -188,35 +188,26 @@ class NewController extends Controller
     // Membuat bullish dan bearish pada moving average
     public function BB()
     {
-        $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
-        $stmt1 = $db->prepare('SELECT high FROM binance');
-        $stmt1->execute();
-        $stmt2 = $db->prepare('SELECT sma_high FROM sma');
-        $stmt2->execute();
-        $rows = $stmt1->fetchAll(PDO::FETCH_ASSOC);
-        $sma_highs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-        DB::table('Bullish_Berrish')->truncate();
-        foreach ($rows as $row) {
-            $status = false; // Set initial value to false
-            foreach ($sma_highs as $sma_high) {
-                if ($row['high'] < $sma_high['sma_high']) {
-                    $status = false;
-                } else {
-                    $status = true;
-                }
-            }
-            if ($status) {
-                $komen = "Naik"; // Add a comment
-            } else {
-                $komen = "Turun"; // Add a comment
-            }
-            $stmt3 = $db->prepare('INSERT INTO `Bullish_Berrish` (`Status`, `Komen`) VALUES (:Decis, :komen)');
-            $stmt3->bindParam(':Decis', $status, PDO::PARAM_BOOL);
-            $stmt3->bindParam(':komen', $komen, PDO::PARAM_STR);
-            $stmt3->execute();
-            // echo output
-            echo $status ? '1' : '0';
+
+        $sma = DB::table('SMA')->orderBy('id', 'desc')->take(2)->get();
+        $high = DB::table('binance')->orderBy('id', 'desc')->take(2)->get();
+        $sma1 = $sma[0]->sma_high;
+        $sma2 = $sma[1]->sma_high;
+        $high1 = $high[0]->high;
+        $high2 = $high[1]->high;
+        if (($high2 > $sma2) && ($high1 < $sma1)) {
+            $output = 'menuju naik';
+        } else if (($high2 < $sma2) && ($high1 > $sma1)) {
+            $output = 'menuju turun';
+        } else if ($high1 > $sma1) {
+            $output = 'naik';
+        } else if ($high1 < $sma1) {
+            $output = 'turun';
+        } else {
+            $output = '';
         }
+        // retuen the output
+        return $output;
     }
 
 
@@ -240,6 +231,8 @@ class NewController extends Controller
     ]);}}
     $this->AverageAll();
     // $this->Threshold();
+    // redirect to the page to display the results output
+    return redirect()->route('output');
 }
 
     //Bitcoin
