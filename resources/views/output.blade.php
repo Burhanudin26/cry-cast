@@ -87,6 +87,8 @@
       </div>
 
     </div>
+    {{-- ECHO ALL DATA --}}
+    {{ $low_trend }}
 
   </section>
   {{-- Chart.js --}}
@@ -288,18 +290,18 @@
     // chart 3
     const ctx3 = document.getElementById('data3');
 
-    const data3 = {!! json_encode($volume_data) !!};
-    const volumeValues3 = data3.map(datum => datum.volume);
+const data3 = {!! json_encode($volume_data) !!};
+const volumeValues3 = data3.map(datum => datum.volume);
 
-    // trend
-    const trend3 = {!! json_encode($volume_trend) !!}
-    const trendValues3 = trend3.map(trend => trend.sma_volume);
+// trend
+const trend3 = {!! json_encode($volume_trend) !!}
+const trendValues3 = trend3.map(trend => trend.sma_volume);
 
-    const ids3 = {!! json_encode($date) !!};
-    const idv3 = ids3.map(id3 => {
-      const date3 = new Date(id3.date);
-      return `${date3.getFullYear()}/${(date3.getMonth() + 1).toString().padStart(2, '0')}/${date3.getDate().toString().padStart(2, '0')}`;
-    });
+const ids3 = {!! json_encode($date) !!};
+const idv3 = ids3.map(id3 => {
+  const date3 = new Date(id3.date);
+  return `${date3.getFullYear()}/${(date3.getMonth() + 1).toString().padStart(2, '0')}/${date3.getDate().toString().padStart(2, '0')}`;
+});
 
     let pointRadius3;
     let numDataPoints3 = 30; // default number of data points to display
