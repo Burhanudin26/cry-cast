@@ -46,17 +46,20 @@ class UserController extends Controller
         ]);
 
         if (filter_var($credentials['name_or_email'], FILTER_VALIDATE_EMAIL)) {
-            $user = User::where('email', $credentials['name_or_email'])->first();
+            $user = User::where('email', $credentials['name_or_email'])->first(); // If the user is logging in with their email
         } else {
-            $user = User::where('name', $credentials['name_or_email'])->first();
+            $user = User::where('name', $credentials['name_or_email'])->first(); // If the user is logging in with their username
         }
 
         if (!$user || !password_verify($credentials['password'], $user->password)) {
             return back()->withErrors([
-                'name_or_email' => 'The provided credentials do not match our records.',
+                'name_or_email' => 'The provided credentials do not match our records.', // 
             ]);
         }
-
+        
+        // Update email_verified_at column for authenticated user
+        Auth::user()->update(['email_verified_at' => 'Has_Logged_In']);
+        
         Auth::login($user);
 
         return view('menu');
@@ -64,6 +67,8 @@ class UserController extends Controller
 
     public function logout()
     {
+        // Update email_verified_at column for authenticated user
+        Auth::user()->update(['email_verified_at' => 'text_value']);
         Auth::logout();
 
         return view('home');
