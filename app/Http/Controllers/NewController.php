@@ -185,7 +185,7 @@ class NewController extends Controller
     //         $insert_stmt->execute();
     //     }
     // }
-    //Membuat bullish dan bearish pada moving average
+    // Membuat bullish dan bearish pada moving average
     public function BB()
     {
         $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
