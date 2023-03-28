@@ -49,9 +49,10 @@
         {{-- show all table button --}}
         <button onclick='showAllt()'>Show all table</button>
       </div>
-      {{-- output bayes pada tanggal --}}
+      {{-- output pada tanggal --}}
       <div class="row">
         <div class="col">
+          {{-- sma --}}
           <div class="output text-center mt-5 mb-5">
             <h3>Trend</h3>
             <p>Trend pada tanggal {{ $date[0]->date }}</p> <br>
@@ -62,6 +63,7 @@
 
         </div>
         <div class="col">
+          {{-- bayes --}}
           <div class="output text-center mt-5 mb-5">
             <h3>Hasil prediksi</h3>
             <p>Hasil prediksi pada tanggal {{ $date[0]->date }}</p>
