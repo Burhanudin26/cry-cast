@@ -3,6 +3,7 @@
 @section('content')
 <link rel="stylesheet" href="{{ url('css/menu-cry.css') }}">
   <!-- content -->
+  @include('layouts.tips') {{-- ini --}}
   <section class="container mt-5 pt-5 d-flex flex-column justify-content-center align-items-center" style="height: 80vh;">
     <div class="card" style="min-width: 700px;">
       <div class="card-header">

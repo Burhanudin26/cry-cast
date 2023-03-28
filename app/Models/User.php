@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'email_verified_at'
     ];
 
     /**
@@ -38,6 +39,7 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
+    // Protected $casts is for casting the value of a column to a specific type 
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];

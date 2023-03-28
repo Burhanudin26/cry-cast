@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Carbon\Carbon;
+
 
 class UserController extends Controller
 {
@@ -57,8 +59,8 @@ class UserController extends Controller
             ]);
         }
         
-        // Update email_verified_at column for authenticated user
-        Auth::user()->update(['email_verified_at' => 'Has_Logged_In']);
+        // Update email_verified_at column for the user who just logged in
+        $user->update(['email_verified_at' => Carbon::now()]); // Set waktu ketika user login
         
         Auth::login($user);
 
@@ -67,8 +69,8 @@ class UserController extends Controller
 
     public function logout()
     {
-        // Update email_verified_at column for authenticated user
-        Auth::user()->update(['email_verified_at' => 'text_value']);
+        // Update email_verified_at column for authenticated user 
+        Auth::user()->update(['email_verified_at' => null]); // Set waktu ketika user logout
         Auth::logout();
 
         return view('home');
