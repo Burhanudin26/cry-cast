@@ -30,7 +30,7 @@ class UserController extends Controller
         Auth::login($user);
         $user->save();
 
-        return view('login.register');
+        return view('login.login');
     }
 
     public function showLoginForm()
@@ -41,7 +41,7 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'name_or_email' => 'required',
+            'name_or_email' => 'required', 
             'password' => 'required',
         ]);
 
@@ -59,14 +59,14 @@ class UserController extends Controller
 
         Auth::login($user);
 
-        return redirect('/');
+        return view('menu');
     }
 
     public function logout()
     {
         Auth::logout();
 
-        return redirect('/login');
+        return view('home');
     }
 
     public function update(Request $request, $id)

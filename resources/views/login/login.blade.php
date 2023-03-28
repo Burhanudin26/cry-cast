@@ -10,7 +10,8 @@
               <div class="mb-md-5 mt-md-4 pb-5">
                 <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                 <p class="text-black-50 mb-5">Please enter your login and password!</p>
-                <form action="{{ route('login') }}" method="POST" id="login-form">
+                <form action="{{ route('loginPost') }}" method="POST" id="login-form">
+                  @csrf 
                   <!-- email -->
                   <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="name_or_email" name="name_or_email" placeholder="mail">
@@ -20,9 +21,11 @@
                   <div class="form-floating mb-3">
                     <input type="password" class="form-control" id="password" name="password" placeholder="pass">
                     <label for="password" class="text-black">Password</label>
-                    <div class="invalid-feedback">
-                      Username atau password salah.
+                    @error('password')
+                    <div class="alert alert-danger mt-3" role="alert" id="error-message" style="display:none;">
+                      Incorrect email or password.
                     </div>
+                    @enderror
                   </div>
                   <!-- cookies remember me checkbox -->
                   <div class="mb-2 d-flex">
@@ -36,14 +39,11 @@
                       Show Password
                     </button>
                   </div>
-                  <div class="alert alert-danger mt-3" role="alert" id="error-message" style="display:none;">
-                    Incorrect email or password.
-                  </div>
-                  <button class="btn btn-outline-dark btn-lg px-5 mt-5" type="submit" name="submit">Login</button>
+                  <button id="submitLogin" class="btn btn-outline-dark btn-lg px-5 mt-5" type="submit" name="submit">Login</button>
                 </form>
               </div>
               <div>
-                <p class="mb-1">Don't have an account? <a href="register" class="text-black-50 fw-bold">Sign Up</a>
+                <p class="mb-1">Don't have an account? <a href="/registerPage" class="text-black-50 fw-bold">Sign Up</a>
                 <p class="mb-0" style="opacity: 50%;">Forgot your password? <a href="forgotpass" class="text-black-50 fw-bold text-secondary">Change password</a>
                 </p>
               </div>
@@ -53,22 +53,33 @@
       </div>
     </div>
   </section>
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
   <script src="{{ asset('js/loginvalid.js') }}"></script>
-  <script>
-    // show password
-    $(document).ready(function() {
-      $("#showpass").click(function() {
-        console.log("clicked");
-        if ($("#password").attr("type") === "password") {
-          $("#password").attr("type", "text");
-          $("#showpass").text("Hide Password");
-        } else {
-          $("#password").attr("type", "password");
-          $("#showpass").text("Show Password");
-        }
-      });
+
+    {{-- enable submit button if all validation is true --}}
+   <script>
+    console.log("name: " + name + ", email: " + email + ", password: " + password + ", rpass: " + rpass);
+    $("#submit").addClass("disabled");
+    $("input").keyup(function () {
+      let email = $("#name_or_email").val();
+      let password = $("#password").val();
+      let rpass = $("#rpass").val();
+      let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+      if (
+        name.length > 3 &&
+        isNaN(name) &&
+        (email.length > 6 &&
+          email.includes("@") &&
+          email.includes(".")) &&
+        password.length > 6 &&
+        regex.test(password) &&
+        rpass == password
+      ) {
+        $("#submit").removeClass("disabled");
+      } else {
+        $("#submit").addClass("disabled");
+      }
     });
   </script>
 @endsection
