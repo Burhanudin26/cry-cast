@@ -135,7 +135,7 @@
         {{-- p3 --}}
         <div class="col-6 col-md-3">
           <div class="card rounded-circle">
-            <img src="/pictures/guest.jpg" class="img-fluid rounded-circle shadow" alt="">
+            <img src="/pictures/profil/3.jpg" class="img-fluid rounded-circle shadow" alt="">
             <div class="img-title">
               <h4 class="text-center"> Azaryaa </h4>
             </div>
