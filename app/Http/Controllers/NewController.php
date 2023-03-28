@@ -24,7 +24,9 @@ class NewController extends Controller
         $volume_trend = DB::table('SMA')->select('sma_volume')->get();
         $date = DB::table('binance')->select('date')->get();
 
-        return view('output')->with(compact('data','trend','low_data','low_trend','volume_data','volume_trend','date'));
+        // get oyutput in function BB
+        $output = $this->BB();
+        return view('output')->with(compact('data','trend','low_data','low_trend','volume_data','volume_trend','date', 'output'));
     }
     //Mencari rata-rata low, high, volume setiap 5 kolom
     public function AverageAll()
@@ -195,9 +197,9 @@ class NewController extends Controller
         $rows = $stmt1->fetchAll(PDO::FETCH_ASSOC);
         $sma_highs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         DB::table('Bullish_Berrish')->truncate();
-        foreach ($rows as $row){
+        foreach ($rows as $row) {
             $status = false; // Set initial value to false
-            foreach ($sma_highs as $sma_high){
+            foreach ($sma_highs as $sma_high) {
                 if ($row['high'] < $sma_high['sma_high']) {
                     $status = false;
                 } else {
@@ -216,6 +218,8 @@ class NewController extends Controller
             // echo output
             echo $status ? '1' : '0';
         }
+        // retuen the output
+        return $output;
     }
 
 
