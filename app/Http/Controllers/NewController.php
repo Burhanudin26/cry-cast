@@ -147,7 +147,6 @@ class NewController extends Controller
             }
         }
         $this->getHighData();
-        $this->BB();
     }
 
     //Threshold Naive bayes per bulan
@@ -250,6 +249,8 @@ class NewController extends Controller
     ]);}}
     $this->AverageAll();
     // $this->Threshold();
+    // redirect to the page to display the results output
+    return redirect()->route('output');
 }
 
     //Bitcoin
