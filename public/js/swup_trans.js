@@ -35,7 +35,6 @@ swup.on("contentReplaced", function () {
 				.text("nama must be string and length must be greater than 3");
 		}
 	});
-
 	//email validation
 	$("#email").keyup(function () {
 		let email = $("#email").val();
@@ -207,7 +206,10 @@ $("#submitLoginLogin").addClass("disabled");
         $("#submit").addClass("disabled");
       }
     });
-
+    // modal rerun
+    $(document).ready(function () {
+        $("#tips").modal("show");
+    });
     // Re-run the parallax code on the new content
     if ("requestAnimationFrame" in window) {
         var e = [],
