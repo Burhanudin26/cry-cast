@@ -101,12 +101,8 @@ Route::post('/import6', 'App\Http\Controllers\NewController@import6');
 Route::post('/import7', 'App\Http\Controllers\NewController@import7');
 Route::post('/import8', 'App\Http\Controllers\NewController@import8');
 
-
 // Output
 Route::get('/output', 'App\Http\Controllers\NewController@getHighData')->name('output');
-
-// run method BB
-Route::get('/bb', 'App\Http\Controllers\NewController@BB')->name('bb');
 
 // redirect import1 to output
 Route::get('/import1', function () {
