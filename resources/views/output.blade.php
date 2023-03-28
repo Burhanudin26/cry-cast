@@ -88,7 +88,6 @@
     </div>
     {{-- ECHO ALL DATA --}}
     {{ $low_trend }}
-    {{ $volume_trend }}
 
   </section>
   {{-- Chart.js --}}
@@ -100,7 +99,7 @@
 
     // trend
     const trend = {!! json_encode($trend) !!}
-    const trendValues = trend.map(trend => trend.sma_high);
+    const trendValues = trend.map(trend => trend ? trend.sma_high : null);
     //! ganti ini aktifkan trendnya
     // date
 
@@ -116,13 +115,16 @@
       const selectedOption = dataPointsDropdown.value;
       if (selectedOption === 'all') {
         numDataPoints = highValues.length; // display all data points
+
       } else {
         numDataPoints = parseInt(selectedOption);
       }
       chart.data.labels = idv.slice(-
-      numDataPoints); // update chart labels to display the latest number of data points
+        numDataPoints); // update chart labels to display the latest number of data points
       chart.data.datasets[0].data = highValues.slice(-
-      numDataPoints); // update chart data to display the latest number of data points for high values
+        numDataPoints); // update chart data to display the latest number of data points for high values
+      chart.data.datasets[1].data = trendValues.slice(-
+        numDataPoints); // update chart data to display the latest number of data points for trend values
 
       if (numDataPoints > 100) {
         pointRadius = 0;
@@ -133,6 +135,7 @@
       }
 
       chart.data.datasets[0].pointRadius = pointRadius; // dynamically set point radius based on number of data points
+      chart.data.datasets[1].pointRadius = pointRadius; // dynamically set point radius based on number of data points
       chart.update(); // update the chart
     });
 
@@ -141,17 +144,18 @@
       data: {
         labels: idv.slice(-numDataPoints), // display the latest number of data points by default
         datasets: [{
-          label: 'high',
-          data: highValues.slice(-numDataPoints), // display the latest number of data points by default
-          borderWidth: 1,
-          pointRadius: pointRadius, // dynamically set point radius based on number of data points
-        },
-        {
-          label: 'trend',
-          data: trendValues.slice(-numDataPoints), // display the latest number of data points by default
-          borderWidth: 1,
-          pointRadius: pointRadius, // dynamically set point radius based on number of data points
-        }]
+            label: 'high',
+            data: highValues.slice(-numDataPoints), // display the latest number of data points by default
+            borderWidth: 1,
+            pointRadius: pointRadius, // dynamically set point radius based on number of data points
+          },
+          {
+            label: 'trend',
+            data: trendValues.slice(-numDataPoints), // display the latest number of data points by default
+            borderWidth: 1,
+            pointRadius: pointRadius, // dynamically set point radius based on number of data points
+          }
+        ]
       },
       options: {
         responsive: true,
@@ -188,7 +192,7 @@
     const ctx2 = document.getElementById('data2');
     // value
     const data2 = {!! json_encode($low_data) !!};
-    const highValues2 = data2.map(datum => datum.low);
+    const lowValues2 = data2.map(datum => datum.low);
     // trend
     const trend2 = {!! json_encode($low_trend) !!}
     const trendValues2 = trend2.map(trend => trend.sma_low);
@@ -200,93 +204,101 @@
       return `${date2.getFullYear()}/${(date2.getMonth() + 1).toString().padStart(2, '0')}/${date2.getDate().toString().padStart(2, '0')}`;
     });
 
-
-let pointRadius2;
-let numDataPoints2 = 30; // default number of data points to display
-const dataPointsDropdown2 = document.getElementById('data-points');
-dataPointsDropdown2.addEventListener('change', function() {
-  const selectedOption = dataPointsDropdown2.value;
-  if (selectedOption === 'all') {
-    numDataPoints2 = highValues2.length; // display all data points
-  } else {
-    numDataPoints2 = parseInt(selectedOption);
-  }
-  chart2.data.labels = idv2.slice(-numDataPoints2); // update chart labels to display the latest number of data points
-  chart2.data.datasets[0].data = highValues2.slice(-numDataPoints2); // update chart data to display the latest number of data points for high values
-
-  if (numDataPoints2 > 100) {
-    pointRadius2 = 0;
-  } else if (numDataPoints2 > 50) {
-    pointRadius2 = 2;
-  } else {
-    pointRadius2 = 3;
-  }
-
-  chart2.data.datasets[0].pointRadius = pointRadius2; // dynamically set point radius based on number of data points
-  chart2.update(); // update the chart
-});
-const chart2 = new Chart(ctx2, {
-  type: 'line',
-  data: {
-    labels: idv2.slice(-numDataPoints2), // display the latest number of data points by default
-    datasets: [{
-      label: 'high',
-      data: highValues2.slice(-numDataPoints2), // display the latest number of data points by default
-      borderWidth: 1,
-      pointRadius: pointRadius2, // dynamically set point radius based on number of data points
-    },
-    {
-      label: 'trend',
-      data: trendValues2.slice(-numDataPoints2), // display the latest number of data points by default
-      borderWidth: 1,
-      pointRadius: pointRadius2, // dynamically set point radius based on number of data points
-    }
-      ]
-  },
-  options: {
-    responsive: true,
-    scales: {
-      y: {
-        beginAtZero: true
+    let pointRadius2;
+    let numDataPoints2 = 30; // default number of data points to display
+    const dataPointsDropdown2 = document.getElementById('data-points');
+    dataPointsDropdown2.addEventListener('change', function() {
+      const selectedOption = dataPointsDropdown2.value;
+      if (selectedOption === 'all') {
+        numDataPoints2 = lowValues2.length; // display all data points
+      } else if (selectedOption === '90') {
+        numDataPoints2 = 90; // display 90 data points
+      } else {
+        numDataPoints2 = 30; // display 30 data points
       }
-    },
-    plugins: {
-      title: {
-        display: true,
-        text: 'Low values'
+      chart2.data.labels = idv2.slice(-
+      numDataPoints2); // update chart labels to display the latest number of data points
+      chart2.data.datasets[0].data = lowValues2.slice(-
+      numDataPoints2); // update chart data to display the latest number of data points for low values
+      chart2.data.datasets[1].data = trendValues2.slice(-
+      numDataPoints2); // update chart data to display the latest number of data points for trend values
+
+      if (numDataPoints2 > 100) {
+        pointRadius2 = 0;
+      } else if (numDataPoints2 > 50) {
+        pointRadius2 = 2;
+      } else {
+        pointRadius2 = 3;
+      }
+
+      chart2.data.datasets[0].pointRadius =
+      pointRadius2; // dynamically set point radius based on number of data points
+      chart2.data.datasets[1].pointRadius =
+      pointRadius2; // dynamically set point radius based on number of data points
+      chart2.update(); // update the chart
+    });
+
+    const chart2 = new Chart(ctx2, {
+      type: 'line',
+      data: {
+        labels: idv2.slice(-numDataPoints2), // display the latest number of data points by default
+        datasets: [{
+            label: 'Low',
+            data: lowValues2.slice(-numDataPoints2), // display the latest number of data points by default
+            borderWidth: 1,
+            pointRadius: pointRadius2, // dynamically set point radius based on number of data points
+          },
+          {
+            label: 'Trend',
+            data: trendValues2.slice(-numDataPoints2), // display the latest number of data points by default
+            borderWidth: 1,
+            pointRadius: pointRadius2, // dynamically set point radius based on number of data points
+          }
+        ]
       },
-      tooltip: {
-        mode: 'index',
-        intersect: false,
-        callbacks: {
-          label: function(context) {
-            const label = context.dataset.label || '';
-            if (label) {
-              return `${label}: ${context.formattedValue}`;
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Low Values'
+          },
+          tooltip: {
+            mode: 'index',
+            intersect: false,
+
+            callbacks: {
+              label: function(context) {
+                const label = context.dataset.label || '';
+                if (label) {
+                  return `${label}: ${context.formattedValue}`;
+                }
+                return `${context.formattedValue}`;
+              }
             }
-            return `${context.formattedValue}`;
           }
         }
       }
-    }
-  }
-});
+    });
 
     // chart 3
-    const ctx3 = document.getElementById('data3');
+const ctx3 = document.getElementById('data3');
 
     const data3 = {!! json_encode($volume_data) !!};
     const highValues3 = data3.map(datum => datum.volume);
     // trend
     const trend3 = {!! json_encode($volume_trend) !!}
-    const trendValues3 = trend3.map(trend => trend.sma_volume);
+    const trendValues3 = trend.map(trend => trend.sma_volume);
     const ids3 = {!! json_encode($date) !!};
     const idv3 = ids3.map(id3 => {
       const date3 = new Date(id3.date);
       return `${date3.getFullYear()}/${(date3.getMonth() + 1).toString().padStart(2, '0')}/${date3.getDate().toString().padStart(2, '0')}`;
     });
-
-
 
 let pointRadius3;
 let numDataPoints3 = 30; // default number of data points to display
@@ -312,23 +324,24 @@ dataPointsDropdown3.addEventListener('change', function() {
   chart3.data.datasets[0].pointRadius = pointRadius3; // dynamically set point radius based on number of data points
   chart3.update(); // update the chart
 });
+
 const chart3 = new Chart(ctx3, {
   type: 'line',
   data: {
     labels: idv3.slice(-numDataPoints3), // display the latest number of data points by default
     datasets: [{
-      label: 'high',
-      data: highValues3.slice(-numDataPoints3), // display the latest number of data points by default
-      borderWidth: 1,
-      pointRadius: pointRadius3, // dynamically set point radius based on number of data points
-    },
-    {
-      label: 'trend',
-      data: trendValues3.slice(-numDataPoints3), // display the latest number of data points by default
-      borderWidth: 1,
-      pointRadius: pointRadius3, // dynamically set point radius based on number of data points
-    }
-      ]
+        label: 'high',
+        data: highValues3.slice(-numDataPoints3), // display the latest number of data points by default
+        borderWidth: 1,
+        pointRadius: pointRadius3, // dynamically set point radius based on number of data points
+      },
+      {
+        label: 'trend',
+        data: trendValues3.slice(-numDataPoints3), // display the latest number of data points by default
+        borderWidth: 1,
+        pointRadius: pointRadius3, // dynamically set point radius based on number of data points
+      }
+    ]
   },
   options: {
     responsive: true,
@@ -340,7 +353,7 @@ const chart3 = new Chart(ctx3, {
     plugins: {
       title: {
         display: true,
-        text: 'Low values'
+        text: 'High values' // change title from 'Low values' to 'High values'
       },
       tooltip: {
         mode: 'index',
@@ -358,6 +371,7 @@ const chart3 = new Chart(ctx3, {
     }
   }
 });
+
     // Add listener to show tooltip on hover
     ctx.on('mousemove', function(event) {
       const activePoint = chart.getElementsAtEventForMode(event, 'nearest', {
