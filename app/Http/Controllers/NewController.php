@@ -105,7 +105,8 @@ class NewController extends Controller
         $sma_volumes = array();
         DB::table('SMA')->truncate();
         for($i=0; $i < 8; $i++){
-            
+            $insert_stmt = $db->prepare('INSERT INTO SMA (sma_low, sma_high, sma_volume) VALUES (0, 0, 0)');
+            $insert_stmt->execute();
         }
         // Calculate the average values for each column for each group of 5 rows
         for ($i = 0; $i < count($rows); $i++) {
@@ -186,7 +187,7 @@ class NewController extends Controller
 // }
     //Membuat bullish dan bearish pada moving average
     public function BB(){
-
+        
     }
     //Binance
     public function import1(Request $request)
