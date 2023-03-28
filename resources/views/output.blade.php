@@ -290,7 +290,7 @@
     const ctx3 = document.getElementById('data3');
 
 const data3 = {!! json_encode($volume_data) !!};
-const highValues3 = data3.map(datum => datum.volume);
+const volumeValues3 = data3.map(datum => datum.volume);
 
 // trend
 const trend3 = {!! json_encode($volume_trend) !!}

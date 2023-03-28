@@ -84,6 +84,11 @@ class crypto extends Migration
             $table->float('sma_low',20,10);
             $table->float('sma_volume',20 ,2);
         });
+        //mencari Simple Moving Average
+        Schema::create('Bullish_Berrish', function (Blueprint $table){
+            $table->boolean('Status');
+            $table->string('Komen');
+        });
         //Threshold naive bayes
         Schema::create('threshold', function (Blueprint $table){
             $table->date('date');
@@ -104,6 +109,7 @@ class crypto extends Migration
         Schema::dropIfExists('tron');
         Schema::dropIfExists('AverageAll');
         Schema::dropIfExists('SMA');
+        Schema::dropIfExists('Bullish_Berrish');
         Schema::dropIfExists('threshold');
     }
 }

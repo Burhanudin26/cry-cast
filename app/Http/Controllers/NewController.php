@@ -145,8 +145,7 @@ class NewController extends Controller
             }
         }
         $this->getHighData();
-        // $this->getLowData();
-        // $this->getVolumeData();
+        $this->BB();
     }
     //Threshold Naive bayes per bulan
 //     public function Threshold()
@@ -187,8 +186,37 @@ class NewController extends Controller
 // }
     //Membuat bullish dan bearish pada moving average
     public function BB(){
-        
+        $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
+        $stmt1 = $db->prepare('SELECT high FROM binance');
+        $stmt1->execute();
+        $stmt2 = $db->prepare('SELECT sma_high FROM sma');
+        $stmt2->execute();
+        $rows = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+        $sma_highs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+        DB::table('Bullish_Berrish')->truncate();
+        foreach ($rows as $row){
+            $status = false; // Set initial value to false
+            foreach ($sma_highs as $sma_high){
+                if ($row['high'] < $sma_high['sma_high']) {
+                    $status = 0;
+                    break; // Stop looping if condition is met
+                } else if ($row['high'] > $sma_high['sma_high']) {
+                    $status = 1;
+                    break; // Stop looping if condition is met
+                }
+            }
+            if ($status == 1) {
+                $komen = "Naik"; // Add a comment
+            } else {
+                $komen = "Turun"; // Add a comment
+            }
+            $stmt3 = $db->prepare('INSERT INTO `Bullish_Berrish` (`Status`, `Komen`) VALUES (:Decis, :komen)');
+            $stmt3->bindParam(':Decis', $status, PDO::PARAM_BOOL);
+            $stmt3->bindParam(':komen', $komen, PDO::PARAM_STR);
+            $stmt3->execute();
+        }
     }
+        
     //Binance
     public function import1(Request $request)
     {
