@@ -5,21 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDO;
+use PhpOption\None;
 
 class NewController extends Controller
 {
     // get high data
-    public function getHighData(){
+    public function getHighData(Request $request){
         // get data as array from table binance and column high and column id
 
         $showAll = $request->input('showAll', false);
         if ($request->input('showAll')) {
             $data = DB::table('binance')->select('high')->get();
+            $trend = DB::table('SMA')->select('sma_high')->get();
             $date = DB::table('binance')->select('date')->get();
         } else {
             // only show 30 latest data
-            $data = DB::table('binance')->select('high')->orderBy('id', 'desc')->limit(30)->get();
-            $date = DB::table('binance')->select('date')->orderBy('id', 'desc')->limit(30)->get();
+            $data = DB::table('binance')->select('high')->orderBy('id', 'desc')->limit(30)->get()->reverse();
+            $trend = DB::table('SMA')->select('sma_high')->orderBy('id', 'desc')->limit(30)->get()->reverse();
+            $date = DB::table('binance')->select('date')->orderBy('id', 'desc')->limit(30)->get()->reverse();
             //! datanya kebalik benerin
 
 
@@ -27,36 +30,45 @@ class NewController extends Controller
         return view('output', compact('data', 'date', 'showAll'));
 
     }
-    public function getLowData(){
-        // get data as array from table binance and column high and column id
-        // $showAll = $request->input('showAll', false);
-        // if ($request->input('showAll')) {
-        //     $data = DB::table('binance')->select('high')->get();
-        //     $id = DB::table('binance')->select('date')->get();
-        // } else {
+}
+    public function getLowData(Request $request){
+        $showAll = $request->input('showAll', false);
+        if ($request->input('showAll')) {
+            $data = DB::table('binance')->select('low')->get();
+            $trend = DB::table('SMA')->select('sma_low')->get();
+            $date = DB::table('binance')->select('date')->get();
+        } else {
             // only show 30 latest data
-            $data = DB::table('binance')->select('low')->orderBy('id', 'desc')->limit(30)->get();
-            $id = DB::table('binance')->select('date')->orderBy('id', 'desc')->limit(30)->get();
+            $data = DB::table('binance')->select('low')->orderBy('id', 'desc')->limit(30)->get()->reverse();
+            $trend = DB::table('SMA')->select('sma_low')->orderBy('id', 'desc')->limit(30)->get()->reverse();
+            $date = DB::table('binance')->select('date')->orderBy('id', 'desc')->limit(30)->get()->reverse();
+            //! datanya kebalik benerin
+
 
         //}
         return view('output', compact('data', 'date', 'showAll'));
 
     }
-    public function getVolumeData(){
-        // get data as array from table binance and column high and column id
-        // $showAll = $request->input('showAll', false);
-        // if ($request->input('showAll')) {
-        //     $data = DB::table('binance')->select('high')->get();
-        //     $id = DB::table('binance')->select('date')->get();
-        // } else {
+}
+    public function getVolumeData(Request $request){
+        $showAll = $request->input('showAll', false);
+        if ($request->input('showAll')) {
+            $data = DB::table('binance')->select('volume')->get();
+            $trend = DB::table('SMA')->select('sma_volume')->get();
+            $date = DB::table('binance')->select('date')->get();
+        } else {
             // only show 30 latest data
-            $data = DB::table('binance')->select('volume')->orderBy('id', 'desc')->limit(30)->get();
-            $id = DB::table('binance')->select('date')->orderBy('id', 'desc')->limit(30)->get();
+            $data = DB::table('binance')->select('volume')->orderBy('id', 'desc')->limit(30)->get()->reverse();
+            $trend = DB::table('SMA')->select('sma_volume')->orderBy('id', 'desc')->limit(30)->get()->reverse();
+            $date = DB::table('binance')->select('date')->orderBy('id', 'desc')->limit(30)->get()->reverse();
+            //! datanya kebalik benerin
+
 
         //}
         return view('output', compact('data', 'date', 'showAll'));
 
     }
+}
     //Mencari rata-rata low, high, volume setiap 5 kolom
     public function AverageAll()
     {
@@ -171,7 +183,6 @@ class NewController extends Controller
                 $i=$i-4;
             }
         }
-        $this->getHighData();
     }
     //Binance
     public function import1(Request $request)

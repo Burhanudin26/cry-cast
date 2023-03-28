@@ -95,8 +95,8 @@
     const data = {!! json_encode($data) !!};
     const highValues = data.map(datum => datum.high);
     // trend
-    // const trend = ;
-    // const trendValues = trend.map(trend => trend.trend);
+    const trend = {!! json_encode($trend) !!}
+    const trendValues = trend.map(trend => trend.sma_high);
     //! ganti ini aktifkan trendnya
     // date
     const ids = {!! json_encode($date) !!};
