@@ -88,6 +88,7 @@
     </div>
     {{-- ECHO ALL DATA --}}
     {{ $low_trend }}
+    {{ $volume_trend }}
 
   </section>
   {{-- Chart.js --}}

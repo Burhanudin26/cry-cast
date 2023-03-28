@@ -9,42 +9,23 @@ use PhpOption\None;
 
 class NewController extends Controller
 {
-    // get high data
+    // get trend SMA
     public function getHighData(){
         // get data as array from table binance and column high and column id
-        $data = DB::table('binance')->select('high')->get()->reverse();
-        $trend = DB::table('SMA')->select('sma_high')->get()->reverse();
+        $data = DB::table('binance')->select('high')->get();
+        $trend = DB::table('SMA')->select('sma_high')->get();
         
         // get data as array from table binance and column low and column id
-        $low_data = DB::table('binance')->select('low')->get()->reverse();
-        $low_trend = DB::table('SMA')->select('sma_low')->get()->reverse();
+        $low_data = DB::table('binance')->select('low')->get();
+        $low_trend = DB::table('SMA')->select('sma_low')->get();
         
         // get data as array from table binance and column volume and column id
-        $volume_data = DB::table('binance')->select('volume')->get()->reverse();
-        $volume_trend = DB::table('SMA')->select('sma_volume')->get()->reverse();
-        $date = DB::table('binance')->select('date')->get()->reverse();
+        $volume_data = DB::table('binance')->select('volume')->get();
+        $volume_trend = DB::table('SMA')->select('sma_volume')->get();
+        $date = DB::table('binance')->select('date')->get();
     
         return view('output')->with(compact('data','trend','low_data','low_trend','volume_data','volume_trend','date'));
     }
-
-  // get low data
-/*public function getLowData(){
-    // get data as array from table binance and column low and column id
-        $data = DB::table('binance')->select('low')->get()->reverse();
-        $trend = DB::table('SMA')->select('sma_low')->get()->reverse();
-        $date = DB::table('binance')->select('date')->get()->reverse();
-    //}
-    return view('output', compact('data', 'date'));
-}
-  // get volume data
-public function getVolumeData(){
-    // get data as array from table binance and column volume and column id
-        $data = DB::table('binance')->select('volume')->get()->reverse();
-        $trend = DB::table('SMA')->select('sma_volume')->get()->reverse();
-        $date = DB::table('binance')->select('date')->get()->reverse();
-    //}
-    return view('output', compact('data', 'date'));
-}*/
     //Mencari rata-rata low, high, volume setiap 5 kolom
     public function AverageAll()
     {
@@ -123,6 +104,9 @@ public function getVolumeData(){
         $sma_highs = array();
         $sma_volumes = array();
         DB::table('SMA')->truncate();
+        for($i=0; $i < 8; $i++){
+            
+        }
         // Calculate the average values for each column for each group of 5 rows
         for ($i = 0; $i < count($rows); $i++) {
             $row = $rows[$i];
