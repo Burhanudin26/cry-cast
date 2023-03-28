@@ -12,17 +12,17 @@ class NewController extends Controller
     // get high data
     public function getHighData(){
         // get data as array from table binance and column high and column id
-        $data = DB::table('binance')->select('high')->get()->reverse();
-        $trend = DB::table('SMA')->select('sma_high')->get()->reverse();
+        $data = DB::table('binance')->select('high')->get();
+        $trend = DB::table('SMA')->select('sma_high')->get();
         
         // get data as array from table binance and column low and column id
-        $low_data = DB::table('binance')->select('low')->get()->reverse();
-        $low_trend = DB::table('SMA')->select('sma_low')->get()->reverse();
+        $low_data = DB::table('binance')->select('low')->get();
+        $low_trend = DB::table('SMA')->select('sma_low')->get();
         
         // get data as array from table binance and column volume and column id
-        $volume_data = DB::table('binance')->select('volume')->get()->reverse();
-        $volume_trend = DB::table('SMA')->select('sma_volume')->get()->reverse();
-        $date = DB::table('binance')->select('date')->get()->reverse();
+        $volume_data = DB::table('binance')->select('volume')->get();
+        $volume_trend = DB::table('SMA')->select('sma_volume')->get();
+        $date = DB::table('binance')->select('date')->get();
     
         return view('output')->with(compact('data','trend','low_data','low_trend','volume_data','volume_trend','date'));
     }
@@ -164,7 +164,7 @@ public function getVolumeData(){
         // $this->getVolumeData();
     }
     //Threshold Naive bayes per bulan
-    /*public function Threshold()
+    public function Threshold()
     {
         // Create a PDO connection to the database
     $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
@@ -199,7 +199,7 @@ public function getVolumeData(){
         // Execute the query to insert the average values into the MonthlyAverages table
         $insert_stmt->execute();
     }
-}*/
+}
     //Membuat bullish dan bearish pada moving average
     public function BB(){
 
@@ -222,7 +222,7 @@ public function getVolumeData(){
                 'volume' => is_numeric($row[8]) ? $row[8] : 0,
     ]);}}
     $this->AverageAll();
-    // $this->Threshold();
+    $this->Threshold();
 }
 
     //Bitcoin

@@ -161,7 +161,7 @@
     const data2 = {!! json_encode($low_data) !!};
     const highValues2 = data2.map(datum => datum.low);
     // trend
-    const trend = {!! json_encode($low_trend) !!}
+    const trend2 = {!! json_encode($low_trend) !!}
     const trendValues2 = trend.map(trend => trend.sma_low);
 
     // date
@@ -223,7 +223,7 @@
     const data3 = {!! json_encode($volume_data) !!};
     const highValues3 = data3.map(datum => datum.volume);
     // trend
-    const trend = {!! json_encode($volume_trend) !!}
+    const trend3 = {!! json_encode($volume_trend) !!}
     const trendValues3 = trend.map(trend => trend.sma_volume);
     const ids3 = {!! json_encode($date) !!};
     const idv3 = ids3.map(id3 => {
