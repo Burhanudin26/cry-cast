@@ -25,7 +25,6 @@ class NewController extends Controller
         $date = DB::table('binance')->select('date')->get();
 
         // get oyutput in function BB
-        $output = $this->BB();
         return view('output')->with(compact('data','trend','low_data','low_trend','volume_data','volume_trend','date', 'output'));
     }
     //Mencari rata-rata low, high, volume setiap 5 kolom
@@ -218,8 +217,6 @@ class NewController extends Controller
             // echo output
             echo $status ? '1' : '0';
         }
-        // retuen the output
-        return $output;
     }
 
 
