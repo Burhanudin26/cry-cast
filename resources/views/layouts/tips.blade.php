@@ -6,6 +6,11 @@
     transition: 0.3s !important;
     /* Add transition effect */
   }
+
+    img {
+      transition: 0.3s !important;
+      /* Add transition effect */
+    }
 </style>
 <div class="modal fade" id="tips" tabindex="-1" role="dialog" aria-labelledby="tips" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
