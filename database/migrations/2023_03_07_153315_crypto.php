@@ -98,6 +98,20 @@ class crypto extends Migration
             $table->float('hold_low',20,10);
             $table->float('hold_volume',20,2);
         });
+        // create table bayes
+        Schema::create('bayes', function (Blueprint $table){
+            $table->id();
+            // date
+            $table->date('date');
+            // format bool
+            $table->boolean('high');
+            $table->boolean('low');
+            $table->boolean('volume');
+            // harga bool
+            $table->boolean('harga');
+
+
+        });
     }
     public function down()
     {
