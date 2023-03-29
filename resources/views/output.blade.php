@@ -68,7 +68,7 @@
             <h3>Hasil prediksi</h3>
             <p>Hasil prediksi pada tanggal {{ date('Y/m/d', strtotime($date[count($date) - 1]->date . ' + 1 day')) }}</p>
             <div class="card px-4">
-              <p class="pt-3">99% Naik</p>
+              <p class="pt-3">{{ $outputb }} % Naik</p>
               <p>1% Turun</p>
             </div>
           </div>
@@ -287,18 +287,18 @@
     // chart 3
     const ctx3 = document.getElementById('data3');
 
-const data3 = {!! json_encode($volume_data) !!};
-const volumeValues3 = data3.map(datum => datum.volume);
+    const data3 = {!! json_encode($volume_data) !!};
+    const volumeValues3 = data3.map(datum => datum.volume);
 
-// trend
-const trend3 = {!! json_encode($volume_trend) !!}
-const trendValues3 = trend3.map(trend => trend.sma_volume);
+    // trend
+    const trend3 = {!! json_encode($volume_trend) !!}
+    const trendValues3 = trend3.map(trend => trend.sma_volume);
 
-const ids3 = {!! json_encode($date) !!};
-const idv3 = ids3.map(id3 => {
-  const date3 = new Date(id3.date);
-  return `${date3.getFullYear()}/${(date3.getMonth() + 1).toString().padStart(2, '0')}/${date3.getDate().toString().padStart(2, '0')}`;
-});
+    const ids3 = {!! json_encode($date) !!};
+    const idv3 = ids3.map(id3 => {
+      const date3 = new Date(id3.date);
+      return `${date3.getFullYear()}/${(date3.getMonth() + 1).toString().padStart(2, '0')}/${date3.getDate().toString().padStart(2, '0')}`;
+    });
 
     let pointRadius3;
     let numDataPoints3 = 30; // default number of data points to display
@@ -329,7 +329,7 @@ const idv3 = ids3.map(id3 => {
       chart3.data.datasets[0].pointRadius =
         pointRadius3; // dynamically set point radius based on number of data points
       chart3.data.datasets[1].pointRadius =
-      pointRadius3; // dynamically set point radius based on number of data points
+        pointRadius3; // dynamically set point radius based on number of data points
       chart3.update(); // update the chart
     });
 
