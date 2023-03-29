@@ -98,6 +98,13 @@ class crypto extends Migration
             $table->float('hold_low',20,10);
             $table->float('hold_volume',20,2);
         });
+        //naive bayes
+        Schema::create('naive_bayes', function (Blueprint $table){
+            $table->date('date');
+            $table->boolean('naive_high');
+            $table->boolean('naive_low');
+            $table->boolean('naive_volume');
+        });
     }
     public function down()
     {
@@ -113,5 +120,6 @@ class crypto extends Migration
         Schema::dropIfExists('SMA');
         Schema::dropIfExists('Bullish_Berrish');
         Schema::dropIfExists('threshold');
+        Schema::dropIfExists('naive_bayes');
     }
 }
