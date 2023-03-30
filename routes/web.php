@@ -109,3 +109,5 @@ Route::get('/import1', function () {
     return redirect()->route('output');
 });
 
+// return controller naive
+Route::get('/naive', 'App\Http\Controllers\NewController@naive')->name('naive');
