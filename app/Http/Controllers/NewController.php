@@ -425,18 +425,29 @@ class NewController extends Controller
         if ($file && $file->isValid()) {
             $path = $file->getRealPath();
             $data = array_map('str_getcsv', file($path));
-            $data = array_slice($data, 1); // skip the first row
+
+            // Get header row to retrieve column indexes
+            $header = $data[0];
+            $dateIndex = array_search('Date', $header);
+            $highIndex = array_search('High', $header);
+            $lowIndex = array_search('Low', $header);
+            $volumeIndex = array_search('Volume', $header);
+
+            // Remove header row from data
+            $data = array_slice($data, 1);
+
             $table = 'binance';
             DB::table('binance')->where('id', '<>', 'admin')->delete();
             foreach ($data as $row) {
                 DB::table($table)->insert([
-                    'date' => date('Y/m/d', strtotime($row[3])),
-                    'high' => is_numeric($row[4]) ? $row[4] : 0,
-                    'low' => is_numeric($row[5]) ? $row[5] : 0,
-                    'volume' => is_numeric($row[8]) ? $row[8] : 0,
+                    'date' => date('Y/m/d', strtotime($row[$dateIndex])),
+                    'high' => is_numeric($row[$highIndex]) ? $row[$highIndex] : 0,
+                    'low' => is_numeric($row[$lowIndex]) ? $row[$lowIndex] : 0,
+                    'volume' => is_numeric($row[$volumeIndex]) ? $row[$volumeIndex] : 0,
                 ]);
             }
         }
+
         $this->AverageAll();
         $this->Threshold();
         $this->getHighData();
