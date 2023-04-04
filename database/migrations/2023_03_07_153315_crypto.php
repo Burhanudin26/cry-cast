@@ -135,5 +135,6 @@ class crypto extends Migration
         Schema::dropIfExists('SMA');
         Schema::dropIfExists('Bullish_Berrish');
         Schema::dropIfExists('threshold');
+        Schema::dropIfExists('naive_bayes');
     }
 }
