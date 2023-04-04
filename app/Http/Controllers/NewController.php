@@ -477,9 +477,9 @@ public function import(Request $request)
                 ]);
             }
         }
-        $this->AverageAll();
-        $this->Threshold();
-        $this->getHighData();
+        $this->AverageAll($table);
+        $this->Threshold($table);
+        $this->getHighData($table);
         // redirect to the page to display the results output
         return redirect()->route('output');
     }
