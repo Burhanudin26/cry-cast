@@ -10,7 +10,8 @@ use PhpOption\None;
 class NewController extends Controller
 {
     // get trend SMA
-     public function getHighData(){
+    public function getHighData()
+    {
         // get data as array from table binance and column high and column id
         $data = DB::table('binance')->select('high')->get();
         $trend = DB::table('SMA')->select('sma_high')->get();
@@ -26,7 +27,7 @@ class NewController extends Controller
 
         // get oyutput in function BB
         $output = $this->BB();
-        return view('output')->with(compact('data','trend','low_data','low_trend','volume_data','volume_trend','date', 'output'));
+        return view('output')->with(compact('data', 'trend', 'low_data', 'low_trend', 'volume_data', 'volume_trend', 'date', 'output'));
     }
     //Mencari rata-rata low, high, volume setiap 5 kolom
     public function AverageAll()
@@ -61,7 +62,7 @@ class NewController extends Controller
             $avg_volumes[] = $volume;
 
             // If we've reached a group of 5 rows, calculate the averages and insert them into the SMA table
-            if (count($avg_lows)==5 && count($avg_highs)==5 && count($avg_volumes)==5) {
+            if (count($avg_lows) == 5 && count($avg_highs) == 5 && count($avg_volumes) == 5) {
                 $avg_low = array_sum($avg_lows) / count($avg_lows);
                 $avg_high = array_sum($avg_highs) / count($avg_highs);
                 $avg_volume = array_sum($avg_volumes) / count($avg_volumes);
@@ -81,7 +82,7 @@ class NewController extends Controller
                 $avg_lows = array();
                 $avg_highs = array();
                 $avg_volumes = array();
-                $i=$i-4;
+                $i = $i - 4;
             }
         }
         $this->HitungSMA();
@@ -106,7 +107,7 @@ class NewController extends Controller
         $sma_highs = array();
         $sma_volumes = array();
         DB::table('SMA')->truncate();
-        for($i=0; $i < 8; $i++){
+        for ($i = 0; $i < 8; $i++) {
             $insert_stmt = $db->prepare('INSERT INTO SMA (sma_low, sma_high, sma_volume) VALUES (0, 0, 0)');
             $insert_stmt->execute();
         }
@@ -123,7 +124,7 @@ class NewController extends Controller
             $sma_volumes[] = $smavolume;
 
             // If we've reached a group of 5 rows, calculate the averages and insert them into the SMA table
-            if (count($sma_lows)==5 && count($sma_highs)==5 && count($sma_volumes)==5) {
+            if (count($sma_lows) == 5 && count($sma_highs) == 5 && count($sma_volumes) == 5) {
                 $sma_low = array_sum($sma_lows) / count($sma_lows);
                 $sma_high = array_sum($sma_highs) / count($sma_highs);
                 $sma_volume = array_sum($sma_volumes) / count($sma_volumes);
@@ -143,17 +144,14 @@ class NewController extends Controller
                 $sma_lows = array();
                 $sma_highs = array();
                 $sma_volumes = array();
-                $i=$i-4;
+                $i = $i - 4;
             }
         }
         $this->BB();
         $this->getHighData();
     }
-
     //Threshold Naive bayes per bulan
     public function Threshold()
-<<<<<<< HEAD
-=======
 {
     // Create a PDO connection to the database
     $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
@@ -190,49 +188,29 @@ class NewController extends Controller
 
     // Membuat bullish dan bearish pada moving average
     public function BB()
->>>>>>> 0b6aee02aa542a685fa251f00e8ee8c6485e0d45
     {
-        // Create a PDO connection to the database
-        $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
 
-        // Prepare the SQL query to get the low, high, and volume values from the binance table grouped by month
-        $stmt = $db->prepare('SELECT YEAR(date) AS year, MONTH(date) AS month, AVG(low) AS avg_low, AVG(high) AS avg_high, AVG(volume) AS avg_volume FROM binance GROUP BY YEAR(date), MONTH(date)');
+        $sma = DB::table('SMA')->orderBy('id', 'desc')->take(2)->get();
+        $high = DB::table('binance')->orderBy('id', 'desc')->take(2)->get();
+        $sma1 = $sma[0]->sma_high;
+        $sma2 = $sma[1]->sma_high;
+        $high1 = $high[0]->high;
+        $high2 = $high[1]->high;
+        if (($high2 > $sma2) && ($high1 < $sma1)) {
+            $output = 'menuju naik';
+        } else if (($high2 < $sma2) && ($high1 > $sma1)) {
+            $output = 'menuju turun';
+        } else if ($high1 > $sma1) {
+            $output = 'naik';
+        } else if ($high1 < $sma1) {
+            $output = 'turun';
+        } else {
+            $output = '';
+        }
 
-        // Execute the query
-        $stmt->execute();
-
-        // Fetch the result as an array of rows
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        // Loop through each row and insert the monthly averages into the MonthlyAverages table
-        foreach ($rows as $row) {
-            $year = $row['year'];
-            $month = $row['month'];
-            $avg_low = $row['avg_low'];
-            $avg_high = $row['avg_high'];
-            $avg_volume = $row['avg_volume'];
-
-            // Prepare the SQL query to insert the average values into the MonthlyAverages table
-            $insert_stmt = $db->prepare('INSERT INTO MonthlyAverages (year, month, avg_low, avg_high, avg_volume) VALUES (:year, :month, :avg_low, :avg_high, :avg_volume)');
-
-            // Bind the average values to the query parameters
-            $insert_stmt->bindParam(':year', $year);
-            $insert_stmt->bindParam(':month', $month);
-            $insert_stmt->bindParam(':avg_low', $avg_low);
-            $insert_stmt->bindParam(':avg_high', $avg_high);
-            $insert_stmt->bindParam(':avg_volume', $avg_volume);
-
-            // Execute the query to insert the average values into the MonthlyAverages table
-            $insert_stmt->execute();
+        return $output;
     }
-}
-    //Membuat bullish dan bearish pada moving average
-    public function BB(){
-        
-    // Execute the query to insert the average values into the MonthlyAverages table
-    //         $insert_stmt->execute();
-    }
-    //Membuat bullish dan bearish pada moving average
+
 
 
 
@@ -262,127 +240,141 @@ class NewController extends Controller
     //Bitcoin
     public function import2(Request $request)
     {
-    $file = $request->file('csv_input_bitcoin');
-    if($file && $file->isValid()){
-        $path = $file->getRealPath();
-        $data = array_map('str_getcsv', file($path));
-        $table = 'bitcoin';
-        DB::table($table)->truncate();
-        foreach ($data as $row) {
-            DB::table($table)->insert([
-                'date' => date('Y/m/d H:i:s', strtotime($row[3])),
-                'high' => is_numeric($row[4]) ? $row[4] : 0,
-                'low' => is_numeric($row[5]) ? $row[5] : 0,
-                'volume' => is_numeric($row[8]) ? $row[8] : 0,
-    ]);}}
-    $this->AverageAll();
-}
+        $file = $request->file('csv_input_bitcoin');
+        if ($file && $file->isValid()) {
+            $path = $file->getRealPath();
+            $data = array_map('str_getcsv', file($path));
+            $table = 'bitcoin';
+            DB::table($table)->truncate();
+            foreach ($data as $row) {
+                DB::table($table)->insert([
+                    'date' => date('Y/m/d H:i:s', strtotime($row[3])),
+                    'high' => is_numeric($row[4]) ? $row[4] : 0,
+                    'low' => is_numeric($row[5]) ? $row[5] : 0,
+                    'volume' => is_numeric($row[8]) ? $row[8] : 0,
+                ]);
+            }
+        }
+        $this->AverageAll();
+    }
     // Dogecoin
     public function import3(Request $request)
     {
-    $file = $request->file('csv_input_dogecoin');
-    if($file && $file->isValid()){
-        $path = $file->getRealPath();
-        $data = array_map('str_getcsv', file($path));
-        $table = 'dogecoin';
-        DB::table($table)->truncate();
-        foreach ($data as $row) {
-            DB::table($table)->insert([
-                'date' => date('Y/m/d H:i:s', strtotime($row[3])),
-                'high' => is_numeric($row[4]) ? $row[4] : 0,
-                'low' => is_numeric($row[5]) ? $row[5] : 0,
-                'volume' => is_numeric($row[8]) ? $row[8] : 0,
-    ]);}}
-    $this->AverageAll();
-}
+        $file = $request->file('csv_input_dogecoin');
+        if ($file && $file->isValid()) {
+            $path = $file->getRealPath();
+            $data = array_map('str_getcsv', file($path));
+            $table = 'dogecoin';
+            DB::table($table)->truncate();
+            foreach ($data as $row) {
+                DB::table($table)->insert([
+                    'date' => date('Y/m/d H:i:s', strtotime($row[3])),
+                    'high' => is_numeric($row[4]) ? $row[4] : 0,
+                    'low' => is_numeric($row[5]) ? $row[5] : 0,
+                    'volume' => is_numeric($row[8]) ? $row[8] : 0,
+                ]);
+            }
+        }
+        $this->AverageAll();
+    }
     //Etherium
     public function import4(Request $request)
     {
-    $file = $request->file('csv_input_etherium');
-    if($file && $file->isValid()){
-        $path = $file->getRealPath();
-        $data = array_map('str_getcsv', file($path));
-        $table = 'etherium';
-        DB::table($table)->truncate();
-        foreach ($data as $row) {
-            DB::table($table)->insert([
-                'date' => date('Y/m/d H:i:s', strtotime($row[3])),
-                'high' => is_numeric($row[4]) ? $row[4] : 0,
-                'low' => is_numeric($row[5]) ? $row[5] : 0,
-                'volume' => is_numeric($row[8]) ? $row[8] : 0,
-    ]);}}
-    $this->AverageAll();
-}
+        $file = $request->file('csv_input_etherium');
+        if ($file && $file->isValid()) {
+            $path = $file->getRealPath();
+            $data = array_map('str_getcsv', file($path));
+            $table = 'etherium';
+            DB::table($table)->truncate();
+            foreach ($data as $row) {
+                DB::table($table)->insert([
+                    'date' => date('Y/m/d H:i:s', strtotime($row[3])),
+                    'high' => is_numeric($row[4]) ? $row[4] : 0,
+                    'low' => is_numeric($row[5]) ? $row[5] : 0,
+                    'volume' => is_numeric($row[8]) ? $row[8] : 0,
+                ]);
+            }
+        }
+        $this->AverageAll();
+    }
     //Iota
     public function import5(Request $request)
     {
-    $file = $request->file('csv_input_iota');
-    if($file && $file->isValid()){
-        $path = $file->getRealPath();
-        $data = array_map('str_getcsv', file($path));
-        $table = 'iota';
-        DB::table($table)->truncate();
-        foreach ($data as $row) {
-            DB::table($table)->insert([
-                'date' => date('Y/m/d H:i:s', strtotime($row[3])),
-                'high' => is_numeric($row[4]) ? $row[4] : 0,
-                'low' => is_numeric($row[5]) ? $row[5] : 0,
-                'volume' => is_numeric($row[8]) ? $row[8] : 0,
-    ]);}}
-    $this->AverageAll();
-}
+        $file = $request->file('csv_input_iota');
+        if ($file && $file->isValid()) {
+            $path = $file->getRealPath();
+            $data = array_map('str_getcsv', file($path));
+            $table = 'iota';
+            DB::table($table)->truncate();
+            foreach ($data as $row) {
+                DB::table($table)->insert([
+                    'date' => date('Y/m/d H:i:s', strtotime($row[3])),
+                    'high' => is_numeric($row[4]) ? $row[4] : 0,
+                    'low' => is_numeric($row[5]) ? $row[5] : 0,
+                    'volume' => is_numeric($row[8]) ? $row[8] : 0,
+                ]);
+            }
+        }
+        $this->AverageAll();
+    }
     //Solana
     public function import6(Request $request)
     {
-    $file = $request->file('csv_input_solana');
-    if($file && $file->isValid()){
-        $path = $file->getRealPath();
-        $data = array_map('str_getcsv', file($path));
-        $table = 'solana';
-        DB::table($table)->truncate();
-        foreach ($data as $row) {
-            DB::table($table)->insert([
-                'date' => date('Y/m/d H:i:s', strtotime($row[3])),
-                'high' => is_numeric($row[4]) ? $row[4] : 0,
-                'low' => is_numeric($row[5]) ? $row[5] : 0,
-                'volume' => is_numeric($row[8]) ? $row[8] : 0,
-    ]);}}
-    $this->AverageAll();
-}
+        $file = $request->file('csv_input_solana');
+        if ($file && $file->isValid()) {
+            $path = $file->getRealPath();
+            $data = array_map('str_getcsv', file($path));
+            $table = 'solana';
+            DB::table($table)->truncate();
+            foreach ($data as $row) {
+                DB::table($table)->insert([
+                    'date' => date('Y/m/d H:i:s', strtotime($row[3])),
+                    'high' => is_numeric($row[4]) ? $row[4] : 0,
+                    'low' => is_numeric($row[5]) ? $row[5] : 0,
+                    'volume' => is_numeric($row[8]) ? $row[8] : 0,
+                ]);
+            }
+        }
+        $this->AverageAll();
+    }
     //Stellar
     public function import7(Request $request)
     {
-    $file = $request->file('csv_input_stellar');
-    if($file && $file->isValid()){
-        $path = $file->getRealPath();
-        $data = array_map('str_getcsv', file($path));
-        $table = 'stellar';
-        DB::table($table)->truncate();
-        foreach ($data as $row) {
-            DB::table($table)->insert([
-                'date' => date('Y/m/d H:i:s', strtotime($row[3])),
-                'high' => is_numeric($row[4]) ? $row[4] : 0,
-                'low' => is_numeric($row[5]) ? $row[5] : 0,
-                'volume' => is_numeric($row[8]) ? $row[8] : 0,
-            ]);}}
+        $file = $request->file('csv_input_stellar');
+        if ($file && $file->isValid()) {
+            $path = $file->getRealPath();
+            $data = array_map('str_getcsv', file($path));
+            $table = 'stellar';
+            DB::table($table)->truncate();
+            foreach ($data as $row) {
+                DB::table($table)->insert([
+                    'date' => date('Y/m/d H:i:s', strtotime($row[3])),
+                    'high' => is_numeric($row[4]) ? $row[4] : 0,
+                    'low' => is_numeric($row[5]) ? $row[5] : 0,
+                    'volume' => is_numeric($row[8]) ? $row[8] : 0,
+                ]);
+            }
+        }
         $this->AverageAll();
     }
     //Tron
     public function import8(Request $request)
     {
-    $file = $request->file('csv_input_tron');
-    if($file && $file->isValid()){
-        $path = $file->getRealPath();
-        $data = array_map('str_getcsv', file($path));
-        $table = 'tron';
-        DB::table($table)->truncate();
-        foreach ($data as $row) {
-            DB::table($table)->insert([
-                'date' => date('Y/m/d H:i:s', strtotime($row[3])),
-                'high' => is_numeric($row[4]) ? $row[4] : 0,
-                'low' => is_numeric($row[5]) ? $row[5] : 0,
-                'volume' => is_numeric($row[8]) ? $row[8] : 0,
-            ]);}}
-            $this->AverageAll();
+        $file = $request->file('csv_input_tron');
+        if ($file && $file->isValid()) {
+            $path = $file->getRealPath();
+            $data = array_map('str_getcsv', file($path));
+            $table = 'tron';
+            DB::table($table)->truncate();
+            foreach ($data as $row) {
+                DB::table($table)->insert([
+                    'date' => date('Y/m/d H:i:s', strtotime($row[3])),
+                    'high' => is_numeric($row[4]) ? $row[4] : 0,
+                    'low' => is_numeric($row[5]) ? $row[5] : 0,
+                    'volume' => is_numeric($row[8]) ? $row[8] : 0,
+                ]);
+            }
         }
+        $this->AverageAll();
+    }
 }
