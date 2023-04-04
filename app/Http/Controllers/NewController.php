@@ -418,6 +418,37 @@ class NewController extends Controller
         }
         return $result;
 }
+
+//Masterinput
+public function import(Request $request)
+{
+    $file = $request->file('csv_input_master');
+    if ($file && $file->isValid()) {
+        $path = $file->getRealPath();
+        $data = array_map('str_getcsv', file($path));
+
+        // Get header row to retrieve column indexes
+        $header = $data[0];
+        $dateIndex = array_search('Date', $header);
+        $highIndex = array_search('High', $header);
+        $lowIndex = array_search('Low', $header);
+        $volumeIndex = array_search('Volume', $header);
+
+        // Remove header row from data
+        $data = array_slice($data, 1);
+
+        $table = 'master';
+        DB::table('master')->where('id', '<>', 'admin')->delete();
+        foreach ($data as $row) {
+            DB::table($table)->insert([
+                'date' => date('Y/m/d', strtotime($row[$dateIndex])),
+                'high' => is_numeric($row[$highIndex]) ? $row[$highIndex] : 0,
+                'low' => is_numeric($row[$lowIndex]) ? $row[$lowIndex] : 0,
+                'volume' => is_numeric($row[$volumeIndex]) ? $row[$volumeIndex] : 0,
+            ]);
+        }
+    }
+}
     //Binance
     public function import1(Request $request)
     {
