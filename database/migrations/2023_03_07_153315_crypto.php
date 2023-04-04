@@ -8,6 +8,14 @@ class crypto extends Migration
 {
     public function up()
     {
+        //Master
+        Schema::create('Master', function (Blueprint $table){
+            $table->id();
+            $table->date('date');
+            $table->float('high', 20, 10);
+            $table->float('low' , 20, 10);
+            $table->float('volume', 20, 2);
+        });
         //Binance
         Schema::create('binance', function (Blueprint $table){
             $table->id();
@@ -127,5 +135,6 @@ class crypto extends Migration
         Schema::dropIfExists('SMA');
         Schema::dropIfExists('Bullish_Berrish');
         Schema::dropIfExists('threshold');
+        Schema::dropIfExists('naive_bayes');
     }
 }
