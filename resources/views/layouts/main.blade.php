@@ -73,7 +73,10 @@
             <img src="{{ url('pictures/guest.jpg') }}" alt="user" class="rounded-circle me-lg-5" width="40px" height="40px">
           </a>
           <ul class="dropdown-menu" aria-labelledby="userDropdown">
-            <li><a class="dropdown-item" href="#">Profile Image</a></li>
+            <li>
+              <label for="profileImageInput" class="dropdown-item">Profile Image</label>
+              <input type="file" id="profileImageInput" style="display:none">
+            </li>
             <form action="{{ route('logout') }}" method="POST">
               <li><a class="dropdown-item" type="submit" href="/">Logout</a></li>
             </form>

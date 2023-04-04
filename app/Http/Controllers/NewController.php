@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDO;
@@ -185,6 +186,52 @@ class NewController extends Controller
         $insert_stmt->execute();
     }
 }
+
+    // START NAIVE BAYES
+public function bayes(Request $request)
+{
+
+    // Create a PDO connection to the database
+    $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
+
+    // Prepare the SQL query to get the monthly averages of low, high, and volume from the binance table
+    $stmt = $db->prepare('SELECT DATE_FORMAT(date, "%Y-%m-01") AS month, AVG(high) AS avg_high, AVG(low) AS avg_low, AVG(volume) AS avg_volume FROM binance GROUP BY month');
+
+    // Execute the query
+    $stmt->execute();
+
+    // Fetch the result as an array of rows
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Prepare the SQL query to insert the monthly bayes values into the bayes table
+    $insert_stmt = $db->prepare('INSERT INTO naive_bayes (date, bayes_value) VALUES (:date, :bayes_value)');
+    
+    // Loop through each row and calculate the bayes value for the month
+    foreach ($rows as $row) {
+        $month = $row['month'];
+        $avg_low = $row['avg_low'];
+        $avg_high = $row['avg_high'];
+        $avg_volume = $row['avg_volume'];
+
+        // Get the threshold values for the month from the threshold table
+        $threshold_row = $db->query("SELECT hold_low, hold_high, hold_volume FROM threshold WHERE date = '$month'")->fetch(PDO::FETCH_ASSOC);
+
+        // Calculate the bayes value for the month based on the threshold values
+        if ($avg_low > $threshold_row['hold_low'] && $avg_high > $threshold_row['hold_high'] && $avg_volume > $threshold_row['hold_volume']) {
+            $bayes_value = 1;
+        } else {
+            $bayes_value = 0;
+        }
+
+        // Bind the date and bayes value to the query parameters
+        $insert_stmt->bindParam(':date', $month);
+        $insert_stmt->bindParam(':bayes_value', $bayes_value);
+
+        // Execute the query to insert the bayes value into the bayes table
+        $insert_stmt->execute();
+    }
+}
+
 
     // Membuat bullish dan bearish pada moving average
     public function BB()

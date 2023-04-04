@@ -98,6 +98,14 @@ class crypto extends Migration
             $table->float('hold_low',20,10);
             $table->float('hold_volume',20,2);
         });
+        
+        // Naive bayes table
+        Schema::create('threshold', function (Blueprint $table){
+            $table->date('date');
+            $table->boolean('high');
+            $table->boolean('low');
+            $table->boolean('volume');
+        });
     }
     public function down()
     {
