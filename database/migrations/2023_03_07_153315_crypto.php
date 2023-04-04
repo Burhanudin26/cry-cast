@@ -106,6 +106,20 @@ class crypto extends Migration
             $table->boolean('low');
             $table->boolean('volume');
         });
+        // create table bayes
+        Schema::create('bayes', function (Blueprint $table){
+            $table->id();
+            // date
+            $table->date('date');
+            // format bool
+            $table->boolean('high');
+            $table->boolean('low');
+            $table->boolean('volume');
+            // harga bool
+            $table->boolean('harga');
+
+
+        });
     }
     public function down()
     {
