@@ -13,35 +13,35 @@ use Symfony\Component\Console\Output\Output;
 class NewController extends Controller
 {
     // get trend SMA
-    public function getHighData()
+    public function getHighData($nama_table)
     {
         // get data as array from table binance and column high and column id
-        $data = DB::table('binance')->select('high')->get();
+        $data = DB::table($nama_table)->select('high')->get();
         $trend = DB::table('SMA')->select('sma_high')->get();
 
         // get data as array from table binance and column low and column id
-        $low_data = DB::table('binance')->select('low')->get();
+        $low_data = DB::table($nama_table)->select('low')->get();
         $low_trend = DB::table('SMA')->select('sma_low')->get();
 
         // get data as array from table binance and column volume and column id
-        $volume_data = DB::table('binance')->select('volume')->get();
+        $volume_data = DB::table($nama_table)->select('volume')->get();
         $volume_trend = DB::table('SMA')->select('sma_volume')->get();
-        $date = DB::table('binance')->select('date')->get();
+        $date = DB::table($nama_table)->select('date')->get();
 
         // get oyutput in function BB
-        $output = $this->BB();
+        $output = $this->BB($nama_table);
         // get output in function bayes
         $outputb = $this->naive();
         return view('output')->with(compact('data', 'trend', 'low_data', 'low_trend', 'volume_data', 'volume_trend', 'date', 'output', 'outputb'));
     }
     //Mencari rata-rata low, high, volume setiap 5 kolom
-    public function AverageAll()
+    public function AverageAll($nama_table)
     {
         // Create a PDO connection to the database
         $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
 
         // Prepare the SQL query to get the low, high, and volume values from the binance table in groups of 5
-        $stmt = $db->prepare('SELECT low, high, volume FROM binance');
+        $stmt = $db->prepare('SELECT low, high, volume FROM ?');
 
         // Execute the query
         $stmt->execute();
@@ -93,10 +93,10 @@ class NewController extends Controller
                 $i = $i - ($priod - 1);
             }
         }
-        $this->HitungSMA();
+        $this->HitungSMA($nama_table);
     }
     //mencari Simple Moving Average
-    public function HitungSMA()
+    public function HitungSMA($nama_table)
     {
         // Create a PDO connection to the database
         $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
@@ -155,10 +155,9 @@ class NewController extends Controller
                 $i = $i - 4;
             }
         }
-        $this->BB();
     }
     //Threshold Naive bayes per bulan
-    public function Threshold()
+    public function Threshold($nama_table)
     {
         // Create a PDO connection to the database
         $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
@@ -241,11 +240,11 @@ public function bayes(Request $request)
 
 
     // Membuat bullish dan bearish pada moving average
-    public function BB()
+    public function BB($nama_table)
     {
 
         $sma = DB::table('SMA')->orderBy('id', 'desc')->take(2)->get();
-        $high = DB::table('binance')->orderBy('id', 'desc')->take(2)->get();
+        $high = DB::table($nama_table)->orderBy('id', 'desc')->take(2)->get();
         $sma1 = $sma[0]->sma_high;
         $sma2 = $sma[1]->sma_high;
         $high1 = $high[0]->high;
@@ -465,6 +464,37 @@ public function bayes(Request $request)
         }
         return $result;
 }
+
+//Masterinput
+public function import(Request $request)
+{
+    $file = $request->file('csv_input_master');
+    if ($file && $file->isValid()) {
+        $path = $file->getRealPath();
+        $data = array_map('str_getcsv', file($path));
+
+        // Get header row to retrieve column indexes
+        $header = $data[0];
+        $dateIndex = array_search('Date', $header);
+        $highIndex = array_search('High', $header);
+        $lowIndex = array_search('Low', $header);
+        $volumeIndex = array_search('Volume', $header);
+
+        // Remove header row from data
+        $data = array_slice($data, 1);
+
+        $table = 'master';
+        DB::table('master')->where('id', '<>', 'admin')->delete();
+        foreach ($data as $row) {
+            DB::table($table)->insert([
+                'date' => date('Y/m/d', strtotime($row[$dateIndex])),
+                'high' => is_numeric($row[$highIndex]) ? $row[$highIndex] : 0,
+                'low' => is_numeric($row[$lowIndex]) ? $row[$lowIndex] : 0,
+                'volume' => is_numeric($row[$volumeIndex]) ? $row[$volumeIndex] : 0,
+            ]);
+        }
+    }
+}
     //Binance
     public function import1(Request $request)
     {
@@ -487,17 +517,16 @@ public function bayes(Request $request)
             DB::table('binance')->where('id', '<>', 'admin')->delete();
             foreach ($data as $row) {
                 DB::table($table)->insert([
-                    'date' => date('Y/m/d', strtotime($row[$dateIndex])),
-                    'high' => is_numeric($row[$highIndex]) ? $row[$highIndex] : 0,
-                    'low' => is_numeric($row[$lowIndex]) ? $row[$lowIndex] : 0,
-                    'volume' => is_numeric($row[$volumeIndex]) ? $row[$volumeIndex] : 0,
+                    'date' => date('Y/m/d', strtotime($row[3])),
+                    'high' => is_numeric($row[4]) ? $row[4] : 0,
+                    'low' => is_numeric($row[5]) ? $row[5] : 0,
+                    'volume' => is_numeric($row[8]) ? $row[8] : 0,
                 ]);
             }
         }
-
-        $this->AverageAll();
-        $this->Threshold();
-        $this->getHighData();
+        $this->AverageAll($table);
+        $this->Threshold($table);
+        $this->getHighData($table);
         // redirect to the page to display the results output
         return redirect()->route('output');
     }
@@ -509,10 +538,10 @@ public function bayes(Request $request)
         if ($file && $file->isValid()) {
             $path = $file->getRealPath();
             $data = array_map('str_getcsv', file($path));
-            $table = 'bitcoin';
-            DB::table($table)->truncate();
+            $nama_table = 'bitcoin';
+            DB::table($nama_table)->truncate();
             foreach ($data as $row) {
-                DB::table($table)->insert([
+                DB::table($nama_table)->insert([
                     'date' => date('Y/m/d H:i:s', strtotime($row[3])),
                     'high' => is_numeric($row[4]) ? $row[4] : 0,
                     'low' => is_numeric($row[5]) ? $row[5] : 0,
@@ -520,7 +549,11 @@ public function bayes(Request $request)
                 ]);
             }
         }
-        $this->AverageAll();
+        $this->AverageAll($nama_table);
+        $this->Threshold($nama_table);
+        $this->getHighData($nama_table);
+        // redirect to the page to display the results output
+        return redirect()->route('output');
     }
     // Dogecoin
     public function import3(Request $request)
@@ -529,10 +562,10 @@ public function bayes(Request $request)
         if ($file && $file->isValid()) {
             $path = $file->getRealPath();
             $data = array_map('str_getcsv', file($path));
-            $table = 'dogecoin';
-            DB::table($table)->truncate();
+            $nama_table = 'dogecoin';
+            DB::table($nama_table)->truncate();
             foreach ($data as $row) {
-                DB::table($table)->insert([
+                DB::table($nama_table)->insert([
                     'date' => date('Y/m/d H:i:s', strtotime($row[3])),
                     'high' => is_numeric($row[4]) ? $row[4] : 0,
                     'low' => is_numeric($row[5]) ? $row[5] : 0,
@@ -540,7 +573,11 @@ public function bayes(Request $request)
                 ]);
             }
         }
-        $this->AverageAll();
+        $this->AverageAll($nama_table);
+        $this->Threshold($nama_table);
+        $this->getHighData($nama_table);
+        // redirect to the page to display the results output
+        return redirect()->route('output');
     }
     //Etherium
     public function import4(Request $request)
@@ -549,10 +586,10 @@ public function bayes(Request $request)
         if ($file && $file->isValid()) {
             $path = $file->getRealPath();
             $data = array_map('str_getcsv', file($path));
-            $table = 'etherium';
-            DB::table($table)->truncate();
+            $nama_table = 'etherium';
+            DB::table($nama_table)->truncate();
             foreach ($data as $row) {
-                DB::table($table)->insert([
+                DB::table($nama_table)->insert([
                     'date' => date('Y/m/d H:i:s', strtotime($row[3])),
                     'high' => is_numeric($row[4]) ? $row[4] : 0,
                     'low' => is_numeric($row[5]) ? $row[5] : 0,
@@ -560,7 +597,11 @@ public function bayes(Request $request)
                 ]);
             }
         }
-        $this->AverageAll();
+        $this->AverageAll($nama_table);
+        $this->Threshold($nama_table);
+        $this->getHighData($nama_table);
+        // redirect to the page to display the results output
+        return redirect()->route('output');
     }
     //Iota
     public function import5(Request $request)
@@ -569,10 +610,10 @@ public function bayes(Request $request)
         if ($file && $file->isValid()) {
             $path = $file->getRealPath();
             $data = array_map('str_getcsv', file($path));
-            $table = 'iota';
-            DB::table($table)->truncate();
+            $nama_table = 'iota';
+            DB::table($nama_table)->truncate();
             foreach ($data as $row) {
-                DB::table($table)->insert([
+                DB::table($nama_table)->insert([
                     'date' => date('Y/m/d H:i:s', strtotime($row[3])),
                     'high' => is_numeric($row[4]) ? $row[4] : 0,
                     'low' => is_numeric($row[5]) ? $row[5] : 0,
@@ -580,7 +621,11 @@ public function bayes(Request $request)
                 ]);
             }
         }
-        $this->AverageAll();
+        $this->AverageAll($nama_table);
+        $this->Threshold($nama_table);
+        $this->getHighData($nama_table);
+        // redirect to the page to display the results output
+        return redirect()->route('output');
     }
     //Solana
     public function import6(Request $request)
@@ -589,10 +634,10 @@ public function bayes(Request $request)
         if ($file && $file->isValid()) {
             $path = $file->getRealPath();
             $data = array_map('str_getcsv', file($path));
-            $table = 'solana';
-            DB::table($table)->truncate();
+            $nama_table = 'solana';
+            DB::table($nama_table)->truncate();
             foreach ($data as $row) {
-                DB::table($table)->insert([
+                DB::table($nama_table)->insert([
                     'date' => date('Y/m/d H:i:s', strtotime($row[3])),
                     'high' => is_numeric($row[4]) ? $row[4] : 0,
                     'low' => is_numeric($row[5]) ? $row[5] : 0,
@@ -600,7 +645,11 @@ public function bayes(Request $request)
                 ]);
             }
         }
-        $this->AverageAll();
+        $this->AverageAll($nama_table);
+        $this->Threshold($nama_table);
+        $this->getHighData($nama_table);
+        // redirect to the page to display the results output
+        return redirect()->route('output');
     }
     //Stellar
     public function import7(Request $request)
@@ -609,10 +658,10 @@ public function bayes(Request $request)
         if ($file && $file->isValid()) {
             $path = $file->getRealPath();
             $data = array_map('str_getcsv', file($path));
-            $table = 'stellar';
-            DB::table($table)->truncate();
+            $nama_table = 'stellar';
+            DB::table($nama_table)->truncate();
             foreach ($data as $row) {
-                DB::table($table)->insert([
+                DB::table($nama_table)->insert([
                     'date' => date('Y/m/d H:i:s', strtotime($row[3])),
                     'high' => is_numeric($row[4]) ? $row[4] : 0,
                     'low' => is_numeric($row[5]) ? $row[5] : 0,
@@ -620,7 +669,11 @@ public function bayes(Request $request)
                 ]);
             }
         }
-        $this->AverageAll();
+        $this->AverageAll($nama_table);
+        $this->Threshold($nama_table);
+        $this->getHighData($nama_table);
+        // redirect to the page to display the results output
+        return redirect()->route('output');
     }
     //Tron
     public function import8(Request $request)
@@ -629,10 +682,10 @@ public function bayes(Request $request)
         if ($file && $file->isValid()) {
             $path = $file->getRealPath();
             $data = array_map('str_getcsv', file($path));
-            $table = 'tron';
-            DB::table($table)->truncate();
+            $nama_table = 'tron';
+            DB::table($nama_table)->truncate();
             foreach ($data as $row) {
-                DB::table($table)->insert([
+                DB::table($nama_table)->insert([
                     'date' => date('Y/m/d H:i:s', strtotime($row[3])),
                     'high' => is_numeric($row[4]) ? $row[4] : 0,
                     'low' => is_numeric($row[5]) ? $row[5] : 0,
@@ -640,6 +693,10 @@ public function bayes(Request $request)
                 ]);
             }
         }
-        $this->AverageAll();
+        $this->AverageAll($nama_table);
+        $this->Threshold($nama_table);
+        $this->getHighData($nama_table);
+        // redirect to the page to display the results output
+        return redirect()->route('output');
     }
 }

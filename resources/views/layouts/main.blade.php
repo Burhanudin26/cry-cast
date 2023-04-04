@@ -63,7 +63,7 @@
               <a class="nav-link" href="/about">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/menu">Forecast</a>
+              <a class="nav-link" href="/menu-master">Forecast</a>
             </li>
           </ul>
         </div>
