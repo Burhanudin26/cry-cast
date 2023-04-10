@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDO;
@@ -15,6 +14,10 @@ class NewController extends Controller
     // get trend SMA
     public function getHighData($nama_table)
     {
+
+        // Create a PDO connection to the database
+        $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
+
         // get data as array from table binance and column high and column id
         $data = DB::table($nama_table)->select('high')->get();
         $trend = DB::table('SMA')->select('sma_high')->get();
@@ -28,7 +31,7 @@ class NewController extends Controller
         $volume_trend = DB::table('SMA')->select('sma_volume')->get();
         $date = DB::table($nama_table)->select('date')->get();
 
-        // get oyutput in function BB
+        // get output in function BB
         $output = $this->BB($nama_table);
         // get output in function bayes
         $outputb = $this->naive();
@@ -41,7 +44,7 @@ class NewController extends Controller
         $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
 
         // Prepare the SQL query to get the low, high, and volume values from the binance table in groups of 5
-        $stmt = $db->prepare('SELECT low, high, volume FROM ?');
+        $stmt = $db->prepare('SELECT low, high, volume FROM binance');
 
         // Execute the query
         $stmt->execute();
@@ -192,52 +195,6 @@ class NewController extends Controller
         }
         $this->bayes();
     }
-
-    // START NAIVE BAYES
-public function bayes(Request $request)
-{
-
-    // Create a PDO connection to the database
-    $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
-
-    // Prepare the SQL query to get the monthly averages of low, high, and volume from the binance table
-    $stmt = $db->prepare('SELECT DATE_FORMAT(date, "%Y-%m-01") AS month, AVG(high) AS avg_high, AVG(low) AS avg_low, AVG(volume) AS avg_volume FROM binance GROUP BY month');
-
-    // Execute the query
-    $stmt->execute();
-
-    // Fetch the result as an array of rows
-    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // Prepare the SQL query to insert the monthly bayes values into the bayes table
-    $insert_stmt = $db->prepare('INSERT INTO naive_bayes (date, bayes_value) VALUES (:date, :bayes_value)');
-    
-    // Loop through each row and calculate the bayes value for the month
-    foreach ($rows as $row) {
-        $month = $row['month'];
-        $avg_low = $row['avg_low'];
-        $avg_high = $row['avg_high'];
-        $avg_volume = $row['avg_volume'];
-
-        // Get the threshold values for the month from the threshold table
-        $threshold_row = $db->query("SELECT hold_low, hold_high, hold_volume FROM threshold WHERE date = '$month'")->fetch(PDO::FETCH_ASSOC);
-
-        // Calculate the bayes value for the month based on the threshold values
-        if ($avg_low > $threshold_row['hold_low'] && $avg_high > $threshold_row['hold_high'] && $avg_volume > $threshold_row['hold_volume']) {
-            $bayes_value = 1;
-        } else {
-            $bayes_value = 0;
-        }
-
-        // Bind the date and bayes value to the query parameters
-        $insert_stmt->bindParam(':date', $month);
-        $insert_stmt->bindParam(':bayes_value', $bayes_value);
-
-        // Execute the query to insert the bayes value into the bayes table
-        $insert_stmt->execute();
-    }
-}
-
 
     // Membuat bullish dan bearish pada moving average
     public function BB($nama_table)
@@ -513,10 +470,11 @@ public function import(Request $request)
             // Remove header row from data
             $data = array_slice($data, 1);
 
-            $table = 'binance';
+            $nama_table = 'binance';
+            // dd($nama_table);
             DB::table('binance')->where('id', '<>', 'admin')->delete();
             foreach ($data as $row) {
-                DB::table($table)->insert([
+                DB::table($nama_table)->insert([
                     'date' => date('Y/m/d', strtotime($row[3])),
                     'high' => is_numeric($row[4]) ? $row[4] : 0,
                     'low' => is_numeric($row[5]) ? $row[5] : 0,
@@ -524,9 +482,9 @@ public function import(Request $request)
                 ]);
             }
         }
-        $this->AverageAll($table);
-        $this->Threshold($table);
-        $this->getHighData($table);
+        $this->AverageAll($nama_table);
+        $this->Threshold($nama_table);
+        $this->getHighData($nama_table);
         // redirect to the page to display the results output
         return redirect()->route('output');
     }
