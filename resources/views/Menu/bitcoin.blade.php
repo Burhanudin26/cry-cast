@@ -40,12 +40,12 @@
                     </div>
                     <hr>
                     <!-- checkbox used data yang ada -->
-                    <div class="form-check mb-3">
+                    {{-- <div class="form-check mb-3">
                       <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                       <label class="form-check-label" for="flexCheckDefault">
                         Use data from our database
                       </label>
-                    </div>
+                    </div> --}}
                     <div class="">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
@@ -55,7 +55,7 @@
               </div>
             </div>
           <!-- check box prediksi naik dan turun-->
-            <div class="mb-3">
+            {{-- <div class="mb-3">
               <label for="checkbox">Pilih prediksi:</label> <br>
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
@@ -65,7 +65,7 @@
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
                 <label class="form-check-label" for="inlineCheckbox2">Turun</label>
               </div>
-            </div>
+            </div> --}}
           <!-- submit button -->
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>

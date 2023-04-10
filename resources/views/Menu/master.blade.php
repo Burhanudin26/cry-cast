@@ -11,16 +11,13 @@
         <h1 class="text-center">Binance</h1>
       </div>
       <div class="card-body p-4" style="background-color: rgba(255, 255, 255, 0);">
-        <form method="POST" action="/import1" enctype="multipart/form-data">
+        <form method="POST" action="/import" enctype="multipart/form-data">
+          <p class="text-center">Masukkan dataset anda dengan format .csv</p>
           <!-- pilih tanggal -->
-          <div class="mb-3">
+          {{-- <div class="mb-3">
             <label for="dateInput" class="form-label">Masukkan Tanggal</label>
             <input type="date" class="form-control" id="dateInput">
-          </div>
-          {{-- tanggal yang tersedia --}}
-          <div>
-            isi ini
-          </div>
+          </div> --}}
           <!-- file -->
           <div class="mb-3">
             <label for="file" class="form-label">Choose file:</label> <br>
@@ -42,7 +39,7 @@
                   <div class="mb-3">
                     @csrf
                     <label for="fileInput" class="form-label">Select a file:</label>
-                    <input type="file" name="csv_input_binance" class="form-control" id="fileInput" accept=".csv,.xlsx"
+                    <input type="file" name="csv_input_master" class="form-control" id="fileInput" accept=".csv,.xlsx"
                       draggable="true"> {{-- add dragable true --}}
                   </div>
                   <hr>

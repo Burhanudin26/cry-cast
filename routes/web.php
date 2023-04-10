@@ -44,12 +44,22 @@ Route::get('/registerPage', function () {
     return view('login.register');
 })->name('regis');
 
+// route to register page
+Route::get('/menu-master', function () {
+    return view('menu-master');
+})->name('mmaster');
+
 // menu route
 Route::get('/menu', function () {
     return view('menu');
 })->name('menu');
 
+//Menu group
 Route::prefix('menu')->group(function () {
+     // route to eth
+     Route::get('master', function () {
+        return view('menu.master');
+    });
     // route to eth
     Route::get('eth', function () {
         return view('menu.eth');
@@ -92,6 +102,7 @@ Route::prefix('menu')->group(function () {
 });
 
 // Route to controller
+Route::post('/import', 'App\Http\Controllers\NewController@import');
 Route::post('/import1', 'App\Http\Controllers\NewController@import1');
 Route::post('/import2', 'App\Http\Controllers\NewController@import2');
 Route::post('/import3', 'App\Http\Controllers\NewController@import3');
@@ -102,12 +113,8 @@ Route::post('/import7', 'App\Http\Controllers\NewController@import7');
 Route::post('/import8', 'App\Http\Controllers\NewController@import8');
 
 // Output
-Route::get('/output', 'App\Http\Controllers\NewController@getHighData')->name('output');
 
 // redirect import1 to output
-Route::get('/import1', function () {
-    return redirect()->route('output');
-});
 
 // return controller naive
 Route::get('/naive', 'App\Http\Controllers\NewController@naive')->name('naive');

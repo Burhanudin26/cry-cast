@@ -19,4 +19,4 @@ yarn-error.log
 /.vscode
 # gitignore logs in storage
 /storage/logs/*
-
+*.log
