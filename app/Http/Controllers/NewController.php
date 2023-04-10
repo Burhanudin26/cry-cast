@@ -11,28 +11,7 @@ use Symfony\Component\Console\Output\Output;
 
 class NewController extends Controller
 {
-    // get trend SMA
-    public function getHighData($table)
-    {
-        // get data as array from table binance and column high and column id
-        $data = DB::table($table)->select('high')->get();
-        $trend = DB::table('SMA')->select('sma_high')->get();
 
-        // get data as array from table binance and column low and column id
-        $low_data = DB::table($table)->select('low')->get();
-        $low_trend = DB::table('SMA')->select('sma_low')->get();
-
-        // get data as array from table binance and column volume and column id
-        $volume_data = DB::table($table)->select('volume')->get();
-        $volume_trend = DB::table('SMA')->select('sma_volume')->get();
-        $date = DB::table($table)->select('date')->get();
-
-        // get oyutput in function BB
-        $output = $this->BB($table);
-        // get output in function bayes
-        $outputb = $this->naive();
-        return view('output')->with(compact('data', 'trend', 'low_data', 'low_trend', 'volume_data', 'volume_trend', 'date', 'output', 'outputb'));
-    }
     //Mencari rata-rata low, high, volume setiap 5 kolom
     public function AverageAll($table)
     {
@@ -472,9 +451,23 @@ public function import(Request $request)
         $table = 'master';
         $this->AverageAll($table);
         $this->Threshold($table);
-        $this->getHighData('master');
-        // redirect to the page to display the results output
-        return redirect()->route('output');
+        $data = DB::table($table)->select('high')->get();
+        $trend = DB::table('SMA')->select('sma_high')->get();
+
+        // get data as array from table binance and column low and column id
+        $low_data = DB::table($table)->select('low')->get();
+        $low_trend = DB::table('SMA')->select('sma_low')->get();
+
+        // get data as array from table binance and column volume and column id
+        $volume_data = DB::table($table)->select('volume')->get();
+        $volume_trend = DB::table('SMA')->select('sma_volume')->get();
+        $date = DB::table($table)->select('date')->get();
+
+        // get oyutput in function BB
+        $output = $this->BB($table);
+        // get output in function bayes
+        $outputb = $this->naive();
+        return view('output')->with(compact('data', 'trend', 'low_data', 'low_trend', 'volume_data', 'volume_trend', 'date', 'output', 'outputb'));
 }
     //Binance
     public function import1(Request $request)

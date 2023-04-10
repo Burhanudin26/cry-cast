@@ -113,12 +113,8 @@ Route::post('/import7', 'App\Http\Controllers\NewController@import7');
 Route::post('/import8', 'App\Http\Controllers\NewController@import8');
 
 // Output
-Route::get('/output', 'App\Http\Controllers\NewController@getHighData')->name('output');
 
 // redirect import1 to output
-Route::get('/import', function () {
-    return redirect()->route('output');
-});
 
 // return controller naive
 Route::get('/naive', 'App\Http\Controllers\NewController@naive')->name('naive');
