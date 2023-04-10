@@ -229,7 +229,8 @@ class NewController extends Controller
         foreach ($thresholds as $threshold) {
             // Get the month and year from the threshold date
             $month = date('m', strtotime($threshold->date));
-            $year = date('Y',
+            $year = date(
+                'Y',
                 strtotime($threshold->date)
             );
 
@@ -239,8 +240,8 @@ class NewController extends Controller
 
             // Get the binance data for the month
             $binanceData = DB::table('binance')
-            ->whereBetween('date', [$startDate, $endDate])
-            ->get();
+                ->whereBetween('date', [$startDate, $endDate])
+                ->get();
             // Loop through each day in the month
             foreach ($binanceData as $key => $data) {
                 // Check if the value is above or below the threshold
@@ -303,7 +304,6 @@ class NewController extends Controller
         $hargatotal = DB::table('bayes')->count();
         $Class1 = $harga1 / $hargatotal;
         $Class0 = $harga0 / $hargatotal;
-        $sumclass = $Class1 + $Class0;
 
         // high
         $high11 = DB::table('bayes')->where('high', 1)->where('harga', 1)->count();
@@ -342,30 +342,35 @@ class NewController extends Controller
         $pv00 = $volume00 / $volumetotal0;
 
         // output when up
-        $output1111 = round(($ph11 * $pl11 * $pv11 * $Class1) * 100, 2);
-        $output1110 = round(($ph11 * $pl11 * $pv01 * $Class1) * 100, 2);
-        $output1100 = round(($ph11 * $pl01 * $pv01 * $Class1) * 100, 2);
-        $output1101 = round(($ph11 * $pl01 * $pv11 * $Class1) * 100, 2);
-        $output1011 = round(($ph01 * $pl11 * $pv11 * $Class1) * 100, 2);
-        $output1010 = round(($ph01 * $pl11 * $pv01 * $Class1) * 100, 2);
-        $output1000 = round(($ph01 * $pl01 * $pv01 * $Class1) * 100, 2);
-        $output1001 = round(($ph01 * $pl01 * $pv11 * $Class1) * 100, 2);
+        $output1111 = round((($ph11 * $pl11 * $pv11 * $Class1) / (($ph11 * $pl11 * $pv11 * $Class1) + ($ph11 * $pl11 * $pv11 * $Class0))) * 100, 2);
+        $output1110 = round((($ph11 * $pl11 * $pv01 * $Class1) / (($ph11 * $pl11 * $pv01 * $Class1) + ($ph11 * $pl11 * $pv01 * $Class0))) * 100, 2);
+        $output1100 = round((($ph11 * $pl01 * $pv01 * $Class1) / (($ph11 * $pl01 * $pv01 * $Class1) + ($ph11 * $pl01 * $pv01 * $Class0))) * 100, 2);
+        $output1101 = round((($ph11 * $pl01 * $pv11 * $Class1) / (($ph11 * $pl01 * $pv11 * $Class1) + ($ph11 * $pl01 * $pv11 * $Class0))) * 100, 2);
+        $output1011 = round((($ph01 * $pl11 * $pv11 * $Class1) / (($ph01 * $pl11 * $pv11 * $Class1) + ($ph01 * $pl11 * $pv11 * $Class0))) * 100, 2);
+        $output1010 = round((($ph01 * $pl11 * $pv01 * $Class1) / (($ph01 * $pl11 * $pv01 * $Class1) + ($ph01 * $pl11 * $pv01 * $Class0))) * 100, 2);
+        $output1000 = round((($ph01 * $pl01 * $pv01 * $Class1) / (($ph01 * $pl01 * $pv01 * $Class1) + ($ph01 * $pl01 * $pv01 * $Class0))) * 100, 2);
+        $output1001 = round((($ph01 * $pl01 * $pv11 * $Class1) / (($ph01 * $pl01 * $pv11 * $Class1) + ($ph01 * $pl01 * $pv11 * $Class0))) * 100, 2);
+
 
         // output when down
-        $output0111 = round($ph10 * $pl10 * $pv10 * $Class0 * 100, 2);
-        $output0110 = round($ph10 * $pl10 * $pv00 * $Class0 * 100, 2);
-        $output0100 = round($ph10 * $pl00 * $pv00 * $Class0 * 100, 2);
-        $output0101 = round($ph10 * $pl00 * $pv10 * $Class0 * 100, 2);
-        $output0011 = round($ph00 * $pl10 * $pv10 * $Class0 * 100, 2);
-        $output0010 = round($ph00 * $pl10 * $pv00 * $Class0 * 100, 2);
-        $output0000 = round($ph00 * $pl00 * $pv00 * $Class0 * 100, 2);
-        $output0001 = round($ph00 * $pl00 * $pv10 * $Class0 * 100, 2);
+        $output0111 = round((($ph10 * $pl10 * $pv10 * $Class0) / (($ph10 * $pl10 * $pv10 * $Class1) + ($ph10 * $pl10 * $pv10 * $Class0))) * 100, 2);
+        $output0110 = round((($ph10 * $pl10 * $pv00 * $Class0) / (($ph10 * $pl10 * $pv00 * $Class1) + ($ph10 * $pl10 * $pv00 * $Class0))) * 100, 2);
+        $output0100 = round((($ph10 * $pl00 * $pv00 * $Class0) / (($ph10 * $pl00 * $pv00 * $Class1) + ($ph10 * $pl00 * $pv00 * $Class0))) * 100, 2);
+        $output0101 = round((($ph10 * $pl00 * $pv10 * $Class0) / (($ph10 * $pl00 * $pv10 * $Class1) + ($ph10 * $pl00 * $pv10 * $Class0))) * 100, 2);
+        $output0011 = round((($ph00 * $pl10 * $pv10 * $Class0) / (($ph00 * $pl10 * $pv10 * $Class1) + ($ph00 * $pl10 * $pv10 * $Class0))) * 100, 2);
+        $output0010 = round((($ph00 * $pl10 * $pv00 * $Class0) / (($ph00 * $pl10 * $pv00 * $Class1) + ($ph00 * $pl10 * $pv00 * $Class0))) * 100, 2);
+        $output0000 = round((($ph00 * $pl00 * $pv00 * $Class0) / (($ph00 * $pl00 * $pv00 * $Class1) + ($ph00 * $pl00 * $pv00 * $Class0))) * 100, 2);
+        $output0001 = round((($ph00 * $pl00 * $pv10 * $Class0) / (($ph00 * $pl00 * $pv10 * $Class1) + ($ph00 * $pl00 * $pv10 * $Class0))) * 100, 2);
+
+        // sum all o
+        // $sum = $output1111 + $output1110 + $output1100 + $output1101 + $output1011 + $output1010 + $output1000 + $output1001 + $output0111 + $output0110 + $output0100 + $output0101 + $output0011 + $output0010 + $output0000 + $output0001;
+        // return $sum;
 
         // detect feature from last table data and if match with the combination above, then show the result
-        $high = DB::table('binance')->orderBy('id', 'desc')->first()->high;
-        $low = DB::table('binance')->orderBy('id', 'desc')->first()->low;
-        $volume = DB::table('binance')->orderBy('id', 'desc')->first()->volume;
-        $date = DB::table('binance')->orderBy('id', 'desc')->first()->date;
+        $high = DB::table('bayes')->orderBy('id', 'desc')->first()->high;
+        $low = DB::table('bayes')->orderBy('id', 'desc')->first()->low;
+        $volume = DB::table('bayes')->orderBy('id', 'desc')->first()->volume;
+        $date = DB::table('bayes')->orderBy('id', 'desc')->first()->date;
 
         if ($high == 1 && $low == 1 && $volume == 1) {
             if ($output1111 > $output0111) {
@@ -417,7 +422,25 @@ class NewController extends Controller
             }
         }
         return $result;
-}
+    }
+    //accuracy between column harga in bayes table and column hasil in akurasi table
+    public function akurasi()
+    {
+        $bayes = DB::table('bayes')->get();
+        $akurasi = DB::table('akurasi')->get();
+        $count = 0;
+        $total = 0;
+        foreach ($bayes as $bayes) {
+            foreach ($akurasi as $akurasi) {
+                if ($bayes->harga == $akurasi->hasil) {
+                    $count++;
+                }
+                $total++;
+            }
+        }
+        $accuracy = ($count / $total) * 100;
+        return $accuracy;
+    }
     //Binance
     public function import1(Request $request)
     {

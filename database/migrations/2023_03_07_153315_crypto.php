@@ -112,6 +112,13 @@ class crypto extends Migration
 
 
         });
+        Schema::create('akurasi', function (Blueprint $table) {
+            $table->id();
+            // date
+            $table->date('date');
+            // format bool
+            $table->boolean('hasil');
+        });
     }
     public function down()
     {
@@ -127,5 +134,8 @@ class crypto extends Migration
         Schema::dropIfExists('SMA');
         Schema::dropIfExists('Bullish_Berrish');
         Schema::dropIfExists('threshold');
+        Schema::dropIfExists('bayes');
+        Schema::dropIfExists('akurasi');
+
     }
 }
