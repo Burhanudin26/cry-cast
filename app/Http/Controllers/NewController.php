@@ -435,10 +435,10 @@ class NewController extends Controller
             // Remove header row from data
             $data = array_slice($data, 1);
 
-            $table = 'binance';
+            $nama_table = 'binance';
             DB::table('binance')->where('id', '<>', 'admin')->delete();
             foreach ($data as $row) {
-                DB::table($table)->insert([
+                DB::table($nama_table)->insert([
                     'date' => date('Y/m/d', strtotime($row[3])),
                     'high' => is_numeric($row[4]) ? $row[4] : 0,
                     'low' => is_numeric($row[5]) ? $row[5] : 0,
@@ -446,9 +446,9 @@ class NewController extends Controller
                 ]);
             }
         }
-        $this->AverageAll();
-        $this->Threshold();
-        $this->getHighData();
+        $this->AverageAll($nama_table);
+        $this->Threshold($nama_table);
+        $this->getHighData($nama_table);
         // redirect to the page to display the results output
         return redirect()->route('output');
     }
