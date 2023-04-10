@@ -40,12 +40,12 @@
                     </div>
                     <hr>
                     <!-- checkbox used data yang ada -->
-                    <div class="form-check mb-3">
+                    {{-- <div class="form-check mb-3">
                       <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                       <label class="form-check-label" for="flexCheckDefault">
                         Use data from our database
                       </label>
-                    </div>
+                    </div> --}}
                     <div class="">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>

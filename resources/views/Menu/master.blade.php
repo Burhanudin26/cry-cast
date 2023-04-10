@@ -11,12 +11,13 @@
         <h1 class="text-center">Binance</h1>
       </div>
       <div class="card-body p-4" style="background-color: rgba(255, 255, 255, 0);">
-        <form method="POST" action="/import" enctype="multipart/form-data">
+        <form method="POST" action="/import1" enctype="multipart/form-data">
+          <p class="text-center">Masukkan dataset anda dengan format .csv</p>
           <!-- pilih tanggal -->
-          <div class="mb-3">
+          {{-- <div class="mb-3">
             <label for="dateInput" class="form-label">Masukkan Tanggal</label>
             <input type="date" class="form-control" id="dateInput">
-          </div>
+          </div> --}}
           <!-- file -->
           <div class="mb-3">
             <label for="file" class="form-label">Choose file:</label> <br>
@@ -38,17 +39,17 @@
                   <div class="mb-3">
                     @csrf
                     <label for="fileInput" class="form-label">Select a file:</label>
-                    <input type="file" name="csv_input_master" class="form-control" id="fileInput" accept=".csv,.xlsx"
+                    <input type="file" name="csv_input_binance" class="form-control" id="fileInput" accept=".csv,.xlsx"
                       draggable="true"> {{-- add dragable true --}}
-                  </div>c
+                  </div>
                   <hr>
                   <!-- checkbox used data yang ada -->
-                  <div class="form-check mb-3">
+                  {{-- <div class="form-check mb-3">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                     <label class="form-check-label" for="flexCheckDefault">
                       Use data from our database
                     </label>
-                  </div>
+                  </div> --}}
                   <div class="">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
@@ -58,7 +59,7 @@
             </div>
           </div>
           <!-- check box prediksi naik dan turun-->
-          <div class="mb-3">
+          {{-- <div class="mb-3">
             <label for="checkbox">Pilih prediksi:</label> <br>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
@@ -68,7 +69,7 @@
               <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
               <label class="form-check-label" for="inlineCheckbox2">Turun</label>
             </div>
-          </div>
+          </div> --}}
           <!-- submit button -->
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
