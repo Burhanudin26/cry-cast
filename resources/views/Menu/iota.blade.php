@@ -55,7 +55,7 @@
               </div>
             </div>
           <!-- check box prediksi naik dan turun-->
-            <div class="mb-3">
+            {{-- <div class="mb-3">
               <label for="checkbox">Pilih prediksi:</label> <br>
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
@@ -65,7 +65,7 @@
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
                 <label class="form-check-label" for="inlineCheckbox2">Turun</label>
               </div>
-            </div>
+            </div> --}}
           <!-- submit button -->
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
