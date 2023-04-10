@@ -116,7 +116,7 @@ Route::post('/import8', 'App\Http\Controllers\NewController@import8');
 Route::get('/output', 'App\Http\Controllers\NewController@getHighData')->name('output');
 
 // redirect import1 to output
-Route::get('/import1', function () {
+Route::get('/import', function () {
     return redirect()->route('output');
 });
 

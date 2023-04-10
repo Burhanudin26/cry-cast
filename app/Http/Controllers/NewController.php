@@ -12,35 +12,35 @@ use Symfony\Component\Console\Output\Output;
 class NewController extends Controller
 {
     // get trend SMA
-    public function getHighData($nama_table)
+    public function getHighData($table)
     {
         // get data as array from table binance and column high and column id
-        $data = DB::table($nama_table)->select('high')->get();
+        $data = DB::table($table)->select('high')->get();
         $trend = DB::table('SMA')->select('sma_high')->get();
 
         // get data as array from table binance and column low and column id
-        $low_data = DB::table($nama_table)->select('low')->get();
+        $low_data = DB::table($table)->select('low')->get();
         $low_trend = DB::table('SMA')->select('sma_low')->get();
 
         // get data as array from table binance and column volume and column id
-        $volume_data = DB::table($nama_table)->select('volume')->get();
+        $volume_data = DB::table($table)->select('volume')->get();
         $volume_trend = DB::table('SMA')->select('sma_volume')->get();
-        $date = DB::table($nama_table)->select('date')->get();
+        $date = DB::table($table)->select('date')->get();
 
         // get oyutput in function BB
-        $output = $this->BB($nama_table);
+        $output = $this->BB($table);
         // get output in function bayes
         $outputb = $this->naive();
         return view('output')->with(compact('data', 'trend', 'low_data', 'low_trend', 'volume_data', 'volume_trend', 'date', 'output', 'outputb'));
     }
     //Mencari rata-rata low, high, volume setiap 5 kolom
-    public function AverageAll($nama_table)
+    public function AverageAll($table)
     {
         // Create a PDO connection to the database
         $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
 
         // Prepare the SQL query to get the low, high, and volume values from the binance table in groups of 5
-        $stmt = $db->prepare('SELECT low, high, volume FROM ?');
+        $stmt = $db->prepare('SELECT low, high, volume FROM ' . $table);
 
         // Execute the query
         $stmt->execute();
@@ -92,10 +92,10 @@ class NewController extends Controller
                 $i = $i - ($priod - 1);
             }
         }
-        $this->HitungSMA($nama_table);
+        $this->HitungSMA($table);
     }
     //mencari Simple Moving Average
-    public function HitungSMA($nama_table)
+    public function HitungSMA($table)
     {
         // Create a PDO connection to the database
         $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
@@ -156,13 +156,13 @@ class NewController extends Controller
         }
     }
     //Threshold Naive bayes per bulan
-    public function Threshold($nama_table)
+    public function Threshold($table)
     {
         // Create a PDO connection to the database
         $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
 
         // Prepare the SQL query to get the monthly averages of low, high, and volume from the binance table
-        $stmt = $db->prepare('SELECT DATE_FORMAT(date, "%Y-%m-01") AS month, AVG(low) AS avg_low, AVG(high) AS avg_high, AVG(volume) AS avg_volume FROM binance GROUP BY month');
+        $stmt = $db->prepare("SELECT DATE_FORMAT(date, '%Y-%m-01') AS month, AVG(low) AS avg_low, AVG(high) AS avg_high, AVG(volume) AS avg_volume FROM $table GROUP BY month");
 
         // Execute the query
         $stmt->execute();
@@ -189,15 +189,15 @@ class NewController extends Controller
             // Execute the query to insert the monthly averages into the threshold table
             $insert_stmt->execute();
         }
-        $this->bayes();
+        $this->bayes($table);
     }
 
     // Membuat bullish dan bearish pada moving average
-    public function BB($nama_table)
+    public function BB($table)
     {
 
         $sma = DB::table('SMA')->orderBy('id', 'desc')->take(2)->get();
-        $high = DB::table($nama_table)->orderBy('id', 'desc')->take(2)->get();
+        $high = DB::table($table)->orderBy('id', 'desc')->take(2)->get();
         $sma1 = $sma[0]->sma_high;
         $sma2 = $sma[1]->sma_high;
         $high1 = $high[0]->high;
@@ -218,7 +218,7 @@ class NewController extends Controller
     }
 
     // treshold check based on threshold table per month and iterate to chech per day in binance table
-    public function bayes()
+    public function bayes($table)
     {
         // Get the threshold data for each month
         $thresholds = DB::table('threshold')->get();
@@ -238,11 +238,11 @@ class NewController extends Controller
             $endDate = date('Y-m-t', strtotime($startDate));
 
             // Get the binance data for the month
-            $binanceData = DB::table('binance')
+            $prevData = DB::table($table)
                 ->whereBetween('date', [$startDate, $endDate])
                 ->get();
             // Loop through each day in the month
-            foreach ($binanceData as $key => $data) {
+            foreach ($prevData as $key => $data) {
                 // Check if the value is above or below the threshold
                 if ($data->high > $threshold->hold_high) {
                     $hvalue = 1;
@@ -271,7 +271,7 @@ class NewController extends Controller
                     $hargavalue = 0;
                 } else {
                     // Compare current and previous day's high values
-                    if ($data->high > $binanceData[$key - 1]->high) {
+                    if ($data->high > $prevData[$key - 1]->high) {
                         $hargavalue = 1;
                     } else {
                         $hargavalue = 0;
@@ -455,7 +455,6 @@ public function import(Request $request)
         $highIndex = array_search('High', $header);
         $lowIndex = array_search('Low', $header);
         $volumeIndex = array_search('Volume', $header);
-
         // Remove header row from data
         $data = array_slice($data, 1);
 
@@ -470,6 +469,12 @@ public function import(Request $request)
             ]);
         }
     }
+        $table = 'master';
+        $this->AverageAll($table);
+        $this->Threshold($table);
+        $this->getHighData('master');
+        // redirect to the page to display the results output
+        return redirect()->route('output');
 }
     //Binance
     public function import1(Request $request)
@@ -514,10 +519,10 @@ public function import(Request $request)
         if ($file && $file->isValid()) {
             $path = $file->getRealPath();
             $data = array_map('str_getcsv', file($path));
-            $nama_table = 'bitcoin';
-            DB::table($nama_table)->truncate();
+            $table = 'bitcoin';
+            DB::table($table)->truncate();
             foreach ($data as $row) {
-                DB::table($nama_table)->insert([
+                DB::table($table)->insert([
                     'date' => date('Y/m/d H:i:s', strtotime($row[3])),
                     'high' => is_numeric($row[4]) ? $row[4] : 0,
                     'low' => is_numeric($row[5]) ? $row[5] : 0,
@@ -525,9 +530,9 @@ public function import(Request $request)
                 ]);
             }
         }
-        $this->AverageAll($nama_table);
-        $this->Threshold($nama_table);
-        $this->getHighData($nama_table);
+        $this->AverageAll($table);
+        $this->Threshold($table);
+        $this->getHighData($table);
         // redirect to the page to display the results output
         return redirect()->route('output');
     }
@@ -538,10 +543,10 @@ public function import(Request $request)
         if ($file && $file->isValid()) {
             $path = $file->getRealPath();
             $data = array_map('str_getcsv', file($path));
-            $nama_table = 'dogecoin';
-            DB::table($nama_table)->truncate();
+            $table = 'dogecoin';
+            DB::table($table)->truncate();
             foreach ($data as $row) {
-                DB::table($nama_table)->insert([
+                DB::table($table)->insert([
                     'date' => date('Y/m/d H:i:s', strtotime($row[3])),
                     'high' => is_numeric($row[4]) ? $row[4] : 0,
                     'low' => is_numeric($row[5]) ? $row[5] : 0,
@@ -549,9 +554,9 @@ public function import(Request $request)
                 ]);
             }
         }
-        $this->AverageAll($nama_table);
-        $this->Threshold($nama_table);
-        $this->getHighData($nama_table);
+        $this->AverageAll($table);
+        $this->Threshold($table);
+        $this->getHighData($table);
         // redirect to the page to display the results output
         return redirect()->route('output');
     }
@@ -562,10 +567,10 @@ public function import(Request $request)
         if ($file && $file->isValid()) {
             $path = $file->getRealPath();
             $data = array_map('str_getcsv', file($path));
-            $nama_table = 'etherium';
-            DB::table($nama_table)->truncate();
+            $table = 'etherium';
+            DB::table($table)->truncate();
             foreach ($data as $row) {
-                DB::table($nama_table)->insert([
+                DB::table($table)->insert([
                     'date' => date('Y/m/d H:i:s', strtotime($row[3])),
                     'high' => is_numeric($row[4]) ? $row[4] : 0,
                     'low' => is_numeric($row[5]) ? $row[5] : 0,
@@ -573,9 +578,9 @@ public function import(Request $request)
                 ]);
             }
         }
-        $this->AverageAll($nama_table);
-        $this->Threshold($nama_table);
-        $this->getHighData($nama_table);
+        $this->AverageAll($table);
+        $this->Threshold($table);
+        $this->getHighData($table);
         // redirect to the page to display the results output
         return redirect()->route('output');
     }
@@ -586,10 +591,10 @@ public function import(Request $request)
         if ($file && $file->isValid()) {
             $path = $file->getRealPath();
             $data = array_map('str_getcsv', file($path));
-            $nama_table = 'iota';
-            DB::table($nama_table)->truncate();
+            $table = 'iota';
+            DB::table($table)->truncate();
             foreach ($data as $row) {
-                DB::table($nama_table)->insert([
+                DB::table($table)->insert([
                     'date' => date('Y/m/d H:i:s', strtotime($row[3])),
                     'high' => is_numeric($row[4]) ? $row[4] : 0,
                     'low' => is_numeric($row[5]) ? $row[5] : 0,
@@ -597,9 +602,9 @@ public function import(Request $request)
                 ]);
             }
         }
-        $this->AverageAll($nama_table);
-        $this->Threshold($nama_table);
-        $this->getHighData($nama_table);
+        $this->AverageAll($table);
+        $this->Threshold($table);
+        $this->getHighData($table);
         // redirect to the page to display the results output
         return redirect()->route('output');
     }
@@ -610,10 +615,10 @@ public function import(Request $request)
         if ($file && $file->isValid()) {
             $path = $file->getRealPath();
             $data = array_map('str_getcsv', file($path));
-            $nama_table = 'solana';
-            DB::table($nama_table)->truncate();
+            $table = 'solana';
+            DB::table($table)->truncate();
             foreach ($data as $row) {
-                DB::table($nama_table)->insert([
+                DB::table($table)->insert([
                     'date' => date('Y/m/d H:i:s', strtotime($row[3])),
                     'high' => is_numeric($row[4]) ? $row[4] : 0,
                     'low' => is_numeric($row[5]) ? $row[5] : 0,
@@ -621,9 +626,9 @@ public function import(Request $request)
                 ]);
             }
         }
-        $this->AverageAll($nama_table);
-        $this->Threshold($nama_table);
-        $this->getHighData($nama_table);
+        $this->AverageAll($table);
+        $this->Threshold($table);
+        $this->getHighData($table);
         // redirect to the page to display the results output
         return redirect()->route('output');
     }
@@ -634,10 +639,10 @@ public function import(Request $request)
         if ($file && $file->isValid()) {
             $path = $file->getRealPath();
             $data = array_map('str_getcsv', file($path));
-            $nama_table = 'stellar';
-            DB::table($nama_table)->truncate();
+            $table = 'stellar';
+            DB::table($table)->truncate();
             foreach ($data as $row) {
-                DB::table($nama_table)->insert([
+                DB::table($table)->insert([
                     'date' => date('Y/m/d H:i:s', strtotime($row[3])),
                     'high' => is_numeric($row[4]) ? $row[4] : 0,
                     'low' => is_numeric($row[5]) ? $row[5] : 0,
@@ -645,9 +650,9 @@ public function import(Request $request)
                 ]);
             }
         }
-        $this->AverageAll($nama_table);
-        $this->Threshold($nama_table);
-        $this->getHighData($nama_table);
+        $this->AverageAll($table);
+        $this->Threshold($table);
+        $this->getHighData($table);
         // redirect to the page to display the results output
         return redirect()->route('output');
     }
@@ -658,10 +663,10 @@ public function import(Request $request)
         if ($file && $file->isValid()) {
             $path = $file->getRealPath();
             $data = array_map('str_getcsv', file($path));
-            $nama_table = 'tron';
-            DB::table($nama_table)->truncate();
+            $table = 'tron';
+            DB::table($table)->truncate();
             foreach ($data as $row) {
-                DB::table($nama_table)->insert([
+                DB::table($table)->insert([
                     'date' => date('Y/m/d H:i:s', strtotime($row[3])),
                     'high' => is_numeric($row[4]) ? $row[4] : 0,
                     'low' => is_numeric($row[5]) ? $row[5] : 0,
@@ -669,9 +674,9 @@ public function import(Request $request)
                 ]);
             }
         }
-        $this->AverageAll($nama_table);
-        $this->Threshold($nama_table);
-        $this->getHighData($nama_table);
+        $this->AverageAll($table);
+        $this->Threshold($table);
+        $this->getHighData($table);
         // redirect to the page to display the results output
         return redirect()->route('output');
     }

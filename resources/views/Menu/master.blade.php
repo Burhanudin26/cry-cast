@@ -39,7 +39,7 @@
                   <div class="mb-3">
                     @csrf
                     <label for="fileInput" class="form-label">Select a file:</label>
-                    <input type="file" name="csv_input_binance" class="form-control" id="fileInput" accept=".csv,.xlsx"
+                    <input type="file" name="csv_input_master" class="form-control" id="fileInput" accept=".csv,.xlsx"
                       draggable="true"> {{-- add dragable true --}}
                   </div>
                   <hr>
