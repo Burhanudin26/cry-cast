@@ -384,10 +384,10 @@ public function recall()
     $totalPositive = 0;
     $totalNegative = 0;
 
-    // hitung true positive dan false negative
+    // hitung true positive dan false negative  
     foreach ($bayeses as $bayes) {
         foreach ($predictions as $prediction) {
-            if ($bayes->id == $prediction->id) {
+            if ($bayes->date == $prediction->date) {
                 if ($bayes->harga == 1) {
                     $totalPositive++;
                     if ($prediction->hasil == 1) {
@@ -406,8 +406,11 @@ public function recall()
     if ($truePositive + $falseNegative > 0) {
         $recall = round($truePositive / ($truePositive + $falseNegative) * 100, 2);
     } else {
+        echo "else recall 0";
         $recall = 0;
     }
+
+    DB::table('recall')->insert(['hasil' => $recall]);
 
     return $recall;
 }
@@ -426,7 +429,7 @@ public function precision()
     // hitung true positive dan false positive
     foreach ($bayeses as $bayes) {
         foreach ($predictions as $prediction) {
-            if ($bayes->id == $prediction->id) {
+            if ($bayes->date == $prediction->date) {
                 if ($bayes->harga == 1) {
                     $totalPositive++;
                     if ($prediction->hasil == 1) {
