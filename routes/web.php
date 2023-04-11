@@ -115,6 +115,9 @@ Route::post('/import8', 'App\Http\Controllers\NewController@import8');
 
 // Output
 
+// Try Naive Bayes
+Route::get('/naive', 'App\Http\Controllers\NewController@naiveBayes')->name('naive');
+
 // redirect import1 to output
 
 // return controller naive
@@ -128,6 +131,15 @@ Route::get('/naive', 'App\Http\Controllers\NewController@naive')->name('naive');
 
 // route to controller accuracy
 Route::get('/accuracy', 'App\Http\Controllers\NewController@accuracy')->name('accuracy');
+
+// route to controller recall
+Route::get('/recall', 'App\Http\Controllers\NewController@recall')->name('recall');
+
+// route to controller precision
+Route::get('/precision', 'App\Http\Controllers\NewController@precision')->name('precision');
+
+// route to controller f1
+Route::get('/f1', 'App\Http\Controllers\NewController@f1')->name('f1');
 
 // route to controller errRate
 Route::get('/errate', 'App\Http\Controllers\ErrRate@errate')->name('errate');

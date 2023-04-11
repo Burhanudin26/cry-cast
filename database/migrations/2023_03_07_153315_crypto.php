@@ -129,6 +129,21 @@ class crypto extends Migration
             $table->date('date');
             $table->boolean('hasil');
         });
+        // recall
+        Schema::create('recall', function (Blueprint $table){
+            $table->id();
+            $table->boolean('hasil');
+        });
+        // precision
+        Schema::create('precision', function (Blueprint $table){
+            $table->id();
+            $table->boolean('hasil');
+        });
+        // f1 score
+        Schema::create('f1_score', function (Blueprint $table){
+            $table->id();
+            $table->float('hasil', 20, 10);
+        });
         // err rate
         Schema::create('err_rate', function (Blueprint $table){
             $table->id();
@@ -153,6 +168,10 @@ class crypto extends Migration
         Schema::dropIfExists('naive_bayes');
         Schema::dropIfExists('bayes');
         Schema::dropIfExists('akurasi');
+        Schema::dropIfExists('prediction');
+        Schema::dropIfExists('recall');
+        Schema::dropIfExists('precision');
+        Schema::dropIfExists('err_rate');
 
     }
 }

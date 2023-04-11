@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Carbon\Carbon;
+
 
 class UserController extends Controller
 {
@@ -46,17 +48,20 @@ class UserController extends Controller
         ]);
 
         if (filter_var($credentials['name_or_email'], FILTER_VALIDATE_EMAIL)) {
-            $user = User::where('email', $credentials['name_or_email'])->first();
+            $user = User::where('email', $credentials['name_or_email'])->first(); // If the user is logging in with their email
         } else {
-            $user = User::where('name', $credentials['name_or_email'])->first();
+            $user = User::where('name', $credentials['name_or_email'])->first(); // If the user is logging in with their username
         }
 
         if (!$user || !password_verify($credentials['password'], $user->password)) {
             return back()->withErrors([
-                'name_or_email' => 'The provided credentials do not match our records.',
+                'name_or_email' => 'The provided credentials do not match our records.', // 
             ]);
         }
-
+        
+        // Update email_verified_at column for the user who just logged in
+        $user->update(['email_verified_at' => Carbon::now()]); // Set waktu ketika user login
+        
         Auth::login($user);
 
         return view('menu');
@@ -64,8 +69,14 @@ class UserController extends Controller
 
     public function logout()
     {
-        Auth::logout();
-
+        $user = Auth::user(); // Get the authenticated user
+    
+        if ($user) {
+            $user->update(['email_verified_at' => null]); // Set email_verified_at to null
+        }
+        
+        Auth::logout(); // Log the user out
+        
         return view('home');
     }
 
