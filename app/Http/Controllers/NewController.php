@@ -11,68 +11,6 @@ use Symfony\Component\Console\Output\Output;
 
 class NewController extends Controller
 {
-
-    //Mencari rata-rata low, high, volume setiap 5 kolom
-    public function AverageAll($table)
-    {
-        // Create a PDO connection to the database
-        $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
-
-        // Prepare the SQL query to get the low, high, and volume values from the binance table in groups of 5
-        $stmt = $db->prepare('SELECT low, high, volume FROM ' . $table);
-
-        // Execute the query
-        $stmt->execute();
-
-        // Fetch the result as an array of rows
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        // priod SMA
-        $priod = 5;
-
-        // Initialize arrays to hold the average values for each column
-        $avg_lows = array();
-        $avg_highs = array();
-        $avg_volumes = array();
-        DB::table('AverageAll')->truncate();
-        // Calculate the average values for each column for each group of $priod rows
-        for ($i = 0; $i < count($rows); $i++) {
-            $row = $rows[$i];
-            $low = $row['low'];
-            $high = $row['high'];
-            $volume = $row['volume'];
-
-            // Add the current row's values to their respective arrays
-            $avg_lows[] = $low;
-            $avg_highs[] = $high;
-            $avg_volumes[] = $volume;
-
-            // If we've reached a group of 5 rows, calculate the averages and insert them into the SMA table
-            if (count($avg_lows) == $priod && count($avg_highs) == $priod && count($avg_volumes) == $priod) {
-                $avg_low = array_sum($avg_lows) / count($avg_lows);
-                $avg_high = array_sum($avg_highs) / count($avg_highs);
-                $avg_volume = array_sum($avg_volumes) / count($avg_volumes);
-
-                // Prepare the SQL query to insert the average values into the AverageAll table
-                $insert_stmt = $db->prepare('INSERT INTO AverageAll (avg_low, avg_high, avg_volume) VALUES (:avg_low, :avg_high, :avg_volume)');
-
-                // Bind the average values to the query parameters
-                $insert_stmt->bindParam(':avg_low', $avg_low);
-                $insert_stmt->bindParam(':avg_high', $avg_high);
-                $insert_stmt->bindParam(':avg_volume', $avg_volume);
-
-                // Execute the query to insert the average values into the SMA table
-                $insert_stmt->execute();
-
-                // Clear the arrays of average values
-                $avg_lows = array();
-                $avg_highs = array();
-                $avg_volumes = array();
-                $i = $i - ($priod - 1);
-            }
-        }
-        $this->HitungSMA($table);
-    }
     //mencari Simple Moving Average
     public function HitungSMA($table)
     {
@@ -80,7 +18,7 @@ class NewController extends Controller
         $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
 
         // Prepare the SQL query to get the low, high, and volume values from the binance table in groups of 5
-        $stmt = $db->prepare('SELECT avg_low, avg_high, avg_volume FROM averageall');
+        $stmt = $db->prepare('SELECT date, low, high, volume FROM ' . $table);
 
         // Execute the query
         $stmt->execute();
@@ -93,22 +31,23 @@ class NewController extends Controller
         $sma_highs = array();
         $sma_volumes = array();
         DB::table('SMA')->truncate();
-        for ($i = 0; $i < 8; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             $insert_stmt = $db->prepare('INSERT INTO SMA (sma_low, sma_high, sma_volume) VALUES (0, 0, 0)');
             $insert_stmt->execute();
         }
-        // Calculate the average values for each column for each group of 5 rows
+        // Calculate the average values for each column for each group of $priod rows
         for ($i = 0; $i < count($rows); $i++) {
             $row = $rows[$i];
-            $smalow = $row['avg_low'];
-            $smahigh = $row['avg_high'];
-            $smavolume = $row['avg_volume'];
+            $smalow = $row['low'];
+            $smahigh = $row['high'];
+            $smavolume = $row['volume'];
+            $smadate = $row['date'];
 
             // Add the current row's values to their respective arrays
             $sma_lows[] = $smalow;
             $sma_highs[] = $smahigh;
             $sma_volumes[] = $smavolume;
-
+            
             // If we've reached a group of 5 rows, calculate the averages and insert them into the SMA table
             if (count($sma_lows) == 5 && count($sma_highs) == 5 && count($sma_volumes) == 5) {
                 $sma_low = array_sum($sma_lows) / count($sma_lows);
@@ -116,12 +55,13 @@ class NewController extends Controller
                 $sma_volume = array_sum($sma_volumes) / count($sma_volumes);
 
                 // Prepare the SQL query to insert the average values into the SMA table
-                $insert_stmt = $db->prepare('INSERT INTO SMA (sma_low, sma_high, sma_volume) VALUES (:sma_low, :sma_high, :sma_volume)');
+                $insert_stmt = $db->prepare('INSERT INTO SMA (date,sma_low, sma_high, sma_volume) VALUES (:smadate, :sma_low, :sma_high, :sma_volume)');
 
                 // Bind the average values to the query parameters
                 $insert_stmt->bindParam(':sma_low', $sma_low);
                 $insert_stmt->bindParam(':sma_high', $sma_high);
                 $insert_stmt->bindParam(':sma_volume', $sma_volume);
+                $insert_stmt->bindParam(':smadate', $smadate);
 
                 // Execute the query to insert the average values into the SMA table
                 $insert_stmt->execute();
@@ -408,7 +348,6 @@ class NewController extends Controller
         }
         return $result;
     }
-    //accuracy between column harga in bayes table and column hasil in akurasi table based on id
     public function accuracy()
     {
         $bayeses = DB::table('bayes')->get();
@@ -427,6 +366,18 @@ class NewController extends Controller
         $accuracy = round(($count / $total) * 100, 2);
         return $accuracy;
     }
+    public function error_rate()
+    {
+        // Retrieve data from the database
+        $data = DB::table('table_name')->pluck('column_name')->toArray(); // Using query builder
+        // Calculate the error rate
+        $average = array_sum($data) / count($data);
+        $errors = array_map(function($x) use ($average) {
+            return abs($x - $average);
+        }, $data);
+        $error_rate = array_sum($errors) / count($errors);
+        return $error_rate;
+    }
 
 //Masterinput
 public function import(Request $request)
@@ -444,7 +395,6 @@ public function import(Request $request)
         $volumeIndex = array_search('Volume', $header);
         // Remove header row from data
         $data = array_slice($data, 1);
-
         $table = 'master';
         DB::table('master')->where('id', '<>', 'admin')->delete();
         foreach ($data as $row) {
@@ -457,7 +407,7 @@ public function import(Request $request)
         }
     }
         $table = 'master';
-        $this->AverageAll($table);
+        $this->HitungSMA($table);
         $this->Threshold($table);
         $data = DB::table($table)->select('high')->get();
         $trend = DB::table('SMA')->select('sma_high')->get();
@@ -532,10 +482,10 @@ public function import(Request $request)
             // Remove header row from data
             $data = array_slice($data, 1);
 
-            $table = 'binance';
+            $nama_table = 'binance';
             DB::table('binance')->where('id', '<>', 'admin')->delete();
             foreach ($data as $row) {
-                DB::table($table)->insert([
+                DB::table($nama_table)->insert([
                     'date' => date('Y/m/d', strtotime($row[3])),
                     'high' => is_numeric($row[4]) ? $row[4] : 0,
                     'low' => is_numeric($row[5]) ? $row[5] : 0,
@@ -543,9 +493,9 @@ public function import(Request $request)
                 ]);
             }
         }
-        $this->AverageAll($table);
-        $this->Threshold($table);
-        $this->getHighData($table);
+        $this->AverageAll($nama_table);
+        $this->Threshold($nama_table);
+        $this->getHighData($nama_table);
         // redirect to the page to display the results output
         return redirect()->route('output');
     }
