@@ -5,6 +5,7 @@ use App\Http\Controllers\ErrRate;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Binance;
 
 
 /*
@@ -72,10 +73,8 @@ Route::prefix('menu')->group(function () {
         return view('menu.bitcoin');
     });
 
-    // route to biance
-    Route::get('binance', function () {
-        return view('menu.binance');
-    });
+    // route to bianceconmtroller index
+    Route::get('binance', [Binance::class, 'index']);
 
     // route to dogecoin
     Route::get('dogecoin', function () {

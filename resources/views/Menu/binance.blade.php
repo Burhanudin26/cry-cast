@@ -13,10 +13,11 @@
       <div class="card-body p-4" style="background-color: rgba(255, 255, 255, 0);">
         <form method="POST" action="/import1" enctype="multipart/form-data">
           <!-- pilih tanggal -->
-          <div class="mb-3">
-            <label for="dateInput" class="form-label">Masukkan Tanggal</label>
-            <input type="date" class="form-control" id="dateInput" name="date">
-          </div>
+      <div class="mb-3">
+          <label for="dateInput" class="form-label">Masukkan Tanggal</label>
+          <input type="date" class="form-control" id="dateInput" name="date" min="{{ $minDate }}" max="{{ $maxDate }}">
+      </div>
+
           {{-- tanggal yang tersedia --}}
           <div>
             {{-- get the date boundary first and end from table binance --}}
