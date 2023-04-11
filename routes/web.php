@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\NewController;
+use App\Http\Controllers\ErrRate;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -133,3 +135,12 @@ Route::get('/accuracy', 'App\Http\Controllers\NewController@accuracy')->name('ac
 
 // route to controller recall
 Route::get('/recall', 'App\Http\Controllers\NewController@recall')->name('recall');
+
+// route to controller precision
+Route::get('/precision', 'App\Http\Controllers\NewController@precision')->name('precision');
+
+// route to controller f1
+Route::get('/f1', 'App\Http\Controllers\NewController@f1')->name('f1');
+
+// route to controller errRate
+Route::get('/errate', 'App\Http\Controllers\ErrRate@errate')->name('errate');

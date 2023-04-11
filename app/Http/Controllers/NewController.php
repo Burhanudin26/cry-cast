@@ -9,70 +9,9 @@ use PhpOption\None;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 use Symfony\Component\Console\Output\Output;
 
+set_time_limit(0);
 class NewController extends Controller
 {
-
-    //Mencari rata-rata low, high, volume setiap 5 kolom
-    public function AverageAll($table)
-    {
-        // Create a PDO connection to the database
-        $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
-
-        // Prepare the SQL query to get the low, high, and volume values from the binance table in groups of 5
-        $stmt = $db->prepare('SELECT low, high, volume FROM ' . $table);
-
-        // Execute the query
-        $stmt->execute();
-
-        // Fetch the result as an array of rows
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        // priod SMA
-        $priod = 5;
-
-        // Initialize arrays to hold the average values for each column
-        $avg_lows = array();
-        $avg_highs = array();
-        $avg_volumes = array();
-        DB::table('AverageAll')->truncate();
-        // Calculate the average values for each column for each group of $priod rows
-        for ($i = 0; $i < count($rows); $i++) {
-            $row = $rows[$i];
-            $low = $row['low'];
-            $high = $row['high'];
-            $volume = $row['volume'];
-
-            // Add the current row's values to their respective arrays
-            $avg_lows[] = $low;
-            $avg_highs[] = $high;
-            $avg_volumes[] = $volume;
-
-            // If we've reached a group of 5 rows, calculate the averages and insert them into the SMA table
-            if (count($avg_lows) == $priod && count($avg_highs) == $priod && count($avg_volumes) == $priod) {
-                $avg_low = array_sum($avg_lows) / count($avg_lows);
-                $avg_high = array_sum($avg_highs) / count($avg_highs);
-                $avg_volume = array_sum($avg_volumes) / count($avg_volumes);
-
-                // Prepare the SQL query to insert the average values into the AverageAll table
-                $insert_stmt = $db->prepare('INSERT INTO AverageAll (avg_low, avg_high, avg_volume) VALUES (:avg_low, :avg_high, :avg_volume)');
-
-                // Bind the average values to the query parameters
-                $insert_stmt->bindParam(':avg_low', $avg_low);
-                $insert_stmt->bindParam(':avg_high', $avg_high);
-                $insert_stmt->bindParam(':avg_volume', $avg_volume);
-
-                // Execute the query to insert the average values into the SMA table
-                $insert_stmt->execute();
-
-                // Clear the arrays of average values
-                $avg_lows = array();
-                $avg_highs = array();
-                $avg_volumes = array();
-                $i = $i - ($priod - 1);
-            }
-        }
-        $this->HitungSMA($table);
-    }
     //mencari Simple Moving Average
     public function HitungSMA($table)
     {
@@ -80,7 +19,7 @@ class NewController extends Controller
         $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
 
         // Prepare the SQL query to get the low, high, and volume values from the binance table in groups of 5
-        $stmt = $db->prepare('SELECT avg_low, avg_high, avg_volume FROM averageall');
+        $stmt = $db->prepare('SELECT date, low, high, volume FROM ' . $table);
 
         // Execute the query
         $stmt->execute();
@@ -93,16 +32,17 @@ class NewController extends Controller
         $sma_highs = array();
         $sma_volumes = array();
         DB::table('SMA')->truncate();
-        for ($i = 0; $i < 8; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             $insert_stmt = $db->prepare('INSERT INTO SMA (sma_low, sma_high, sma_volume) VALUES (0, 0, 0)');
             $insert_stmt->execute();
         }
-        // Calculate the average values for each column for each group of 5 rows
+        // Calculate the average values for each column for each group of $priod rows
         for ($i = 0; $i < count($rows); $i++) {
             $row = $rows[$i];
-            $smalow = $row['avg_low'];
-            $smahigh = $row['avg_high'];
-            $smavolume = $row['avg_volume'];
+            $smalow = $row['low'];
+            $smahigh = $row['high'];
+            $smavolume = $row['volume'];
+            $smadate = $row['date'];
 
             // Add the current row's values to their respective arrays
             $sma_lows[] = $smalow;
@@ -116,12 +56,13 @@ class NewController extends Controller
                 $sma_volume = array_sum($sma_volumes) / count($sma_volumes);
 
                 // Prepare the SQL query to insert the average values into the SMA table
-                $insert_stmt = $db->prepare('INSERT INTO SMA (sma_low, sma_high, sma_volume) VALUES (:sma_low, :sma_high, :sma_volume)');
+                $insert_stmt = $db->prepare('INSERT INTO SMA (date,sma_low, sma_high, sma_volume) VALUES (:smadate, :sma_low, :sma_high, :sma_volume)');
 
                 // Bind the average values to the query parameters
                 $insert_stmt->bindParam(':sma_low', $sma_low);
                 $insert_stmt->bindParam(':sma_high', $sma_high);
                 $insert_stmt->bindParam(':sma_volume', $sma_volume);
+                $insert_stmt->bindParam(':smadate', $smadate);
 
                 // Execute the query to insert the average values into the SMA table
                 $insert_stmt->execute();
@@ -279,7 +220,7 @@ class NewController extends Controller
 
 
     // naive bayes output count for each day
-    public function naive($high=0, $low=0, $volume=0)
+    public function naive($high, $low, $volume)
     {
         // class
         $harga1 = DB::table('bayes')->where('harga', 1)->count();
@@ -345,7 +286,7 @@ class NewController extends Controller
         $output0010 = round((($ph00 * $pl00 * $pv00 * $Class0) / (($ph01 * $pl01 * $pv01 * $Class1) + ($ph00 * $pl00 * $pv00 * $Class0))) * 100, 2);
         $output0011 = round((($ph00 * $pl00 * $pv10 * $Class0) / (($ph01 * $pl01 * $pv11 * $Class1) + ($ph00 * $pl00 * $pv10 * $Class0))) * 100, 2);
 
-        // sum all o
+        // // sum all o
         // $sum = $output1111 + $output1110 + $output1100 + $output1101 + $output1011 + $output1010 + $output1000 + $output1001 + $output0111 + $output0110 + $output0100 + $output0101 + $output0011 + $output0010 + $output0000 + $output0001;
         // return $sum;
 
@@ -355,7 +296,8 @@ class NewController extends Controller
         // $volume = DB::table('bayes')->orderBy('id', 'desc')->first()->volume;
         // $date = DB::table('bayes')->orderBy('id', 'desc')->first()->date;
         // print all output
-
+        // echo all output
+        // echo $output1111 . ' ' . $output1110 . ' ' . $output1100 . ' ' . $output1101 . ' ' . $output1011 . ' ' . $output1010 . ' ' . $output1000 . ' ' . $output1001 . ' ' . $output0111 . ' ' . $output0110 . ' ' . $output0100 . ' ' . $output0101 . ' ' . $output0011 . ' ' . $output0010 . ' ' . $output0000 . ' ' . $output0001;
 
         if ($high == 1 && $low == 1 && $volume == 1) {
             if ($output1111 > $output0111) {
@@ -408,16 +350,15 @@ class NewController extends Controller
         }
         return $result;
     }
-    //accuracy between column harga in bayes table and column hasil in akurasi table based on id
     public function accuracy()
     {
         $bayeses = DB::table('bayes')->get();
-        $akurasis = DB::table('prediction')->get();
+        $akurasis = DB::table('prediction')->select('date','hasil')->get();
         $count = 0;
         $total = DB::table('bayes')->count();
         foreach ($bayeses as $bayes) {
             foreach ($akurasis as $akurasi) {
-                if ($bayes->id == $akurasi->id) {
+                if ($bayes->date == $akurasi->date) {
                     if ($bayes->harga == $akurasi->hasil) {
                         $count++;
                     }
@@ -433,7 +374,7 @@ public function recall()
 {
     DB::table('recall')->truncate();
     $bayeses = DB::table('bayes')->get();
-    $akurasis = DB::table('prediction')->get();
+    $predictions = DB::table('prediction')->get();
     $truePositive = 0;
     $falseNegative = 0;
     $totalPositive = 0;
@@ -441,11 +382,11 @@ public function recall()
 
     // hitung true positive dan false negative
     foreach ($bayeses as $bayes) {
-        foreach ($akurasis as $akurasi) {
-            if ($bayes->id == $akurasi->id) {
+        foreach ($predictions as $prediction) {
+            if ($bayes->id == $prediction->id) {
                 if ($bayes->harga == 1) {
                     $totalPositive++;
-                    if ($akurasi->hasil == 1) {
+                    if ($prediction->hasil == 1) {
                         $truePositive++;
                     } else {
                         $falseNegative++;
@@ -467,6 +408,60 @@ public function recall()
     return $recall;
 }
 
+// Precision
+public function precision()
+{
+    DB::table('precision')->truncate();
+    $bayeses = DB::table('bayes')->get();
+    $predictions = DB::table('prediction')->get();
+    $truePositive = 0;
+    $falsePositive = 0;
+    $totalPositive = 0;
+    $totalNegative = 0;
+
+    // hitung true positive dan false positive
+    foreach ($bayeses as $bayes) {
+        foreach ($predictions as $prediction) {
+            if ($bayes->id == $prediction->id) {
+                if ($bayes->harga == 1) {
+                    $totalPositive++;
+                    if ($prediction->hasil == 1) {
+                        $truePositive++;
+                    }
+                } else {
+                    $totalNegative++;
+                    if ($prediction->hasil == 1) {
+                        $falsePositive++;
+                    }
+                }
+            }
+        }
+    }
+
+    // hitung precision
+    if ($truePositive + $falsePositive > 0) {
+        $precision = round($truePositive / ($truePositive + $falsePositive) * 100, 2);
+    } else {
+        $precision = 0;
+    }
+
+    return $precision;
+}
+
+// F1 Score
+public function f1Score()
+{
+    $recall = $this->recall();
+    $precision = $this->precision();
+    if ($recall + $precision > 0) {
+        $f1Score = round((2 * $recall * $precision) / ($recall + $precision) * 100, 2);
+    } else {
+        $f1Score = 0;
+    }
+
+    return $f1Score;
+}
+
 
 //Masterinput
 public function import(Request $request)
@@ -484,7 +479,6 @@ public function import(Request $request)
         $volumeIndex = array_search('Volume', $header);
         // Remove header row from data
         $data = array_slice($data, 1);
-
         $table = 'master';
         DB::table('master')->where('id', '<>', 'admin')->delete();
         foreach ($data as $row) {
@@ -497,7 +491,7 @@ public function import(Request $request)
         }
     }
         $table = 'master';
-        $this->AverageAll($table);
+        $this->HitungSMA($table);
         $this->Threshold($table);
         $data = DB::table($table)->select('high')->get();
         $trend = DB::table('SMA')->select('sma_high')->get();
@@ -522,8 +516,10 @@ public function import(Request $request)
         $outputb = $this->naive($high, $low, $volume);
         $akurasi = $this->predict();
         $recall = $this->recall();
+        $precision = $this->precision();
+        $f1Score = $this->f1Score();
         //$this->predict();
-        return view('output')->with(compact('data', 'trend', 'low_data', 'low_trend', 'volume_data', 'volume_trend', 'date', 'output', 'outputb', 'akurasi', 'recall'));
+        return view('output')->with(compact('data', 'trend', 'low_data', 'low_trend', 'volume_data', 'volume_trend', 'date', 'output', 'outputb', 'akurasi', 'recall', 'precision', 'f1Score'));
 }
 
     // predict all data in table master in save in table prediction
@@ -531,6 +527,11 @@ public function import(Request $request)
     {
         // truncate table prediction
         DB::table('prediction')->truncate();
+        // insert first row of data in table prediction
+        DB::table('prediction')->insert([
+            'date' => DB::table('bayes')->orderBy('id', 'asc')->value('date'),
+            'hasil' => DB::table('bayes')->orderBy('id', 'asc')->value('harga'),
+        ]);
         // count all data in table master and itearte
         $count = DB::table('bayes')->count();
         // iterate the data based on count and get the high low and volume data
@@ -548,10 +549,13 @@ public function import(Request $request)
                 $output = 0;
             }
             DB::table('prediction')->insert([
-                'id' => $i,
+                'id' => $i + 1,
+                'date'=> DB::table('bayes')->where('id', $i)->value('date'),
                 'hasil' => $output,
             ]);
         }
+        // delete last data from prediction
+        DB::table('prediction')->where('id', $count)->delete();
         $p = $this->accuracy();
         return $p;
     }
@@ -574,7 +578,6 @@ public function import(Request $request)
             $data = array_slice($data, 1);
 
             $nama_table = 'binance';
-            // dd($nama_table);
             DB::table('binance')->where('id', '<>', 'admin')->delete();
             foreach ($data as $row) {
                 DB::table($nama_table)->insert([

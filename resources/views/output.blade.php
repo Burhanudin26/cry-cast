@@ -71,6 +71,8 @@
               <p class="pt-3">{{ $outputb }} %</p>
               <p> Akurasi: {{ $akurasi }} %</p>
               <p> Recall: {{ $recall }} %</p>
+              <p> Precision: {{ $precision }} %</p>
+              <p> F1 Score: {{ $f1Score }} %</p>
             </div>
           </div>
         </div>
