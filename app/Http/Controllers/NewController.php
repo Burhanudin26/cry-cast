@@ -9,6 +9,7 @@ use PhpOption\None;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 use Symfony\Component\Console\Output\Output;
 
+set_time_limit(0);
 class NewController extends Controller
 {
 
@@ -346,8 +347,8 @@ class NewController extends Controller
         $output0011 = round((($ph00 * $pl00 * $pv10 * $Class0) / (($ph01 * $pl01 * $pv11 * $Class1) + ($ph00 * $pl00 * $pv10 * $Class0))) * 100, 2);
 
         // sum all o
-        // $sum = $output1111 + $output1110 + $output1100 + $output1101 + $output1011 + $output1010 + $output1000 + $output1001 + $output0111 + $output0110 + $output0100 + $output0101 + $output0011 + $output0010 + $output0000 + $output0001;
-        // return $sum;
+        $sum = $output1111 + $output1110 + $output1100 + $output1101 + $output1011 + $output1010 + $output1000 + $output1001 + $output0111 + $output0110 + $output0100 + $output0101 + $output0011 + $output0010 + $output0000 + $output0001;
+        return $sum;
 
         // detect feature from last table data and if match with the combination above, then show the result
         // $high = DB::table('bayes')->orderBy('id', 'desc')->first()->high;

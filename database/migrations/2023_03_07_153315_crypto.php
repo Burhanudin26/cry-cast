@@ -89,6 +89,7 @@ class crypto extends Migration
         //mencari Simple Moving Average
         Schema::create('SMA', function (Blueprint $table){
             $table->id();
+            $table->date('date');
             $table->float('sma_high',20,10);
             $table->float('sma_low',20,10);
             $table->float('sma_volume',20 ,2);
@@ -96,6 +97,7 @@ class crypto extends Migration
         //mencari Simple Moving Average
         Schema::create('Bullish_Berrish', function (Blueprint $table){
             $table->id();
+            $table->date('date');
             $table->boolean('Status');
             $table->string('Komen');
         });
@@ -130,6 +132,7 @@ class crypto extends Migration
         // prediction
         Schema::create('prediction', function (Blueprint $table){
             $table->id();
+            $table->date('date');
             $table->boolean('hasil');
         });
     }
