@@ -409,6 +409,9 @@ public function recall()
         $recall = 0;
     }
 
+    DB::table('recall')->insert(['hasil' => $recall]);
+
+
     return $recall;
 }
 
@@ -570,33 +573,14 @@ public function import(Request $request)
     //Binance
     public function import1(Request $request)
     {
-        $file = $request->file('csv_input_binance');
         $datei = $request->date;
+        // validate date
+        $this->validate($request, [
+            'date' => 'required|date',
+        ]);
         // convert date to string
         $datei = date('Y/m/d', strtotime($datei));
-        if ($file && $file->isValid()) {
-            $path = $file->getRealPath();
-            $data = array_map('str_getcsv', file($path));
 
-            // Get header row to retrieve column indexes
-            $header = $data[0];
-            $dateIndex = array_search('Date', $header);
-            $highIndex = array_search('High', $header);
-            $lowIndex = array_search('Low', $header);
-            $volumeIndex = array_search('Volume', $header);
-            // Remove header row from data
-            $data = array_slice($data, 1);
-            $table = 'binance';
-            DB::table('binance')->where('id', '<>', 'admin')->delete();
-            foreach ($data as $row) {
-                DB::table($table)->insert([
-                    'date' => date('Y/m/d', strtotime($row[$dateIndex])),
-                    'high' => is_numeric($row[$highIndex]) ? $row[$highIndex] : 0,
-                    'low' => is_numeric($row[$lowIndex]) ? $row[$lowIndex] : 0,
-                    'volume' => is_numeric($row[$volumeIndex]) ? $row[$volumeIndex] : 0,
-                ]);
-            }
-        }
         $table = 'binance';
         $this->HitungSMA($table);
         $this->Threshold($table);

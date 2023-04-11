@@ -143,4 +143,4 @@ Route::get('/f1', 'App\Http\Controllers\NewController@f1')->name('f1');
 
 // route to controller errRate
 Route::get('/errate', 'App\Http\Controllers\ErrRate@errate')->name('errate');
-
+Route::get('/errate1', 'App\Http\Controllers\ErrRate@errate1')->name('errate1');
