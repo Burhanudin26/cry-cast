@@ -118,3 +118,12 @@ Route::post('/import8', 'App\Http\Controllers\NewController@import8');
 
 // return controller naive
 Route::get('/naive', 'App\Http\Controllers\NewController@naive')->name('naive');
+
+// route to controller predict
+Route::get('/predict', 'App\Http\Controllers\NewController@predict')->name('predict');
+
+// route to controller naive
+Route::get('/naive', 'App\Http\Controllers\NewController@naive')->name('naive');
+
+// route to controller accuracy
+Route::get('/accuracy', 'App\Http\Controllers\NewController@accuracy')->name('accuracy');
