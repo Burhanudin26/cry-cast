@@ -209,9 +209,9 @@ swup.on("contentReplaced", function () {
         }
     });
     // modal rerun
-    $(document).ready(function () {
-        $("#tips").modal("show");
-    });
+    // $(document).ready(function () {
+    $("#tips").modal("show"); // modal is for tips
+    // });
     // Re-run the parallax code on the new content
     if ("requestAnimationFrame" in window) {
         var e = [],

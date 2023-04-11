@@ -89,10 +89,6 @@
       </div>
     </div>
   </section>
-  {{-- jq --}}
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  {{-- swup --}}
-  <script src="/js/swup_trans.js"></script> {{-- ini --}}
 
   <script>
     // ini buat drag and drop

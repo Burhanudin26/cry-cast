@@ -372,18 +372,103 @@ class NewController extends Controller
         $accuracy = round(($count / $total) * 100, 2);
         return $accuracy;
     }
-    public function error_rate()
-    {
-        // Retrieve data from the database
-        $data = DB::table('table_name')->pluck('column_name')->toArray(); // Using query builder
-        // Calculate the error rate
-        $average = array_sum($data) / count($data);
-        $errors = array_map(function($x) use ($average) {
-            return abs($x - $average);
-        }, $data);
-        $error_rate = array_sum($errors) / count($errors);
-        return $error_rate;
+
+// Recall
+public function recall()
+{
+    DB::table('recall')->truncate();
+    $bayeses = DB::table('bayes')->get();
+    $predictions = DB::table('prediction')->get();
+    $truePositive = 0;
+    $falseNegative = 0;
+    $totalPositive = 0;
+    $totalNegative = 0;
+
+    // hitung true positive dan false negative
+    foreach ($bayeses as $bayes) {
+        foreach ($predictions as $prediction) {
+            if ($bayes->id == $prediction->id) {
+                if ($bayes->harga == 1) {
+                    $totalPositive++;
+                    if ($prediction->hasil == 1) {
+                        $truePositive++;
+                    } else {
+                        $falseNegative++;
+                    }
+                } else {
+                    $totalNegative++;
+                }
+            }
+        }
     }
+
+    // hitung recall
+    if ($truePositive + $falseNegative > 0) {
+        $recall = round($truePositive / ($truePositive + $falseNegative) * 100, 2);
+    } else {
+        $recall = 0;
+    }
+
+    return $recall;
+}
+
+// Precision
+public function precision()
+{
+    DB::table('precision')->truncate();
+    $bayeses = DB::table('bayes')->get();
+    $predictions = DB::table('prediction')->get();
+    $truePositive = 0;
+    $falsePositive = 0;
+    $totalPositive = 0;
+    $totalNegative = 0;
+
+    // hitung true positive dan false positive
+    foreach ($bayeses as $bayes) {
+        foreach ($predictions as $prediction) {
+            if ($bayes->id == $prediction->id) {
+                if ($bayes->harga == 1) {
+                    $totalPositive++;
+                    if ($prediction->hasil == 1) {
+                        $truePositive++;
+                    }
+                } else {
+                    $totalNegative++;
+                    if ($prediction->hasil == 1) {
+                        $falsePositive++;
+                    }
+                }
+            }
+        }
+    }
+
+    // hitung precision
+    if ($truePositive + $falsePositive > 0) {
+        $precision = round($truePositive / ($truePositive + $falsePositive) * 100, 2);
+    } else {
+        $precision = 0;
+    }
+
+    DB::table('precision')->insert(['hasil' => $precision]);
+
+    return $precision;
+}
+
+// F1 Score
+public function f1Score()
+{
+    $recall = $this->recall();
+    $precision = $this->precision();
+    if ($recall + $precision > 0) {
+        $f1Score = round((2 * $recall * $precision) / ($recall + $precision), 2);
+    } else {
+        $f1Score = 0;
+    }
+    DB::table('f1_score')->insert(['hasil' => $f1Score]);
+
+    return $f1Score;
+}
+
 
 //Masterinput
 public function import(Request $request)
@@ -437,8 +522,11 @@ public function import(Request $request)
         $volume = DB::table('bayes')->orderBy('id', 'desc')->value('volume');
         $outputb = $this->naive($high, $low, $volume);
         $akurasi = $this->predict();
+        $recall = $this->recall();
+        $precision = $this->precision();
+        $f1Score = $this->f1Score();
         //$this->predict();
-        return view('output')->with(compact('data', 'trend', 'low_data', 'low_trend', 'volume_data', 'volume_trend', 'date', 'output', 'outputb', 'akurasi'));
+        return view('output')->with(compact('data', 'trend', 'low_data', 'low_trend', 'volume_data', 'volume_trend', 'date', 'output', 'outputb', 'akurasi', 'recall', 'precision', 'f1Score'));
 }
 
     // predict all data in table master in save in table prediction
