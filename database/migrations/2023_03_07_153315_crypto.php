@@ -127,6 +127,11 @@ class crypto extends Migration
             // format bool
             $table->boolean('hasil');
         });
+        // prediction
+        Schema::create('prediction', function (Blueprint $table){
+            $table->id();
+            $table->boolean('hasil');
+        });
     }
     public function down()
     {
