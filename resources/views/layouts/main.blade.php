@@ -67,10 +67,22 @@
             </li>
           </ul>
         </div>
-        <div class="d-flex align-items-center">
-          <img src="{{ url('pictures/guest.jpg') }}" alt="user" class="rounded-circle me-lg-5" width="40px"
-            height="40px">
+
+        <div class="dropdown d-flex align-items-center">
+          <a class="dropdown" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="{{ url('pictures/guest.jpg') }}" alt="user" class="rounded-circle me-lg-5" width="40px" height="40px">
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="userDropdown">
+            <li>
+              <label for="profileImageInput" class="dropdown-item">Profile Image</label>
+              <input type="file" id="profileImageInput" style="display:none">
+            </li>
+            <form action="{{ route('logout') }}" method="POST">
+              <li><a class="dropdown-item" type="submit" href="/">Logout</a></li>
+            </form>
+          </ul>
         </div>
+
       </div>
     </nav>
 
@@ -127,7 +139,7 @@
   </section>
   <!-- End of .container -->
   {{-- js --}}
-  <script src="{{ asset('js/Jquery.js') }}"></script>
+  <script src="{{ url('js/Jquery.js') }}"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
   {{-- main js --}}

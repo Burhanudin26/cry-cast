@@ -137,7 +137,6 @@
           <p>make decision for investment</p>
         </div>
       </div>
-
       <div class="c2">
         <img src="/pictures/icon3/cry.jpg" alt="">
         <div class="content">

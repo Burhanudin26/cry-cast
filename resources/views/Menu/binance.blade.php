@@ -13,13 +13,23 @@
       <div class="card-body p-4" style="background-color: rgba(255, 255, 255, 0);">
         <form method="POST" action="/import1" enctype="multipart/form-data">
           <!-- pilih tanggal -->
-          <div class="mb-3">
-            <label for="dateInput" class="form-label">Masukkan Tanggal</label>
-            <input type="date" class="form-control" id="dateInput">
-          </div>
+      <div class="mb-3">
+          <label for="dateInput" class="form-label">Masukkan Tanggal</label>
+          <input type="date" class="form-control" id="dateInput" name="date" min="{{ $minDate }}" max="{{ $maxDate }}">
+      </div>
+
           {{-- tanggal yang tersedia --}}
           <div>
-            isi ini
+            {{-- get the date boundary first and end from table binance --}}
+            @php
+              $first_date = DB::table('binance')->min('date');
+              $last_date = DB::table('binance')->max('date');
+
+              $first_date = date('Y-m-d', strtotime($first_date));
+              $last_date = date('Y-m-d', strtotime($last_date));
+
+              echo '<p class="text-center">Tanggal yang tersedia: ' . $first_date . ' - ' . $last_date . '</p>';
+            @endphp
           </div>
           <!-- file -->
           <div class="mb-3">
@@ -79,10 +89,6 @@
       </div>
     </div>
   </section>
-  {{-- jq --}}
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  {{-- swup --}}
-  <script src="/js/swup_trans.js"></script> {{-- ini --}}
 
   <script>
     // ini buat drag and drop
