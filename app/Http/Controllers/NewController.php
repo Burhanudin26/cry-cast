@@ -16,7 +16,7 @@ class NewController extends Controller
     public function HitungSMA($table)
     {
         // Create a PDO connection to the database
-        $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
+        $db = new PDO('mysql:host=localhost:3310;dbname=crypto', 'root', '');
 
         // Prepare the SQL query to get the low, high, and volume values from the binance table in groups of 5
         $stmt = $db->prepare('SELECT date, low, high, volume FROM ' . $table);
@@ -83,7 +83,7 @@ class NewController extends Controller
     public function Threshold($table)
     {
         // Create a PDO connection to the database
-        $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
+        $db = new PDO('mysql:host=localhost:3310;dbname=crypto', 'root', '');
 
         // Prepare the SQL query to get the monthly averages of low, high, and volume from the binance table
         $stmt = $db->prepare("SELECT DATE_FORMAT(date, '%Y-%m-01') AS month, AVG(low) AS avg_low, AVG(high) AS avg_high, AVG(volume) AS avg_volume FROM $table GROUP BY month");
@@ -387,7 +387,7 @@ public function recall()
     // hitung true positive dan false negative
     foreach ($bayeses as $bayes) {
         foreach ($predictions as $prediction) {
-            if ($bayes->id == $prediction->id) {
+            if ($bayes->date == $prediction->date) {
                 if ($bayes->harga == 1) {
                     $totalPositive++;
                     if ($prediction->hasil == 1) {
@@ -406,11 +406,11 @@ public function recall()
     if ($truePositive + $falseNegative > 0) {
         $recall = round($truePositive / ($truePositive + $falseNegative) * 100, 2);
     } else {
+        echo "else recall 0";
         $recall = 0;
     }
 
     DB::table('recall')->insert(['hasil' => $recall]);
-
 
     return $recall;
 }
@@ -429,7 +429,7 @@ public function precision()
     // hitung true positive dan false positive
     foreach ($bayeses as $bayes) {
         foreach ($predictions as $prediction) {
-            if ($bayes->id == $prediction->id) {
+            if ($bayes->date == $prediction->date) {
                 if ($bayes->harga == 1) {
                     $totalPositive++;
                     if ($prediction->hasil == 1) {
