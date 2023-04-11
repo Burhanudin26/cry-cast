@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\NewController;
+use App\Http\Controllers\ErrRate;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -127,3 +129,6 @@ Route::get('/naive', 'App\Http\Controllers\NewController@naive')->name('naive');
 
 // route to controller accuracy
 Route::get('/accuracy', 'App\Http\Controllers\NewController@accuracy')->name('accuracy');
+
+// route to controller errRate
+Route::get('/errate', 'App\Http\Controllers\ErrRate@errate')->name('errate');
