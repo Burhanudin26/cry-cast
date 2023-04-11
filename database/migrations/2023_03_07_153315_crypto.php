@@ -80,12 +80,6 @@ class crypto extends Migration
             $table->float('low' , 20, 10);
             $table->float('volume', 20, 2);
         });
-        //mencari rata-rata
-        Schema::create('AverageAll', function (Blueprint $table){
-            $table->float('avg_high',20,10);
-            $table->float('avg_low',20,10);
-            $table->float('avg_volume',20, 2);
-        });
         //mencari Simple Moving Average
         Schema::create('SMA', function (Blueprint $table){
             $table->id();
@@ -138,6 +132,7 @@ class crypto extends Migration
     }
     public function down()
     {
+        Schema::dropIfExists('Master');
         Schema::dropIfExists('binance');
         Schema::dropIfExists('bitcoin');
         Schema::dropIfExists('dogecoin');
@@ -146,7 +141,6 @@ class crypto extends Migration
         Schema::dropIfExists('solana');
         Schema::dropIfExists('stellar');
         Schema::dropIfExists('tron');
-        Schema::dropIfExists('AverageAll');
         Schema::dropIfExists('SMA');
         Schema::dropIfExists('Bullish_Berrish');
         Schema::dropIfExists('threshold');
