@@ -43,7 +43,7 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'name_or_email' => 'required', 
+            'name_or_email' => 'required',
             'password' => 'required',
         ]);
 
@@ -55,30 +55,30 @@ class UserController extends Controller
 
         if (!$user || !password_verify($credentials['password'], $user->password)) {
             return back()->withErrors([
-                'name_or_email' => 'The provided credentials do not match our records.', // 
+                'name_or_email' => 'The provided credentials do not match our records.', //
             ]);
         }
-        
+
         // Update email_verified_at column for the user who just logged in
         $user->update(['email_verified_at' => Carbon::now()]); // Set waktu ketika user login
-        
+
         Auth::login($user);
 
         return view('menu');
     }
 
-    public function logout()
-    {
-        $user = Auth::user(); // Get the authenticated user
-    
-        if ($user) {
-            $user->update(['email_verified_at' => null]); // Set email_verified_at to null
-        }
-        
-        Auth::logout(); // Log the user out
-        
-        return view('home');
-    }
+    // public function logout()
+    // {
+    //     $user = Auth::user(); // Get the authenticated user
+
+    //     if ($user) {
+    //         $user->update(['email_verified_at' => null]); // Set email_verified_at to null
+    //     }
+
+    //     Auth::logout(); // Log the user out
+
+    //     return view('home');
+    // }
 
     public function update(Request $request, $id)
     {

@@ -116,13 +116,6 @@ class crypto extends Migration
 
 
         });
-        Schema::create('akurasi', function (Blueprint $table) {
-            $table->id();
-            // date
-            $table->date('date');
-            // format bool
-            $table->boolean('hasil');
-        });
         // prediction
         Schema::create('prediction', function (Blueprint $table){
             $table->id();
@@ -167,7 +160,6 @@ class crypto extends Migration
         Schema::dropIfExists('threshold');
         Schema::dropIfExists('naive_bayes');
         Schema::dropIfExists('bayes');
-        Schema::dropIfExists('akurasi');
         Schema::dropIfExists('prediction');
         Schema::dropIfExists('recall');
         Schema::dropIfExists('precision');

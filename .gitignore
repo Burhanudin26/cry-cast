@@ -20,3 +20,5 @@ yarn-error.log
 # gitignore logs in storage
 /storage/logs/*
 *.log
+# ignore all .env files
+.env*
