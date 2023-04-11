@@ -138,7 +138,14 @@ class crypto extends Migration
         // precision
         Schema::create('precision', function (Blueprint $table){
             $table->id();
+            $table->date('date');
             $table->boolean('hasil');
+        });
+        // f1 score
+        Schema::create('f1_score', function (Blueprint $table){
+            $table->id();
+            $table->date('date');
+            $table->float('f1_score', 20, 10);
         });
         // err rate
         Schema::create('err_rate', function (Blueprint $table){

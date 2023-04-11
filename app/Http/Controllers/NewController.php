@@ -373,8 +373,8 @@ class NewController extends Controller
 public function recall()
 {
     DB::table('recall')->truncate();
-    $bayeses = DB::table('bayes')->get();
-    $predictions = DB::table('prediction')->get();
+    $bayeses = DB::table('bayes')->select('id', 'date')->get();
+    $predictions = DB::table('prediction')->select('id', 'date')->get();
     $truePositive = 0;
     $falseNegative = 0;
     $totalPositive = 0;
@@ -383,7 +383,7 @@ public function recall()
     // hitung true positive dan false negative
     foreach ($bayeses as $bayes) {
         foreach ($predictions as $prediction) {
-            if ($bayes->id == $prediction->id) {
+            if ($bayes->date == $prediction->date) {
                 if ($bayes->harga == 1) {
                     $totalPositive++;
                     if ($prediction->hasil == 1) {
@@ -404,6 +404,7 @@ public function recall()
     } else {
         $recall = 0;
     }
+    DB::table('recall')->insert(['date' => $bayes->date, 'recall' => $recall]);
 
     return $recall;
 }
@@ -412,8 +413,8 @@ public function recall()
 public function precision()
 {
     DB::table('precision')->truncate();
-    $bayeses = DB::table('bayes')->get();
-    $predictions = DB::table('prediction')->get();
+    $bayeses = DB::table('bayes')->select('id', 'date')->get();
+    $predictions = DB::table('prediction')->select('id', 'date')->get();
     $truePositive = 0;
     $falsePositive = 0;
     $totalPositive = 0;
@@ -422,7 +423,7 @@ public function precision()
     // hitung true positive dan false positive
     foreach ($bayeses as $bayes) {
         foreach ($predictions as $prediction) {
-            if ($bayes->id == $prediction->id) {
+            if ($bayes->date == $prediction->date) {
                 if ($bayes->harga == 1) {
                     $totalPositive++;
                     if ($prediction->hasil == 1) {
@@ -445,6 +446,8 @@ public function precision()
         $precision = 0;
     }
 
+    DB::table('precision')->insert(['date' => $bayes->date, 'precision' => $precision]);
+
     return $precision;
 }
 
@@ -453,11 +456,17 @@ public function f1Score()
 {
     $recall = $this->recall();
     $precision = $this->precision();
-    if ($recall + $precision > 0) {
-        $f1Score = round((2 * $recall * $precision) / ($recall + $precision) * 100, 2);
-    } else {
-        $f1Score = 0;
+    $recalldate = DB::table('recall')->select('id', 'date')->get();
+    $precisiondate = DB::table('precision')->select('id', 'date')->get();
+    if ($recalldate == $precisiondate){
+        if ($recall + $precision > 0) {
+            $f1Score = round((2 * $recall * $precision) / ($recall + $precision) * 100, 2);
+        } else {
+            $f1Score = 0;
+        }
     }
+
+    DB::table('f1_score')->insert(['date' => $recalldate, 'f1_score' => $f1Score]);
 
     return $f1Score;
 }
