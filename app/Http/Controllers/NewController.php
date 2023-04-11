@@ -208,13 +208,18 @@ class NewController extends Controller
                 ]);
             }
         }
-        $this->naive();
+        // select last high low vol data from bayes table
+        $lastdata = DB::table('bayes')->orderBy('id', 'desc')->take(1)->get();
+        $high = $lastdata[0]->high;
+        $low = $lastdata[0]->low;
+        $volume = $lastdata[0]->volume;
+        $this->naive( $high, $low, $volume);
     }
 
 
 
     // naive bayes output count for each day
-    public function naive()
+    public function naive($high=0, $low=0, $volume=0)
     {
         // class
         $harga1 = DB::table('bayes')->where('harga', 1)->count();
@@ -260,35 +265,37 @@ class NewController extends Controller
         $pv00 = $volume00 / $volumetotal0;
 
         // output when up
-        $output1111 = round((($ph11 * $pl11 * $pv11 * $Class1) / (($ph11 * $pl11 * $pv11 * $Class1) + ($ph11 * $pl11 * $pv11 * $Class0))) * 100, 2);
-        $output1110 = round((($ph11 * $pl11 * $pv01 * $Class1) / (($ph11 * $pl11 * $pv01 * $Class1) + ($ph11 * $pl11 * $pv01 * $Class0))) * 100, 2);
-        $output1100 = round((($ph11 * $pl01 * $pv01 * $Class1) / (($ph11 * $pl01 * $pv01 * $Class1) + ($ph11 * $pl01 * $pv01 * $Class0))) * 100, 2);
-        $output1101 = round((($ph11 * $pl01 * $pv11 * $Class1) / (($ph11 * $pl01 * $pv11 * $Class1) + ($ph11 * $pl01 * $pv11 * $Class0))) * 100, 2);
-        $output1011 = round((($ph01 * $pl11 * $pv11 * $Class1) / (($ph01 * $pl11 * $pv11 * $Class1) + ($ph01 * $pl11 * $pv11 * $Class0))) * 100, 2);
-        $output1010 = round((($ph01 * $pl11 * $pv01 * $Class1) / (($ph01 * $pl11 * $pv01 * $Class1) + ($ph01 * $pl11 * $pv01 * $Class0))) * 100, 2);
-        $output1000 = round((($ph01 * $pl01 * $pv01 * $Class1) / (($ph01 * $pl01 * $pv01 * $Class1) + ($ph01 * $pl01 * $pv01 * $Class0))) * 100, 2);
-        $output1001 = round((($ph01 * $pl01 * $pv11 * $Class1) / (($ph01 * $pl01 * $pv11 * $Class1) + ($ph01 * $pl01 * $pv11 * $Class0))) * 100, 2);
+        $output1111 = round((($ph11 * $pl11 * $pv11 * $Class1) / (($ph11 * $pl11 * $pv11 * $Class1) + ($ph10 * $pl10 * $pv10 * $Class0))) * 100, 2);
+        $output1110 = round((($ph11 * $pl11 * $pv01 * $Class1) / (($ph11 * $pl11 * $pv01 * $Class1) + ($ph10 * $pl10 * $pv00 * $Class0))) * 100, 2);
+        $output1100 = round((($ph11 * $pl01 * $pv01 * $Class1) / (($ph11 * $pl01 * $pv01 * $Class1) + ($ph10 * $pl00 * $pv00 * $Class0))) * 100, 2);
+        $output1101 = round((($ph11 * $pl01 * $pv11 * $Class1) / (($ph11 * $pl01 * $pv11 * $Class1) + ($ph10 * $pl00 * $pv10 * $Class0))) * 100, 2);
+        $output1001 = round((($ph01 * $pl11 * $pv11 * $Class1) / (($ph01 * $pl11 * $pv11 * $Class1) + ($ph00 * $pl10 * $pv10 * $Class0))) * 100, 2);
+        $output1000 = round((($ph01 * $pl11 * $pv01 * $Class1) / (($ph01 * $pl11 * $pv01 * $Class1) + ($ph00 * $pl10 * $pv00 * $Class0))) * 100, 2);
+        $output1010 = round((($ph01 * $pl01 * $pv01 * $Class1) / (($ph01 * $pl01 * $pv01 * $Class1) + ($ph00 * $pl00 * $pv00 * $Class0))) * 100, 2);
+        $output1011 = round((($ph01 * $pl01 * $pv11 * $Class1) / (($ph01 * $pl01 * $pv11 * $Class1) + ($ph00 * $pl00 * $pv10 * $Class0))) * 100, 2);
 
 
         // output when down
-        $output0111 = round((($ph10 * $pl10 * $pv10 * $Class0) / (($ph10 * $pl10 * $pv10 * $Class1) + ($ph10 * $pl10 * $pv10 * $Class0))) * 100, 2);
-        $output0110 = round((($ph10 * $pl10 * $pv00 * $Class0) / (($ph10 * $pl10 * $pv00 * $Class1) + ($ph10 * $pl10 * $pv00 * $Class0))) * 100, 2);
-        $output0100 = round((($ph10 * $pl00 * $pv00 * $Class0) / (($ph10 * $pl00 * $pv00 * $Class1) + ($ph10 * $pl00 * $pv00 * $Class0))) * 100, 2);
-        $output0101 = round((($ph10 * $pl00 * $pv10 * $Class0) / (($ph10 * $pl00 * $pv10 * $Class1) + ($ph10 * $pl00 * $pv10 * $Class0))) * 100, 2);
-        $output0011 = round((($ph00 * $pl10 * $pv10 * $Class0) / (($ph00 * $pl10 * $pv10 * $Class1) + ($ph00 * $pl10 * $pv10 * $Class0))) * 100, 2);
-        $output0010 = round((($ph00 * $pl10 * $pv00 * $Class0) / (($ph00 * $pl10 * $pv00 * $Class1) + ($ph00 * $pl10 * $pv00 * $Class0))) * 100, 2);
-        $output0000 = round((($ph00 * $pl00 * $pv00 * $Class0) / (($ph00 * $pl00 * $pv00 * $Class1) + ($ph00 * $pl00 * $pv00 * $Class0))) * 100, 2);
-        $output0001 = round((($ph00 * $pl00 * $pv10 * $Class0) / (($ph00 * $pl00 * $pv10 * $Class1) + ($ph00 * $pl00 * $pv10 * $Class0))) * 100, 2);
+        $output0111 = round((($ph10 * $pl10 * $pv10 * $Class0) / (($ph11 * $pl11 * $pv11 * $Class1) + ($ph10 * $pl10 * $pv10 * $Class0))) * 100, 2);
+        $output0110 = round((($ph10 * $pl10 * $pv00 * $Class0) / (($ph11 * $pl11 * $pv01 * $Class1) + ($ph10 * $pl10 * $pv00 * $Class0))) * 100, 2);
+        $output0100 = round((($ph10 * $pl00 * $pv00 * $Class0) / (($ph11 * $pl01 * $pv01 * $Class1) + ($ph10 * $pl00 * $pv00 * $Class0))) * 100, 2);
+        $output0101 = round((($ph10 * $pl00 * $pv10 * $Class0) / (($ph11 * $pl01 * $pv11 * $Class1) + ($ph10 * $pl00 * $pv10 * $Class0))) * 100, 2);
+        $output0001 = round((($ph00 * $pl10 * $pv10 * $Class0) / (($ph01 * $pl11 * $pv11 * $Class1) + ($ph00 * $pl10 * $pv10 * $Class0))) * 100, 2);
+        $output0000 = round((($ph00 * $pl10 * $pv00 * $Class0) / (($ph01 * $pl11 * $pv01 * $Class1) + ($ph00 * $pl10 * $pv00 * $Class0))) * 100, 2);
+        $output0010 = round((($ph00 * $pl00 * $pv00 * $Class0) / (($ph01 * $pl01 * $pv01 * $Class1) + ($ph00 * $pl00 * $pv00 * $Class0))) * 100, 2);
+        $output0011 = round((($ph00 * $pl00 * $pv10 * $Class0) / (($ph01 * $pl01 * $pv11 * $Class1) + ($ph00 * $pl00 * $pv10 * $Class0))) * 100, 2);
 
         // sum all o
         // $sum = $output1111 + $output1110 + $output1100 + $output1101 + $output1011 + $output1010 + $output1000 + $output1001 + $output0111 + $output0110 + $output0100 + $output0101 + $output0011 + $output0010 + $output0000 + $output0001;
         // return $sum;
 
         // detect feature from last table data and if match with the combination above, then show the result
-        $high = DB::table('bayes')->orderBy('id', 'desc')->first()->high;
-        $low = DB::table('bayes')->orderBy('id', 'desc')->first()->low;
-        $volume = DB::table('bayes')->orderBy('id', 'desc')->first()->volume;
-        $date = DB::table('bayes')->orderBy('id', 'desc')->first()->date;
+        // $high = DB::table('bayes')->orderBy('id', 'desc')->first()->high;
+        // $low = DB::table('bayes')->orderBy('id', 'desc')->first()->low;
+        // $volume = DB::table('bayes')->orderBy('id', 'desc')->first()->volume;
+        // $date = DB::table('bayes')->orderBy('id', 'desc')->first()->date;
+        // print all output
+
 
         if ($high == 1 && $low == 1 && $volume == 1) {
             if ($output1111 > $output0111) {
@@ -341,9 +348,26 @@ class NewController extends Controller
         }
         return $result;
     }
+    //accuracy between column harga in bayes table and column hasil in akurasi table based on id
+    public function accuracy()
     //accuracy between column harga in bayes table and column hasil in akurasi table
     public function error_rate()
     {
+        $bayeses = DB::table('bayes')->get();
+        $akurasis = DB::table('prediction')->get();
+        $count = 0;
+        $total = DB::table('bayes')->count();
+        foreach ($bayeses as $bayes) {
+            foreach ($akurasis as $akurasi) {
+                if ($bayes->id == $akurasi->id) {
+                    if ($bayes->harga == $akurasi->hasil) {
+                        $count++;
+                    }
+                }
+            }
+        }
+        $accuracy = round(($count / $total) * 100, 2);
+        return $accuracy;
                 // Retrieve data from the database
         $data = DB::table('table_name')->pluck('column_name')->toArray(); // Using query builder
         // Calculate the error rate
@@ -400,9 +424,46 @@ public function import(Request $request)
         // get oyutput in function BB
         $output = $this->BB($table);
         // get output in function bayes
-        $outputb = $this->naive();
-        return view('output')->with(compact('data', 'trend', 'low_data', 'low_trend', 'volume_data', 'volume_trend', 'date', 'output', 'outputb'));
+
+        // select last high low and volume data from bayes
+        $high = DB::table('bayes')->orderBy('id', 'desc')->value('high');
+        $low = DB::table('bayes')->orderBy('id', 'desc')->value('low');
+        $volume = DB::table('bayes')->orderBy('id', 'desc')->value('volume');
+        $outputb = $this->naive($high, $low, $volume);
+        $akurasi = $this->predict();
+        //$this->predict();
+        return view('output')->with(compact('data', 'trend', 'low_data', 'low_trend', 'volume_data', 'volume_trend', 'date', 'output', 'outputb', 'akurasi'));
 }
+
+    // predict all data in table master in save in table prediction
+    public function predict()
+    {
+        // truncate table prediction
+        DB::table('prediction')->truncate();
+        // count all data in table master and itearte
+        $count = DB::table('bayes')->count();
+        // iterate the data based on count and get the high low and volume data
+        for ($i = 1; $i <= $count; $i++) {
+            $high = DB::table('bayes')->where('id', $i)->value('high');
+            $low = DB::table('bayes')->where('id', $i)->value('low');
+            $volume = DB::table('bayes')->where('id', $i)->value('volume');
+            // get the output from function bayes
+            $output = $this->naive($high, $low, $volume);
+            // save the output in table prediction
+            // check the output if first string Naik or Turun if Naik save 1 if Turun save 0
+            if (substr($output, 0, 4) == 'Naik') {
+                $output = 1;
+            } else {
+                $output = 0;
+            }
+            DB::table('prediction')->insert([
+                'id' => $i,
+                'hasil' => $output,
+            ]);
+        }
+        $p = $this->accuracy();
+        return $p;
+    }
     //Binance
     public function import1(Request $request)
     {
