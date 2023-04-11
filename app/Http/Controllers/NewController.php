@@ -428,6 +428,46 @@ class NewController extends Controller
         return $accuracy;
     }
 
+// Recall
+public function recall()
+{
+    DB::table('recall')->truncate();
+    $bayeses = DB::table('bayes')->get();
+    $akurasis = DB::table('prediction')->get();
+    $truePositive = 0;
+    $falseNegative = 0;
+    $totalPositive = 0;
+    $totalNegative = 0;
+
+    // hitung true positive dan false negative
+    foreach ($bayeses as $bayes) {
+        foreach ($akurasis as $akurasi) {
+            if ($bayes->id == $akurasi->id) {
+                if ($bayes->harga == 1) {
+                    $totalPositive++;
+                    if ($akurasi->hasil == 1) {
+                        $truePositive++;
+                    } else {
+                        $falseNegative++;
+                    }
+                } else {
+                    $totalNegative++;
+                }
+            }
+        }
+    }
+
+    // hitung recall
+    if ($truePositive + $falseNegative > 0) {
+        $recall = round($truePositive / ($truePositive + $falseNegative) * 100, 2);
+    } else {
+        $recall = 0;
+    }
+
+    return $recall;
+}
+
+
 //Masterinput
 public function import(Request $request)
 {
@@ -481,8 +521,9 @@ public function import(Request $request)
         $volume = DB::table('bayes')->orderBy('id', 'desc')->value('volume');
         $outputb = $this->naive($high, $low, $volume);
         $akurasi = $this->predict();
+        $recall = $this->recall();
         //$this->predict();
-        return view('output')->with(compact('data', 'trend', 'low_data', 'low_trend', 'volume_data', 'volume_trend', 'date', 'output', 'outputb', 'akurasi'));
+        return view('output')->with(compact('data', 'trend', 'low_data', 'low_trend', 'volume_data', 'volume_trend', 'date', 'output', 'outputb', 'akurasi', 'recall'));
 }
 
     // predict all data in table master in save in table prediction

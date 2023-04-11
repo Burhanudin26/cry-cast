@@ -130,3 +130,6 @@ Route::get('/naive', 'App\Http\Controllers\NewController@naive')->name('naive');
 
 // route to controller accuracy
 Route::get('/accuracy', 'App\Http\Controllers\NewController@accuracy')->name('accuracy');
+
+// route to controller recall
+Route::get('/recall', 'App\Http\Controllers\NewController@recall')->name('recall');

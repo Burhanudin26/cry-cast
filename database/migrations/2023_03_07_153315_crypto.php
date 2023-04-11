@@ -132,6 +132,11 @@ class crypto extends Migration
             $table->id();
             $table->boolean('hasil');
         });
+        // recall
+        Schema::create('recall', function (Blueprint $table){
+            $table->id();
+            $table->boolean('hasil');
+        });
     }
     public function down()
     {

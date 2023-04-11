@@ -70,6 +70,7 @@
             <div class="card px-4">
               <p class="pt-3">{{ $outputb }} %</p>
               <p> Akurasi: {{ $akurasi }} %</p>
+              <p> Recall: {{ $recall }} %</p>
             </div>
           </div>
         </div>
