@@ -129,6 +129,12 @@ class crypto extends Migration
             $table->date('date');
             $table->boolean('hasil');
         });
+        // err rate
+        Schema::create('err_rate', function (Blueprint $table){
+            $table->id();
+            $table->date('date');
+            $table->float('err_rate', 20, 10);
+        });
     }
     public function down()
     {

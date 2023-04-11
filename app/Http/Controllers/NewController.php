@@ -48,7 +48,7 @@ class NewController extends Controller
             $sma_lows[] = $smalow;
             $sma_highs[] = $smahigh;
             $sma_volumes[] = $smavolume;
-            
+
             // If we've reached a group of 5 rows, calculate the averages and insert them into the SMA table
             if (count($sma_lows) == 5 && count($sma_highs) == 5 && count($sma_volumes) == 5) {
                 $sma_low = array_sum($sma_lows) / count($sma_lows);
@@ -220,7 +220,7 @@ class NewController extends Controller
 
 
     // naive bayes output count for each day
-    public function naive($high=0, $low=0, $volume=0)
+    public function naive($high, $low, $volume)
     {
         // class
         $harga1 = DB::table('bayes')->where('harga', 1)->count();
@@ -286,9 +286,9 @@ class NewController extends Controller
         $output0010 = round((($ph00 * $pl00 * $pv00 * $Class0) / (($ph01 * $pl01 * $pv01 * $Class1) + ($ph00 * $pl00 * $pv00 * $Class0))) * 100, 2);
         $output0011 = round((($ph00 * $pl00 * $pv10 * $Class0) / (($ph01 * $pl01 * $pv11 * $Class1) + ($ph00 * $pl00 * $pv10 * $Class0))) * 100, 2);
 
-        // sum all o
-        $sum = $output1111 + $output1110 + $output1100 + $output1101 + $output1011 + $output1010 + $output1000 + $output1001 + $output0111 + $output0110 + $output0100 + $output0101 + $output0011 + $output0010 + $output0000 + $output0001;
-        return $sum;
+        // // sum all o
+        // $sum = $output1111 + $output1110 + $output1100 + $output1101 + $output1011 + $output1010 + $output1000 + $output1001 + $output0111 + $output0110 + $output0100 + $output0101 + $output0011 + $output0010 + $output0000 + $output0001;
+        // return $sum;
 
         // detect feature from last table data and if match with the combination above, then show the result
         // $high = DB::table('bayes')->orderBy('id', 'desc')->first()->high;
@@ -296,7 +296,8 @@ class NewController extends Controller
         // $volume = DB::table('bayes')->orderBy('id', 'desc')->first()->volume;
         // $date = DB::table('bayes')->orderBy('id', 'desc')->first()->date;
         // print all output
-
+        // echo all output
+        // echo $output1111 . ' ' . $output1110 . ' ' . $output1100 . ' ' . $output1101 . ' ' . $output1011 . ' ' . $output1010 . ' ' . $output1000 . ' ' . $output1001 . ' ' . $output0111 . ' ' . $output0110 . ' ' . $output0100 . ' ' . $output0101 . ' ' . $output0011 . ' ' . $output0010 . ' ' . $output0000 . ' ' . $output0001;
 
         if ($high == 1 && $low == 1 && $volume == 1) {
             if ($output1111 > $output0111) {
@@ -352,12 +353,12 @@ class NewController extends Controller
     public function accuracy()
     {
         $bayeses = DB::table('bayes')->get();
-        $akurasis = DB::table('prediction')->get();
+        $akurasis = DB::table('prediction')->select('date','hasil')->get();
         $count = 0;
         $total = DB::table('bayes')->count();
         foreach ($bayeses as $bayes) {
             foreach ($akurasis as $akurasi) {
-                if ($bayes->id == $akurasi->id) {
+                if ($bayes->date == $akurasi->date) {
                     if ($bayes->harga == $akurasi->hasil) {
                         $count++;
                     }
@@ -441,6 +442,11 @@ public function import(Request $request)
     {
         // truncate table prediction
         DB::table('prediction')->truncate();
+        // insert first row of data in table prediction
+        DB::table('prediction')->insert([
+            'date' => DB::table('bayes')->orderBy('id', 'asc')->value('date'),
+            'hasil' => DB::table('bayes')->orderBy('id', 'asc')->value('harga'),
+        ]);
         // count all data in table master and itearte
         $count = DB::table('bayes')->count();
         // iterate the data based on count and get the high low and volume data
@@ -458,10 +464,13 @@ public function import(Request $request)
                 $output = 0;
             }
             DB::table('prediction')->insert([
-                'id' => $i,
+                'id' => $i + 1,
+                'date'=> DB::table('bayes')->where('id', $i)->value('date'),
                 'hasil' => $output,
             ]);
         }
+        // delete last data from prediction
+        DB::table('prediction')->where('id', $count)->delete();
         $p = $this->accuracy();
         return $p;
     }
