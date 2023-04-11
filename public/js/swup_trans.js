@@ -212,10 +212,7 @@ swup.on("contentReplaced", function () {
     // $(document).ready(function () {
     $("#tips").modal("show"); // modal is for tips
     // });
-    // if date on change remove class disabled
-    dateInput.addEventListener("change", (event) => {
-        submitButton.classList.remove("disabled");
-    });
+
     // Re-run the parallax code on the new content
     if ("requestAnimationFrame" in window) {
         var e = [],
