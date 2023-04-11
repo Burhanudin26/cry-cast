@@ -348,10 +348,7 @@ class NewController extends Controller
         }
         return $result;
     }
-    //accuracy between column harga in bayes table and column hasil in akurasi table based on id
     public function accuracy()
-    //accuracy between column harga in bayes table and column hasil in akurasi table
-    public function error_rate()
     {
         $bayeses = DB::table('bayes')->get();
         $akurasis = DB::table('prediction')->get();
@@ -368,7 +365,10 @@ class NewController extends Controller
         }
         $accuracy = round(($count / $total) * 100, 2);
         return $accuracy;
-                // Retrieve data from the database
+    }
+    public function error_rate()
+    {
+        // Retrieve data from the database
         $data = DB::table('table_name')->pluck('column_name')->toArray(); // Using query builder
         // Calculate the error rate
         $average = array_sum($data) / count($data);
