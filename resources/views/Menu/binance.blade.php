@@ -15,11 +15,20 @@
           <!-- pilih tanggal -->
           <div class="mb-3">
             <label for="dateInput" class="form-label">Masukkan Tanggal</label>
-            <input type="date" class="form-control" id="dateInput">
+            <input type="date" class="form-control" id="dateInput" name="date">
           </div>
           {{-- tanggal yang tersedia --}}
           <div>
-            isi ini
+            {{-- get the date boundary first and end from table binance --}}
+            @php
+              $first_date = DB::table('binance')->min('date');
+              $last_date = DB::table('binance')->max('date');
+
+              $first_date = date('Y-m-d', strtotime($first_date));
+              $last_date = date('Y-m-d', strtotime($last_date));
+
+              echo '<p class="text-center">Tanggal yang tersedia: ' . $first_date . ' - ' . $last_date . '</p>';
+            @endphp
           </div>
           <!-- file -->
           <div class="mb-3">

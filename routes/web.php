@@ -132,3 +132,4 @@ Route::get('/accuracy', 'App\Http\Controllers\NewController@accuracy')->name('ac
 
 // route to controller errRate
 Route::get('/errate', 'App\Http\Controllers\ErrRate@errate')->name('errate');
+
