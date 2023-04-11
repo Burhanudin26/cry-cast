@@ -69,6 +69,7 @@
             <p>Hasil prediksi pada tanggal {{ date('Y/m/d', strtotime($date[count($date) - 1]->date . ' + 1 day')) }}</p>
             <div class="card px-4">
               <p class="pt-3">{{ $outputb }} %</p>
+              <p> Akurasi: {{ $akurasi }} %</p>
             </div>
           </div>
         </div>
@@ -76,12 +77,12 @@
 
       {{-- back button float --}}
       <div class="tombol">
-        <a href="{{ url('/menu') }}" class="tombol-terbang" role="button" type="button">
+        <a href="{{ url('/menu-master') }}" class="tombol-terbang" role="button" type="button">
           <i class="fa-solid fa-reply"></i></a>
       </div>
       {{-- back button biasa --}}
       <div class="tombol2 mt-3 mb-3 text-center">
-        <a href="{{ url('/menu') }}" class="btn btn-primary" role="button" type="button"> Kembali</a>
+        <a href="{{ url('/menu-master') }}" class="btn btn-primary" role="button" type="button"> Kembali</a>
       </div>
 
     </div>
