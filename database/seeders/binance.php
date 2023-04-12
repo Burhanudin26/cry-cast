@@ -12,7 +12,7 @@ class binance extends Seeder
 {
     public function run()
     {
-        $path = storage_path('app/public/ALGO-USD.csv'); // Path to your CSV file
+        $path = storage_path('app/public/coin_Cardano.csv'); // Path to your CSV file
         $data = array_map('str_getcsv', file($path));
         $header = $data[0];
         $dateIndex = array_search('Date', $header);
