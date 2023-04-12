@@ -105,7 +105,8 @@ Route::prefix('menu')->group(function () {
 
 // Route to controller
 Route::post('/import', 'App\Http\Controllers\NewController@import');
-Route::post('/import1', 'App\Http\Controllers\NewController@import1');
+// import 1 in controller Binance
+Route::post('/import1', 'App\Http\Controllers\Binance@import1')->name('import1');
 // import 2 in controller Bitcoin
 Route::post('/import2', 'App\Http\Controllers\Bitcoin@import2')->name('import2');
 Route::post('/import3', 'App\Http\Controllers\NewController@import3');
@@ -123,7 +124,7 @@ Route::get('/naive', 'App\Http\Controllers\NewController@naiveBayes')->name('nai
 // redirect import1 to output
 
 // return controller naive
-Route::get('/naive', 'App\Http\Controllers\NewController@naive')->name('naive');
+Route::get('/naiveb', 'App\Http\Controllers\binance@naive')->name('naiveb');
 
 // route to controller predict
 Route::get('/predict', 'App\Http\Controllers\NewController@predict')->name('predict');

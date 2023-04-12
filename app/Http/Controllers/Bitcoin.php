@@ -233,7 +233,7 @@ class Bitcoin extends Controller
         $high11 = DB::table('bayes')->where('high', 1)->where('harga', 1)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
         $high01 = DB::table('bayes')->where('high', 0)->where('harga', 1)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
         $high10 = DB::table('bayes')->where('high', 1)->where('harga', 0)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
-        $high00 = DB::table('bayes')->where('high', 0)->where('harga', 0)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
+     $high00 = DB::table('bayes')->where('high', 0)->where('harga', 0)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
         $hightotal1 = DB::table('bayes')->where('harga', 1)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
         $ph11 = $high11 / $hightotal1;
         $ph01 = $high01 / $hightotal1;
