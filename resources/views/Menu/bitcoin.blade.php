@@ -10,12 +10,12 @@
         <h1 class="text-center">Bitcoin</h1>
       </div>
       <div class="card-body p-4" style="background-color: rgba(255, 255, 255, 0);">
-        <form method="POST" action="/import2" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('import2') }}" enctype="multipart/form-data">
           <!-- pilih tanggal -->
-          <div class="mb-3">
+          {{-- <div class="mb-3">
             <label for="dateInput" class="form-label">Masukkan Tanggal</label>
             <input type="date" class="form-control" id="dateInput">
-          </div>
+          </div> --}}
           <!-- file -->
           <div class="mb-3">
             <label for="file" class="form-label">Choose file:</label> <br>

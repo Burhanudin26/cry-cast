@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Binance;
+use App\Http\Controllers\Bitcoin;
 
 
 /*
@@ -105,7 +106,8 @@ Route::prefix('menu')->group(function () {
 // Route to controller
 Route::post('/import', 'App\Http\Controllers\NewController@import');
 Route::post('/import1', 'App\Http\Controllers\NewController@import1');
-Route::post('/import2', 'App\Http\Controllers\NewController@import2');
+// import 2 in controller Bitcoin
+Route::post('/import2', 'App\Http\Controllers\Bitcoin@import2')->name('import2');
 Route::post('/import3', 'App\Http\Controllers\NewController@import3');
 Route::post('/import4', 'App\Http\Controllers\NewController@import4');
 Route::post('/import5', 'App\Http\Controllers\NewController@import5');
