@@ -13,7 +13,7 @@ class Bitcoin extends Controller
     public function HitungSMA($table)
     {
         // Create a PDO connection to the database
-        $db = new PDO('mysql:host=localhost:3310;dbname=crypto', 'root', '');
+        $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
 
         // Prepare the SQL query to get the low, high, and volume values from the bitcoin table in groups of 5
         $stmt = $db->prepare('SELECT date, low, high, volume FROM ' . $table);
@@ -80,7 +80,7 @@ class Bitcoin extends Controller
     public function Threshold($table)
     {
         // Create a PDO connection to the database
-        $db = new PDO('mysql:host=localhost:3310;dbname=crypto', 'root', '');
+        $db = new PDO('mysql:host=localhost;dbname=crypto', 'root', '');
 
         // Prepare the SQL query to get the monthly averages of low, high, and volume from the bitcoin table
         $stmt = $db->prepare("SELECT DATE_FORMAT(date, '%Y-%m-01') AS month, AVG(low) AS avg_low, AVG(high) AS avg_high, AVG(volume) AS avg_volume FROM $table GROUP BY month");
