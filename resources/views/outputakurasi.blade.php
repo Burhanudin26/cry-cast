@@ -311,19 +311,19 @@
          width: 2rem;
          height: auto;
       }
+
       .tombol-terbang {
-      position: absolute;
-      right: 20px;
-      top: 100px
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background-color: #2872b8;
-      color: #ffffff;
-      font-size: 20px;
-      text-align: center;
-      box-shadow: 0 0 6px rgba(0, 0, 0, 0.329);
-    }
+         position: absolute;
+         right: 20px;
+         top: 100px width: 50px;
+         height: 50px;
+         border-radius: 50%;
+         background-color: #2872b8;
+         color: #ffffff;
+         font-size: 20px;
+         text-align: center;
+         box-shadow: 0 0 6px rgba(0, 0, 0, 0.329);
+      }
    </style>
 @endsection
 @section('content')
@@ -337,20 +337,9 @@
                   <img src="images/search.png" alt="">
                </div>
                <div class="tombol">
-                <a href="{{ url('/menu-master') }}" class="tombol-terbang" role="button" type="button">
-                   <i class="fa-solid fa-reply"></i></a>
-             </div>
-               {{-- <div class="export__file">
-               <label for="export-file" class="export__file-btn" title="Export File"></label>
-               <input type="checkbox" id="export-file">
-               <div class="export__file-options">
-                  <label>Export As &nbsp; &#10140;</label>
-                  <label for="export-file" id="toPDF">PDF <img src="images/pdf.png" alt=""></label>
-                  <label for="export-file" id="toJSON">JSON <img src="images/json.png" alt=""></label>
-                  <label for="export-file" id="toCSV">CSV <img src="images/csv.png" alt=""></label>
-                  <label for="export-file" id="toEXCEL">EXCEL <img src="images/excel.png" alt=""></label>
+                  <a href="{{ url('/menu-master') }}" class="tombol-terbang" role="button" type="button">
+                     <i class="fa-solid fa-reply"></i></a>
                </div>
-            </div> --}}
             </section>
             <section class="table__body">
                <table>
@@ -360,7 +349,7 @@
                         <th> Parameter <span class="icon-arrow">&UpArrow;</span></th>
                         <th> Tujuan <span class="icon-arrow">&UpArrow;</span></th>
                         {{-- <th> Order Date <span class="icon-arrow">&UpArrow;</span></th> --}}
-                        <th> Status <span class="icon-arrow">&UpArrow;</span></th>
+                        <th> Rekomendasi <span class="icon-arrow">&UpArrow;</span></th>
                         <th> Kinerja <span class="icon-arrow">&UpArrow;</span></th>
                      </tr>
                   </thead>
@@ -378,7 +367,8 @@
                      <tr>
                         {{-- <td> 2 </td> --}}
                         <td class="fw-bold"><img src="imagesAkurasi/Jeet Saru.jpg" alt=""> Recall </td>
-                        <td class="fw-bold"> Kemampuan model untuk menemukan semua contoh positif (True Positive Rate). </td>
+                        <td class="fw-bold"> Kemampuan model untuk menemukan semua contoh positif (True Positive Rate).
+                        </td>
                         {{-- <td> 27 Aug, 2023 </td> --}}
                         <td class="fw-bold">
                            <p class="status not-recommended">Not Recommended</p>
@@ -388,7 +378,8 @@
                      <tr>
                         {{-- <td> 3</td> --}}
                         <td class="fw-bold"><img src="imagesAkurasi/Sonal Gharti.jpg" alt=""> Precision </td>
-                        <td class="fw-bold"> Kemampuan model untuk memprediksi dengan benar contoh positif (Positive Predictive Value). </td>
+                        <td class="fw-bold"> Kemampuan model untuk memprediksi dengan benar contoh positif (Positive
+                           Predictive Value). </td>
                         {{-- <td> 14 Mar, 2023 </td> --}}
                         <td class="fw-bold">
                            <p class="status better-keep">Better Keep Your Coins</p>
@@ -398,7 +389,8 @@
                      <tr>
                         {{-- <td> 4</td> --}}
                         <td class="fw-bold"><img src="imagesAkurasi/Alson GC.jpg" alt=""> F1 Score </td>
-                        <td class="fw-bold"> Ukuran yang menggabungkan precision dan recall untuk memberikan skor keseluruhan kinerja model. </td>
+                        <td class="fw-bold"> Ukuran yang menggabungkan precision dan recall untuk memberikan skor
+                           keseluruhan kinerja model. </td>
                         {{-- <td> 25 May, 2023 </td> --}}
                         <td class="fw-bold">
                            <p class="status recommeded">Strongly Recommeded</p>
