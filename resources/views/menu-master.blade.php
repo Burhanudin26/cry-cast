@@ -104,7 +104,7 @@
             <div class="flip-card-back">
               <div class="back-content">
                 <a href="/menu/master" style="position: relative; z-index: 1; text-decoration:none">
-                <div class="card-text">CUSTOM INPUT</div>
+                <div class="card-text"> <p>Prediksi</p></div>
                 </a>
               </div>
             </div>
@@ -122,8 +122,8 @@
             </div>
             <div class="flip-card-back">
               <div class="back-content">
-                <a href="/menu" style="position: relative; z-index: 1; text-decoration:none">
-                <div class="card-text">MENU</div>
+                <a href="{{ route('akurasi.index') }}" style="position: relative; z-index: 1; text-decoration:none">
+                <div class="card-text">Tes Akurasi</div>
                 </a>
               </div>
             </div>

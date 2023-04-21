@@ -80,12 +80,12 @@
 
       {{-- back button float --}}
       <div class="tombol">
-        <a href="{{ url('/menu-master') }}" class="tombol-terbang" role="button" type="button">
+        <a href="{{ url('/menu') }}" class="tombol-terbang" role="button" type="button">
           <i class="fa-solid fa-reply"></i></a>
       </div>
       {{-- back button biasa --}}
       <div class="tombol2 mt-3 mb-3 text-center">
-        <a href="{{ url('/menu-master') }}" class="btn btn-primary" role="button" type="button"> Kembali</a>
+        <a href="{{ url('/menu') }}" class="btn btn-primary" role="button" type="button"> Kembali</a>
       </div>
 
     </div>

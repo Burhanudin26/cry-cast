@@ -49,58 +49,18 @@ Route::get('/registerPage', function () {
 })->name('regis');
 
 // route to register page
-Route::get('/menu-master', function () {
+Route::get('/menu', function () {
     return view('menu-master');
 })->name('mmaster');
 
-// menu route
-Route::get('/menu', function () {
-    return view('menu');
-})->name('menu');
 
 //Menu group
 Route::prefix('menu')->group(function () {
-     // route to eth
-     Route::get('master', function () {
-        return view('menu.master');
-    });
-    // route to eth
-    Route::get('eth', function () {
-        return view('menu.eth');
-    });
-
     // route to bitcoin
-    Route::get('bitcoin', function () {
-        return view('menu.bitcoin');
-    });
-
+    Route::get('akurasi', [Bitcoin::class, 'index'])->name('akurasi.index');
     // route to bianceconmtroller index
     Route::get('binance', [Binance::class, 'index']);
 
-    // route to dogecoin
-    Route::get('dogecoin', function () {
-        return view('menu.dogecoin');
-    });
-
-    // route to iota
-    Route::get('iota', function () {
-        return view('menu.iota');
-    });
-
-    // route to solana
-    Route::get('solana', function () {
-        return view('menu.solana');
-    });
-
-    // route to stellar
-    Route::get('stellar', function () {
-        return view('menu.stellar');
-    });
-
-    // route to tron
-    Route::get('tron', function () {
-        return view('menu.tron');
-    });
 });
 
 // Route to controller
@@ -109,12 +69,7 @@ Route::post('/import', 'App\Http\Controllers\NewController@import');
 Route::post('/import1', 'App\Http\Controllers\Binance@import1')->name('import1');
 // import 2 in controller Bitcoin
 Route::post('/import2', 'App\Http\Controllers\Bitcoin@import2')->name('import2');
-Route::post('/import3', 'App\Http\Controllers\NewController@import3');
-Route::post('/import4', 'App\Http\Controllers\NewController@import4');
-Route::post('/import5', 'App\Http\Controllers\NewController@import5');
-Route::post('/import6', 'App\Http\Controllers\NewController@import6');
-Route::post('/import7', 'App\Http\Controllers\NewController@import7');
-Route::post('/import8', 'App\Http\Controllers\NewController@import8');
+
 
 // Output
 
