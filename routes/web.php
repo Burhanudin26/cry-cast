@@ -59,7 +59,9 @@ Route::prefix('menu')->group(function () {
     // route to bitcoin
     Route::get('akurasi', [Bitcoin::class, 'index'])->name('akurasi.index');
     // route to bianceconmtroller index
-    Route::get('binance', [Binance::class, 'index']);
+        Route::get('prediksi', function(){
+        return view('menu.master');
+    })->name('prediksi.index');
 
 });
 
