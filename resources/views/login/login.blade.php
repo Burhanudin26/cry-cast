@@ -14,7 +14,7 @@
                   @csrf 
                   <!-- email -->
                   <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="name_or_email" name="name_or_email" placeholder="mail">
+                    <input type="text" class="form-control" id="name_or_email" name="email" placeholder="mail">
                     <label for="name_or_email" class="text-dark">Email</label>
                   </div>
                   <!-- password -->

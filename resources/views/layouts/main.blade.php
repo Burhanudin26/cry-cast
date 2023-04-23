@@ -83,9 +83,7 @@
                      <label for="profileImageInput" class="dropdown-item">Profile Image</label>
                      <input type="file" id="profileImageInput" style="display:none">
                   </li>
-                  <form action="{{ route('logout') }}" method="POST">
-                     <li><a class="dropdown-item" type="submit" href="/">Logout</a></li>
-                  </form>
+                     <li><a class="dropdown-item" type="submit" href="{{ route('logout') }}">Logout</a></li>
                </ul>
             </div>
 
