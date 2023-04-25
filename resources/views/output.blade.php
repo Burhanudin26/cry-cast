@@ -76,7 +76,7 @@
 
       {{-- back button float --}}
       <div class="tombol">
-        <a href="{{ url('/menu-master') }}" class="tombol-terbang" role="button" type="button">
+        <a href="{{ url('/menu') }}" class="tombol-terbang" role="button" type="button">
           <i class="fa-solid fa-reply"></i></a>
       </div>
       {{-- back button biasa --}}

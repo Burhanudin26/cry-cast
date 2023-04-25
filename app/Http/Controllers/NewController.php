@@ -36,7 +36,6 @@ class NewController extends Controller
             $insert_stmt = $db->prepare('INSERT INTO SMA (date,sma_low, sma_high, sma_volume) VALUES (:smadate,0, 0, 0)');
             $insert_stmt->bindParam(':smadate', $smadate);
             $insert_stmt->execute();
-
         }
         // Calculate the average values for each column for each group of $priod rows
         for ($i = 0; $i < count($rows); $i++) {
@@ -211,12 +210,6 @@ class NewController extends Controller
                 ]);
             }
         }
-        // select last high low vol data from bayes table
-        $lastdata = DB::table('bayes')->orderBy('id', 'desc')->take(1)->get();
-        $high = $lastdata[0]->high;
-        $low = $lastdata[0]->low;
-        $volume = $lastdata[0]->volume;
-        $this->naive($high, $low, $volume);
     }
 
 
@@ -225,47 +218,50 @@ class NewController extends Controller
     public function naive($high, $low, $volume)
     {
         // class
-        $harga1 = DB::table('bayes')->where('harga', 1)->count();
-        $harga0 = DB::table('bayes')->where('harga', 0)->count();
-        $hargatotal = DB::table('bayes')->count();
+        $harga1 = DB::table('bayes')->where('harga', 1)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
+        $harga0 = DB::table('bayes')->where('harga', 0)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
+        $hargatotal = DB::table('bayes')->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
         $Class1 = $harga1 / $hargatotal;
         $Class0 = $harga0 / $hargatotal;
 
         // high
-        $high11 = DB::table('bayes')->where('high', 1)->where('harga', 1)->count();
-        $high01 = DB::table('bayes')->where('high', 0)->where('harga', 1)->count();
-        $high10 = DB::table('bayes')->where('high', 1)->where('harga', 0)->count();
-        $high00 = DB::table('bayes')->where('high', 0)->where('harga', 0)->count();
-        $hightotal1 = DB::table('bayes')->where('harga', 1)->count();
+        $high11 = DB::table('bayes')->where('high', 1)->where('harga', 1)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
+        $high01 = DB::table('bayes')->where('high', 0)->where('harga', 1)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
+        $high10 = DB::table('bayes')->where('high', 1)->where('harga', 0)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
+        $high00 = DB::table('bayes')->where('high', 0)->where('harga', 0)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
+        $hightotal1 = DB::table('bayes')->where('harga', 1)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
         $ph11 = $high11 / $hightotal1;
         $ph01 = $high01 / $hightotal1;
-        $hightotal0 = DB::table('bayes')->where('harga', 0)->count();
+        $hightotal0 = DB::table('bayes')->where('harga', 0)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
         $ph10 = $high10 / $hightotal0;
         $ph00 = $high00 / $hightotal0;
 
         // low
-        $low11 = DB::table('bayes')->where('low', 1)->where('harga', 1)->count();
-        $low01 = DB::table('bayes')->where('low', 0)->where('harga', 1)->count();
-        $low10 = DB::table('bayes')->where('low', 1)->where('harga', 0)->count();
-        $low00 = DB::table('bayes')->where('low', 0)->where('harga', 0)->count();
-        $lowtotal1 = DB::table('bayes')->where('harga', 1)->count();
+        $low11 = DB::table('bayes')->where('low', 1)->where('harga', 1)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
+        $low01 = DB::table('bayes')->where('low', 0)->where('harga', 1)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
+        $low10 = DB::table('bayes')->where('low', 1)->where('harga', 0)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
+        $low00 = DB::table('bayes')->where('low', 0)->where('harga', 0)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
+        $lowtotal1 = DB::table('bayes')->where('harga', 1)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
         $pl11 = $low11 / $lowtotal1;
         $pl01 = $low01 / $lowtotal1;
-        $lowtotal0 = DB::table('bayes')->where('harga', 0)->count();
+        $lowtotal0 = DB::table('bayes')->where('harga', 0)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
         $pl10 = $low10 / $lowtotal0;
         $pl00 = $low00 / $lowtotal0;
 
         // volume
-        $volume11 = DB::table('bayes')->where('volume', 1)->where('harga', 1)->count();
-        $volume01 = DB::table('bayes')->where('volume', 0)->where('harga', 1)->count();
-        $volume10 = DB::table('bayes')->where('volume', 1)->where('harga', 0)->count();
-        $volume00 = DB::table('bayes')->where('volume', 0)->where('harga', 0)->count();
-        $volumetotal1 = DB::table('bayes')->where('harga', 1)->count();
+        $volume11 = DB::table('bayes')->where('volume', 1)->where('harga', 1)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
+        $volume01 = DB::table('bayes')->where('volume', 0)->where('harga', 1)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
+        $volume10 = DB::table('bayes')->where('volume', 1)->where('harga', 0)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
+        $volume00 = DB::table('bayes')->where('volume', 0)->where('harga', 0)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
+        $volumetotal1 = DB::table('bayes')->where('harga', 1)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
         $pv11 = $volume11 / $volumetotal1;
         $pv01 = $volume01 / $volumetotal1;
-        $volumetotal0 = DB::table('bayes')->where('harga', 0)->count();
+        $volumetotal0 = DB::table('bayes')->where('harga', 0)->whereNotBetween('id', [DB::table('bayes')->max('id') - 100, DB::table('bayes')->max('id')])->count();
         $pv10 = $volume10 / $volumetotal0;
         $pv00 = $volume00 / $volumetotal0;
+
+
+
 
         // output when up
         $output1111 = round((($ph11 * $pl11 * $pv11 * $Class1) / (($ph11 * $pl11 * $pv11 * $Class1) + ($ph10 * $pl10 * $pv10 * $Class0))) * 100, 2);
@@ -307,37 +303,49 @@ class NewController extends Controller
             } else {
                 $result = 'Turun ' . $output0111;
             }
-        } elseif ($high == 1 && $low == 1 && $volume == 0) {
+        } elseif (
+            $high == 1 && $low == 1 && $volume == 0
+        ) {
             if ($output1110 > $output0110) {
                 $result = 'Naik ' . $output1110;
             } else {
                 $result = 'Turun ' . $output0110;
             }
-        } elseif ($high == 1 && $low == 0 && $volume == 0) {
+        } elseif (
+            $high == 1 && $low == 0 && $volume == 0
+        ) {
             if ($output1100 > $output0100) {
                 $result = 'Naik ' . $output1100;
             } else {
                 $result = 'Turun ' . $output0100;
             }
-        } elseif ($high == 1 && $low == 0 && $volume == 1) {
+        } elseif (
+            $high == 1 && $low == 0 && $volume == 1
+        ) {
             if ($output1101 > $output0101) {
                 $result = 'Naik ' . $output1101;
             } else {
                 $result = 'Turun ' . $output0101;
             }
-        } elseif ($high == 0 && $low == 1 && $volume == 1) {
+        } elseif (
+            $high == 0 && $low == 1 && $volume == 1
+        ) {
             if ($output1011 > $output0011) {
                 $result = 'Naik ' . $output1011;
             } else {
                 $result = 'Turun ' . $output0011;
             }
-        } elseif ($high == 0 && $low == 1 && $volume == 0) {
+        } elseif (
+            $high == 0 && $low == 1 && $volume == 0
+        ) {
             if ($output1010 > $output0010) {
                 $result = 'Naik ' . $output1010;
             } else {
                 $result = 'Turun ' . $output0010;
             }
-        } elseif ($high == 0 && $low == 0 && $volume == 0) {
+        } elseif (
+            $high == 0 && $low == 0 && $volume == 0
+        ) {
             if ($output1000 > $output0000) {
                 $result = 'Naik ' . $output1000;
             } else {
@@ -352,16 +360,19 @@ class NewController extends Controller
         }
         return $result;
     }
+
     public function accuracy()
     {
         $bayeses = DB::table('bayes')->get();
         $akurasis = DB::table('prediction')->select('date', 'hasil')->get();
         $count = 0;
-        $total = DB::table('bayes')->count();
+        $total = DB::table('prediction')->count();
         foreach ($bayeses as $bayes) {
             foreach ($akurasis as $akurasi) {
                 if ($bayes->date == $akurasi->date) {
-                    if ($bayes->harga == $akurasi->hasil) {
+                    if (
+                        $bayes->harga == $akurasi->hasil
+                    ) {
                         $count++;
                     }
                 }
@@ -556,29 +567,45 @@ class NewController extends Controller
         // truncate table prediction
         DB::table('prediction')->truncate();
         // insert first row of data in table prediction
-        DB::table('prediction')->insert([
-            'date' => DB::table('bayes')->orderBy('id', 'asc')->value('date'),
-            'hasil' => DB::table('bayes')->orderBy('id', 'asc')->value('harga'),
-        ]);
-        // count all data in table master and itearte
+        $latestBayesData = DB::table('bayes')->orderBy('id', 'desc')->take(100)->get()->last();
+        if ($latestBayesData) {
+            $datep = $latestBayesData->date;
+            $hasilp = $latestBayesData->harga;
+
+            DB::table('prediction')->insert([
+                'date' => $datep,
+                'hasil' => $hasilp
+            ]);
+        }
+
+        // count all data in table bitcoin and iterate
         $count = DB::table('bayes')->count();
-        // iterate the data based on count and get the high low and volume data
-        for ($i = 1; $i <= $count; $i++) {
-            $high = DB::table('bayes')->where('id', $i)->value('high');
-            $low = DB::table('bayes')->where('id', $i)->value('low');
-            $volume = DB::table('bayes')->where('id', $i)->value('volume');
+        // get the last 100 records from the bayes table in ascending order
+        $bayesData = DB::table('bayes')->orderBy('id', 'desc')->take(100)->get();
+        // Convert collection to array
+        $bayesData = $bayesData->toArray();
+        // Reverse the array
+        $bayesData = array_reverse($bayesData);
+        // iterate the data and get the high, low, and volume data
+        foreach ($bayesData as $data) {
+            $high = $data->high;
+            $low = $data->low;
+            $volume = $data->volume;
             // get the output from function bayes
             $output = $this->naive($high, $low, $volume);
             // save the output in table prediction
             // check the output if first string Naik or Turun if Naik save 1 if Turun save 0
-            if (substr($output, 0, 4) == 'Naik') {
+            if (
+                substr($output, 0, 4) == 'Naik'
+            ) {
                 $output = 1;
             } else {
                 $output = 0;
             }
             DB::table('prediction')->insert([
-                'id' => $i + 1,
-                'date' => DB::table('bayes')->where('id', $i)->value('date'),
+                'id' => $data->id + 1,
+                // insert date to date but increment by 1 first
+                'date' => date('Y-m-d', strtotime($data->date . ' + 1 days')),
                 'hasil' => $output,
             ]);
         }
