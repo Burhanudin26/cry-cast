@@ -11,36 +11,36 @@
    <title>@yield('title', 'Cry Cast')</title>
    {{-- css --}}
    @section('styles')
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-   <link rel="stylesheet" href="{{ url('css/style.css') }}">
-   <link rel="stylesheet" href="{{ url('css/menu.css') }}">
-   <link rel="stylesheet" href="{{ url('css/transition.css') }}">
-   {{-- font --}}
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
-   {{-- icon --}}
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-      crossorigin="anonymous" referrerpolicy="no-referrer" />
-   <style>
-      body::-webkit-scrollbar {
-         width: 0.2em;
-      }
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+      <link rel="stylesheet" href="{{ url('css/style.css') }}">
+      <link rel="stylesheet" href="{{ url('css/menu.css') }}">
+      <link rel="stylesheet" href="{{ url('css/transition.css') }}">
+      {{-- font --}}
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+      {{-- icon --}}
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+         integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+         crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <style>
+         body::-webkit-scrollbar {
+            width: 0.2em;
+         }
 
-      body::-webkit-scrollbar-track {
-         background: #242424;
-         -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
-      }
+         body::-webkit-scrollbar-track {
+            background: #242424;
+            -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
+         }
 
-      body::-webkit-scrollbar-thumb {
-         background-color: rgb(112, 190, 180);
-         outline: 1px solid rgb(0, 89, 255);
-      }
+         body::-webkit-scrollbar-thumb {
+            background-color: rgb(112, 190, 180);
+            outline: 1px solid rgb(0, 89, 255);
+         }
 
-      /* aneh ini ku taro di css ga aktif */
-   </style>
+         /* aneh ini ku taro di css ga aktif */
+      </style>
    @show
 
 </head>
@@ -49,47 +49,49 @@
    <div id="loader"></div>
    <section id="swup">
       <!-- navbar -->
-      <nav class="navbar navbar-expand-lg fixed-top">
-         <div class="container">
-            <button class="navbar-toggler p-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
-               style="border-radius: 50%">
-               <span class="navbar-toggler-icon">
-               </span>
-            </button>
-            <a class="navbar-brand me-lg-5" href="#">CryCast</a>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-               <ul class="navbar-nav">
-                  <li class="nav-item">
-                     <a class="nav-link" href="/">Homepage</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="/about">About</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link" href="/menu-master">Forecast</a>
-                  </li>
-               </ul>
-            </div>
+      @if (Request::is('outputAkurasi'))
+         <nav></nav>
+      @else
+         <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container">
+               <button class="navbar-toggler p-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                  aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
+                  style="border-radius: 50%">
+                  <span class="navbar-toggler-icon">
+                  </span>
+               </button>
+               <a class="navbar-brand me-lg-5" href="#">CryCast</a>
+               <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                  <ul class="navbar-nav">
+                     <li class="nav-item">
+                        <a class="nav-link" href="/">Homepage</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="/menu-master">Forecast</a>
+                     </li>
+                  </ul>
+               </div>
 
-            <div class="dropdown d-flex align-items-center">
-               <a class="dropdown" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <img src="{{ url('pictures/guest.jpg') }}" alt="user" class="rounded-circle me-lg-5"
-                     width="40px" height="40px">
-               </a>
-               <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                  <li>
-                     <label for="profileImageInput" class="dropdown-item">Profile Image</label>
-                     <input type="file" id="profileImageInput" style="display:none">
-                  </li>
+               <div class="dropdown d-flex align-items-center">
+                  <a class="dropdown" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown"
+                     aria-expanded="false">
+                     <img src="{{ url('pictures/guest.jpg') }}" alt="user" class="rounded-circle me-lg-5"
+                        width="40px" height="40px">
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                     <li>
+                        <label for="profileImageInput" class="dropdown-item">Profile Image</label>
+                        <input type="file" id="profileImageInput" style="display:none">
+                     </li>
                      <li><a class="dropdown-item" type="submit" href="{{ route('logout') }}">Logout</a></li>
-               </ul>
+                  </ul>
+               </div>
             </div>
-
-         </div>
-      </nav>
-
+         </nav>
+      @endif
 
       <!-- home -->
       @if (Request::is('/'))
@@ -118,6 +120,9 @@
    </section>
 
    {{-- footer --}}
+   @if (Request::is('outputAkurasi'))
+      <footer></footer>
+   @else
    <section class="bottom">
       <!-- Footer -->
       <footer class="text-center text-white" style="background-color: #2872b8;">
@@ -141,6 +146,7 @@
          </div>
       </footer>
    </section>
+   @endif
    <!-- End of .container -->
    {{-- js --}}
    <script src="{{ url('js/Jquery.js') }}"></script>

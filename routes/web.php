@@ -155,5 +155,5 @@ Route::middleware(['auth.user'])->group(function () {
     Route::get('/errate1', 'App\Http\Controllers\ErrRate@errate1')->name('errate1');
 
     // Route to viewAccurary
-    Route::get('/accuracy', 'App\Http\Controllers\NewController@viewAccuracy')->name('accuracy');
+    Route::get('/outputAkurasi', 'App\Http\Controllers\NewController@viewAccuracy')->name('viewAccuracy');
 });

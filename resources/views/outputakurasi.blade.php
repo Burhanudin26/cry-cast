@@ -1,7 +1,7 @@
-{{-- @extends('layouts.main')
+ @extends('layouts.main')
 @section('title', 'Akurasi Prediksi')
 @section('styles')
-   @parent --}}
+   @parent
 <style>
    * {
       margin: 0;
@@ -331,8 +331,8 @@
       transition: all 0.3s ease;
    }
 </style>
-{{-- @endsection
-@section('content') --}}
+@endsection
+@section('content') 
 <div id="outer">
    <div id="inner">
       <div class="table">
@@ -343,7 +343,7 @@
                <img src="imagesAkurasi/search.png" alt="">
             </div>
             <div class="tombol">
-               <a href="{{ url('/menu-master') }}" class="tombol-terbang" role="button" type="button">
+               <a href="{{ url('/menu-master') }}" class="" role="button" type="button">
                   <i class="fa-solid fa-reply"></i></a>
             </div>
          </section>
@@ -412,4 +412,4 @@
 
 <script src="{{ url('js/tableAkurasi.js') }}"></script>
 
-{{-- @endsection --}}
+@endsection
