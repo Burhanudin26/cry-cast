@@ -12,6 +12,9 @@
       </div>
       <div class="card-body p-4" style="background-color: rgba(255, 255, 255, 0);">
         <form method="POST" action="/import" enctype="multipart/form-data">
+          @if ($errors->has('errorImport'))
+          <div class="alert alert-danger">{{ $errors->first('errorImport') }}</div>
+          @endif
           <p class="text-center">Masukkan dataset anda dengan format .csv</p>
           <!-- pilih tanggal -->
           {{-- <div class="mb-3">
