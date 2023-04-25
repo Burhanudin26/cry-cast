@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use app\Models\User;
-// Auth
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -17,7 +16,7 @@ class loginController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, false)) {
             $request->session()->regenerate();
 
             // Set the verified flag in the user's session
@@ -27,7 +26,7 @@ class loginController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'Username or password is incorrect',
         ])->onlyInput('email');
     }
 

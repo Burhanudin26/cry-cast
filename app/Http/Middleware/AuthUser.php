@@ -26,6 +26,8 @@ class AuthUser
         }
 
         // User is not authenticated or not verified, redirect to login page
-        return redirect('/loginPage')->with('error', 'Please verify your account first.');
+        return redirect('/loginPage')->withErrors([
+            'notVerified' => 'Please Verify your account first',
+        ]);
     }
 }

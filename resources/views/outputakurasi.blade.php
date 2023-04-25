@@ -362,7 +362,7 @@
                <tbody>
                   <tr>
                      {{-- <td> 1 </td> --}}
-                     <td class="fw-bold"> <img src="imagesAkurasi/Zinzu Chan Lee.jpg" alt="">Accuracy</td>
+                     <td class="fw-bold">Accuracy</td>
                      <td class="fw-bold"> Seberapa akurat model dalam memprediksi keseluruhan data </td>
                      {{-- <td> 17 Dec, 2022 </td> --}}
                      <td class="fw-bold">
@@ -372,7 +372,7 @@
                   </tr>
                   <tr>
                      {{-- <td> 2 </td> --}}
-                     <td class="fw-bold"><img src="imagesAkurasi/Jeet Saru.jpg" alt=""> Recall </td>
+                     <td class="fw-bold">Recall </td>
                      <td class="fw-bold"> Kemampuan model untuk menemukan semua contoh positif (True Positive Rate).
                      </td>
                      {{-- <td> 27 Aug, 2023 </td> --}}
@@ -383,7 +383,7 @@
                   </tr>
                   <tr>
                      {{-- <td> 3</td> --}}
-                     <td class="fw-bold"><img src="imagesAkurasi/Sonal Gharti.jpg" alt=""> Precision </td>
+                     <td class="fw-bold">Precision </td>
                      <td class="fw-bold"> Kemampuan model untuk memprediksi dengan benar contoh positif (Positive
                         Predictive Value). </td>
                      {{-- <td> 14 Mar, 2023 </td> --}}
@@ -394,7 +394,7 @@
                   </tr>
                   <tr>
                      {{-- <td> 4</td> --}}
-                     <td class="fw-bold"><img src="imagesAkurasi/Alson GC.jpg" alt=""> F1 Score </td>
+                     <td class="fw-bold">F1 Score </td>
                      <td class="fw-bold"> Ukuran yang menggabungkan precision dan recall untuk memberikan skor
                         keseluruhan kinerja model. </td>
                      {{-- <td> 25 May, 2023 </td> --}}

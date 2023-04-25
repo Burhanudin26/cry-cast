@@ -12,6 +12,10 @@
       </div>
       <div class="card-body p-4" style="background-color: rgba(255, 255, 255, 0);">
         <form method="POST" action="/import1" enctype="multipart/form-data">
+          <!-- error message -->
+          @if ($errors->has('errorImport1'))
+          <div class="alert alert-danger">{{ $errors->first('errorImport1') }}</div>
+          @endif
           <!-- pilih tanggal -->
           <div class="mb-3">
             <label for="dateInput" class="form-label">Masukkan Tanggal</label>

@@ -8,6 +8,8 @@ use PDO;
 use PhpOption\None;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 use Symfony\Component\Console\Output\Output;
+// Auth
+use Illuminate\Support\Facades\Auth;
 
 set_time_limit(0);
 class NewController extends Controller
@@ -218,7 +220,7 @@ class NewController extends Controller
         $high = $lastdata[0]->high;
         $low = $lastdata[0]->low;
         $volume = $lastdata[0]->volume;
-        $this->naive( $high, $low, $volume);
+        $this->naive($high, $low, $volume);
     }
 
 
@@ -357,7 +359,7 @@ class NewController extends Controller
     public function accuracy()
     {
         $bayeses = DB::table('bayes')->get();
-        $akurasis = DB::table('prediction')->select('date','hasil')->get();
+        $akurasis = DB::table('prediction')->select('date', 'hasil')->get();
         $count = 0;
         $total = DB::table('bayes')->count();
         foreach ($bayeses as $bayes) {
@@ -373,133 +375,147 @@ class NewController extends Controller
         return $accuracy;
     }
 
-// Recall
-public function recall()
-{
-    DB::table('recall')->truncate();
-    $bayeses = DB::table('bayes')->get();
-    $predictions = DB::table('prediction')->get();
-    $truePositive = 0;
-    $falseNegative = 0;
-    $totalPositive = 0;
-    $totalNegative = 0;
+    // Recall
+    public function recall()
+    {
+        DB::table('recall')->truncate();
+        $bayeses = DB::table('bayes')->get();
+        $predictions = DB::table('prediction')->get();
+        $truePositive = 0;
+        $falseNegative = 0;
+        $totalPositive = 0;
+        $totalNegative = 0;
 
-    // hitung true positive dan false negative
-    foreach ($bayeses as $bayes) {
-        foreach ($predictions as $prediction) {
-            if ($bayes->date == $prediction->date) {
-                if ($bayes->harga == 1) {
-                    $totalPositive++;
-                    if ($prediction->hasil == 1) {
-                        $truePositive++;
+        // hitung true positive dan false negative
+        foreach ($bayeses as $bayes) {
+            foreach ($predictions as $prediction) {
+                if ($bayes->date == $prediction->date) {
+                    if ($bayes->harga == 1) {
+                        $totalPositive++;
+                        if ($prediction->hasil == 1) {
+                            $truePositive++;
+                        } else {
+                            $falseNegative++;
+                        }
                     } else {
-                        $falseNegative++;
-                    }
-                } else {
-                    $totalNegative++;
-                }
-            }
-        }
-    }
-
-    // hitung recall
-    if ($truePositive + $falseNegative > 0) {
-        $recall = round($truePositive / ($truePositive + $falseNegative) * 100, 2);
-    } else {
-        echo "else recall 0";
-        $recall = 0;
-    }
-
-    DB::table('recall')->insert(['hasil' => $recall]);
-
-    return $recall;
-}
-
-// Precision
-public function precision()
-{
-    DB::table('precision')->truncate();
-    $bayeses = DB::table('bayes')->get();
-    $predictions = DB::table('prediction')->get();
-    $truePositive = 0;
-    $falsePositive = 0;
-    $totalPositive = 0;
-    $totalNegative = 0;
-
-    // hitung true positive dan false positive
-    foreach ($bayeses as $bayes) {
-        foreach ($predictions as $prediction) {
-            if ($bayes->date == $prediction->date) {
-                if ($bayes->harga == 1) {
-                    $totalPositive++;
-                    if ($prediction->hasil == 1) {
-                        $truePositive++;
-                    }
-                } else {
-                    $totalNegative++;
-                    if ($prediction->hasil == 1) {
-                        $falsePositive++;
+                        $totalNegative++;
                     }
                 }
             }
         }
+
+        // hitung recall
+        if ($truePositive + $falseNegative > 0) {
+            $recall = round($truePositive / ($truePositive + $falseNegative) * 100, 2);
+        } else {
+            echo "else recall 0";
+            $recall = 0;
+        }
+
+        DB::table('recall')->insert(['hasil' => $recall]);
+
+        return $recall;
     }
 
-    // hitung precision
-    if ($truePositive + $falsePositive > 0) {
-        $precision = round($truePositive / ($truePositive + $falsePositive) * 100, 2);
-    } else {
-        $precision = 0;
+    // Precision
+    public function precision()
+    {
+        DB::table('precision')->truncate();
+        $bayeses = DB::table('bayes')->get();
+        $predictions = DB::table('prediction')->get();
+        $truePositive = 0;
+        $falsePositive = 0;
+        $totalPositive = 0;
+        $totalNegative = 0;
+
+        // hitung true positive dan false positive
+        foreach ($bayeses as $bayes) {
+            foreach ($predictions as $prediction) {
+                if ($bayes->date == $prediction->date) {
+                    if ($bayes->harga == 1) {
+                        $totalPositive++;
+                        if ($prediction->hasil == 1) {
+                            $truePositive++;
+                        }
+                    } else {
+                        $totalNegative++;
+                        if ($prediction->hasil == 1) {
+                            $falsePositive++;
+                        }
+                    }
+                }
+            }
+        }
+
+        // hitung precision
+        if ($truePositive + $falsePositive > 0) {
+            $precision = round($truePositive / ($truePositive + $falsePositive) * 100, 2);
+        } else {
+            $precision = 0;
+        }
+
+        DB::table('precision')->insert(['hasil' => $precision]);
+
+        return $precision;
     }
 
-    DB::table('precision')->insert(['hasil' => $precision]);
+    // F1 Score
+    public function f1Score()
+    {
+        $recall = $this->recall();
+        $precision = $this->precision();
+        if ($recall + $precision > 0) {
+            $f1Score = round((2 * $recall * $precision) / ($recall + $precision), 2);
+        } else {
+            $f1Score = 0;
+        }
+        DB::table('f1_score')->insert(['hasil' => $f1Score]);
 
-    return $precision;
-}
-
-// F1 Score
-public function f1Score()
-{
-    $recall = $this->recall();
-    $precision = $this->precision();
-    if ($recall + $precision > 0) {
-        $f1Score = round((2 * $recall * $precision) / ($recall + $precision), 2);
-    } else {
-        $f1Score = 0;
+        return $f1Score;
     }
-    DB::table('f1_score')->insert(['hasil' => $f1Score]);
-
-    return $f1Score;
-}
 
 
-//Masterinput
-public function import(Request $request)
-{
-    $file = $request->file('csv_input_master');
-    if ($file && $file->isValid()) {
-        $path = $file->getRealPath();
-        $data = array_map('str_getcsv', file($path));
+    //Masterinput
+    public function import(Request $request)
+    {
 
-        // Get header row to retrieve column indexes
-        $header = $data[0];
-        $dateIndex = array_search('Date', $header);
-        $highIndex = array_search('High', $header);
-        $lowIndex = array_search('Low', $header);
-        $volumeIndex = array_search('Volume', $header);
-        // Remove header row from data
-        $data = array_slice($data, 1);
-        $table = 'master';
-        DB::table('master')->where('id', '<>', 'admin')->delete();
-        foreach ($data as $row) {
-            DB::table($table)->insert([
-                'date' => date('Y/m/d', strtotime($row[$dateIndex])),
-                'high' => is_numeric($row[$highIndex]) ? $row[$highIndex] : 0,
-                'low' => is_numeric($row[$lowIndex]) ? $row[$lowIndex] : 0,
-                'volume' => is_numeric($row[$volumeIndex]) ? $row[$volumeIndex] : 0,
+        // Get the authenticated user
+        $user = Auth::user();
+        // Check if the user is currently uploading a file
+        if ($user->uploading) {
+            return redirect('/menu/master')->withErrors([
+                'errorImport' => 'You are already uploading a file. Please wait for the previous file to finish uploading.'
             ]);
         }
-    }
+        // Set the uploading flag to true
+        $user->uploading = true;
+        $user->save();
+
+        // Processing Dataset
+        $file = $request->file('csv_input_master');
+        if ($file && $file->isValid()) {
+            $path = $file->getRealPath();
+            $data = array_map('str_getcsv', file($path));
+
+            // Get header row to retrieve column indexes
+            $header = $data[0];
+            $dateIndex = array_search('Date', $header);
+            $highIndex = array_search('High', $header);
+            $lowIndex = array_search('Low', $header);
+            $volumeIndex = array_search('Volume', $header);
+            // Remove header row from data
+            $data = array_slice($data, 1);
+            $table = 'master';
+            DB::table('master')->where('id', '<>', 'admin')->delete();
+            foreach ($data as $row) {
+                DB::table($table)->insert([
+                    'date' => date('Y/m/d', strtotime($row[$dateIndex])),
+                    'high' => is_numeric($row[$highIndex]) ? $row[$highIndex] : 0,
+                    'low' => is_numeric($row[$lowIndex]) ? $row[$lowIndex] : 0,
+                    'volume' => is_numeric($row[$volumeIndex]) ? $row[$volumeIndex] : 0,
+                ]);
+            }
+        }
         $table = 'master';
         $this->HitungSMA($table);
         $this->Threshold($table);
@@ -529,8 +545,14 @@ public function import(Request $request)
         $precision = $this->precision();
         $f1Score = $this->f1Score();
         //$this->predict();
+
+        // Set the uploading flag back to false
+        $user->uploading = false;
+        $user->save();
+        // dd("Data berhasil di upload");
+
         return view('output')->with(compact('data', 'trend', 'low_data', 'low_trend', 'volume_data', 'volume_trend', 'date', 'output', 'outputb', 'akurasi', 'recall', 'precision', 'f1Score'));
-}
+    }
 
     // predict all data in table master in save in table prediction
     public function predict()
@@ -560,7 +582,7 @@ public function import(Request $request)
             }
             DB::table('prediction')->insert([
                 'id' => $i + 1,
-                'date'=> DB::table('bayes')->where('id', $i)->value('date'),
+                'date' => DB::table('bayes')->where('id', $i)->value('date'),
                 'hasil' => $output,
             ]);
         }
@@ -573,6 +595,19 @@ public function import(Request $request)
     //Binance
     public function import1(Request $request)
     {
+        // Get the authenticated user
+        $user = Auth::user();
+        // Check if the user is currently uploading a file
+        if ($user->uploading) {
+            return redirect('/menu/master')->withErrors([
+                'errorImport1' => 'You are already uploading a file. Please wait for the previous file to finish uploading.'
+            ]);
+        }
+        // Set the uploading flag to true
+        $user->uploading = true;
+        $user->save();
+
+        // Processing Dataset
         $datei = $request->date;
         // validate date
         $this->validate($request, [
@@ -608,20 +643,25 @@ public function import(Request $request)
         $outputb = $this->naive($high, $low, $volume);
         $akurasi = $this->predict();
 
+        // Set the uploading flag back to false
+        $user->uploading = false;
+        $user->save();
+        // dd("Data berhasil di upload");
 
         return view('outputmenu')->with(compact('data', 'trend', 'low_data', 'low_trend', 'volume_data', 'volume_trend', 'date', 'output', 'outputb', 'akurasi', 'datei'));
     }
 
-// Accuracy view
-public function viewAccuracy() {
-    $akurasi = $this->predict();
-    $recall = $this->recall();
-    $precision = $this->precision();
-    $f1Score = $this->f1Score();
-    // redirect to accuracy url
-    return view('outputAkurasi')->with(compact('akurasi', 'recall', 'precision', 'f1Score'));
+    // Accuracy view
+    public function viewAccuracy()
+    {
+        $akurasi = $this->predict();
+        $recall = $this->recall();
+        $precision = $this->precision();
+        $f1Score = $this->f1Score();
+        // redirect to accuracy url
+        return view('outputAkurasi')->with(compact('akurasi', 'recall', 'precision', 'f1Score'));
 
-} 
+    }
 
 //     //Bitcoin
 //     public function import2(Request $request)
@@ -791,4 +831,4 @@ public function viewAccuracy() {
 //         // redirect to the page to display the results output
 //         return redirect()->route('output');
 //     }
-     }
+}
