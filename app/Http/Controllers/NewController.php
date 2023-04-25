@@ -5,10 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDO;
-use PhpOption\None;
-use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
-use Symfony\Component\Console\Output\Output;
-// Auth
 use Illuminate\Support\Facades\Auth;
 
 set_time_limit(0);
