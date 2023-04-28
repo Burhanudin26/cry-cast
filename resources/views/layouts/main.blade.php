@@ -146,7 +146,6 @@
     <script src="{{ url('js/main.js') }}"></script>
   {{-- swup.js | animasi pindah page --}}
     <script src="https://unpkg.com/swup@3"></script>
-    <script src="{{ url('js/swup_trans.js') }}"></script>
 </body>
 
 </html>
