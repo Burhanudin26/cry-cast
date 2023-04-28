@@ -72,7 +72,6 @@
             <p>Hasil prediksi pada tanggal {{ $datei }}</p>
             <div class="card px-4">
               <p class="pt-3">{{ $outputb }} %</p>
-              <p> Akurasi: {{ $akurasi }} %</p>
             </div>
           </div>
         </div>
@@ -86,6 +85,7 @@
       {{-- back button biasa --}}
       <div class="tombol2 mt-3 mb-3 text-center">
         <a href="{{ url('/menu') }}" class="btn btn-primary" role="button" type="button"> Kembali</a>
+        <a href="{{ route('viewAccuracy') }}" class="btn btn-warning" type="button">Lihat Akurasi</a>
       </div>
 
     </div>
