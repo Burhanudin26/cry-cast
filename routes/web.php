@@ -72,7 +72,7 @@ Route::post('/import1', 'App\Http\Controllers\Binance@import1')->name('import1')
 // import 2 in controller Bitcoin
 Route::post('/import2', 'App\Http\Controllers\Bitcoin@import2')->name('import2');
 
-
+ 
 // Output
 
 // Try Naive Bayes
