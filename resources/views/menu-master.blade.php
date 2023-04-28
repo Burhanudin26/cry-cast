@@ -103,7 +103,7 @@
             </div>
             <div class="flip-card-back">
               <div class="back-content">
-                <a href="{{ route('prediksi.index') }}" style="position: relative; z-index: 1; text-decoration:none">
+                <a href="/menu/master" style="position: relative; z-index: 1; text-decoration:none">
                 <div class="card-text"> <p>Prediksi</p></div>
                 </a>
               </div>
