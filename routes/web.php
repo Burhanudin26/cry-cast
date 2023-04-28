@@ -57,12 +57,12 @@ Route::get('/menu', function () {
 //Menu group
 Route::prefix('menu')->group(function () {
     // route to bitcoin
-    Route::get('akurasi', [Bitcoin::class, 'index'])->name('akurasi.index');
+    Route::get('akurasi', [Bitcoin::class, 'index'])
+    ->name('akurasi.index');
     // route to bianceconmtroller index
-        Route::get('prediksi', function(){
+    Route::get('prediksi', function () {
         return view('menu.master');
     })->name('prediksi.index');
-
 });
 
 // Route to controller
