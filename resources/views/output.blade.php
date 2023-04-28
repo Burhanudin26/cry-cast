@@ -68,7 +68,11 @@
             <h3>Hasil prediksi</h3>
             <p>Hasil prediksi pada tanggal {{ date('Y/m/d', strtotime($date[count($date) - 1]->date . ' + 1 day')) }}</p>
             <div class="card px-4">
-              <p id="output-naik-turun" class="pt-3">{{ $outputb }} %</p>
+              <p class="pt-3">{{ $outputb }} %</p>
+              <p> Akurasi: {{ $akurasi }} %</p>
+              <p> Recall: {{ $recall }} %</p>
+              <p> Precision: {{ $precision }} %</p>
+              <p> F1 Score: {{ $f1Score }} %</p>
             </div>
           </div>
         </div>
@@ -81,8 +85,7 @@
       </div>
       {{-- back button biasa --}}
       <div class="tombol2 mt-3 mb-3 text-center">
-        <a href="{{ url('/menu-master') }}" class="btn btn-primary" role="button" type="button"> Kembali</a>
-        <a href="{{ route('viewAccuracy') }}" class="btn btn-warning" type="button">Lihat Akurasi</a>
+        <a href="{{ url('/menu') }}" class="btn btn-primary" role="button" type="button"> Kembali</a>
       </div>
 
     </div>
