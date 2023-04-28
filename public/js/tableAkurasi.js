@@ -1,7 +1,7 @@
 const search = document.querySelector('.input-group input'),
     table_rows = document.querySelectorAll('tbody tr'),
     table_headings = document.querySelectorAll('thead th');
-    
+
 // 1. Searching for specific data of HTML table
 search.addEventListener('input', searchTable);
 
@@ -49,3 +49,34 @@ function sortTable(column, sort_asc) {
     })
         .map(sorted_row => document.querySelector('tbody').appendChild(sorted_row));
 }
+
+// 3. Compare percentage of model with advice
+// Akurasi value in td
+let tdAkurasi = document.querySelector('td:contains("{{ $akurasi }}%")');
+let tdRecall = document.querySelector('td:contains("{{ $recall }}%")');
+let tdPrecision = document.querySelector('td:contains("{{ $precision }}%")');
+let tdF1 = document.querySelector('td:contains("{{ $f1Score }}%")');
+
+// Parse Percentage
+let akurasiPercentage = parseFloat(tdAkurasi.textContent);
+let recallPercentage = parseFloat(tdRecall.textContent);
+let precisionPercentage = parseFloat(tdPrecision.textContent);
+let f1Percentage = parseFloat(tdF1.textContent);
+
+// Determine the recommendation based on the recall percentage:
+let recommendation;
+if (recallPercentage >= 60) {
+  recommendation = "Strongly Recommended";
+} else if (recallPercentage >= 50 && recallPercentage < 60) {
+  recommendation = "Recommended";
+} else {
+  recommendation = "Better Keep Your Coins";
+}
+
+// Get the <p> element with class "status" from the table:
+let recommendationEl = document.querySelector(".status");
+
+// Update the text content of the <p> element with the recommendation:
+recommendationEl.textContent = recommendation;
+
+  
