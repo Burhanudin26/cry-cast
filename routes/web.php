@@ -108,4 +108,7 @@ Route::middleware(['auth.user'])->group(function () {
     // route to controller errRate
     Route::get('/errate', 'App\Http\Controllers\ErrRate@errate')->name('errate');
     Route::get('/errate1', 'App\Http\Controllers\ErrRate@errate1')->name('errate1');
+
+        // Route to viewAccurary
+        Route::get('/outputAkurasi', 'App\Http\Controllers\NewController@viewAccuracy')->name('viewAccuracy');
 });

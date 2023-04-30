@@ -50,33 +50,61 @@ function sortTable(column, sort_asc) {
         .map(sorted_row => document.querySelector('tbody').appendChild(sorted_row));
 }
 
-// 3. Compare percentage of model with advice
-// Akurasi value in td
-let tdAkurasi = document.querySelector('td:contains("{{ $akurasi }}%")');
-let tdRecall = document.querySelector('td:contains("{{ $recall }}%")');
-let tdPrecision = document.querySelector('td:contains("{{ $precision }}%")');
-let tdF1 = document.querySelector('td:contains("{{ $f1Score }}%")');
+// // 3. Compare percentage of model with advice
+// // Get all the <td> elements that contain the accuracy percentage value:
+// let accuracyTds = document.querySelectorAll("tbody td:nth-child(5)");
+// console.log("test");
+// accuracyTds.forEach(td => {
+// 	// Akurasi value in td
+// 	// let tdAkurasi = document.querySelector('td:contains("{{ $akurasi }}%")');
+// 	// let tdRecall = document.querySelector('td:contains("{{ $recall }}%")');
+// 	// let tdPrecision = document.querySelector('td:contains("{{ $precision }}%")');
+// 	// let tdF1 = document.querySelector('td:contains("{{ $f1Score }}%")');
 
-// Parse Percentage
-let akurasiPercentage = parseFloat(tdAkurasi.textContent);
-let recallPercentage = parseFloat(tdRecall.textContent);
-let precisionPercentage = parseFloat(tdPrecision.textContent);
-let f1Percentage = parseFloat(tdF1.textContent);
+// 	// Parse Percentage
+// 	let akurasiPercentage = parseFloat(td.textContent);
+// 	console.log("enter looping");
+// 	console.log(akurasiPercentage);
+// 	let recallPercentage = parseFloat(td.textContent);
+// 	let precisionPercentage = parseFloat(td.textContent);
+// 	let f1Percentage = parseFloat(td.textContent);
 
-// Determine the recommendation based on the recall percentage:
-let recommendation;
-if (recallPercentage >= 60) {
-  recommendation = "Strongly Recommended";
-} else if (recallPercentage >= 50 && recallPercentage < 60) {
-  recommendation = "Recommended";
-} else {
-  recommendation = "Better Keep Your Coins";
-}
+// 	// Determine the recommendation based on the recall percentage:
+// 	let recommendation;
+// 	if (akurasiPercentage >= 60) {
+// 	recommendation = "Strongly Recommended";
+// 	} else if (akurasiPercentage >= 50 && akurasiPercentage < 60) {
+// 	recommendation = "Recommended";
+// 	} else {
+// 	recommendation = "Better Keep Your Coins";
+// 	}
+// 	if (recallPercentage >= 60) {
+// 	recommendation = "Strongly Recommended";
+// 	} else if (recallPercentage >= 50 && recallPercentage < 60) {
+// 	recommendation = "Recommended";
+// 	} else {
+// 	recommendation = "Better Keep Your Coins";
+// 	}
+// 	if (precisionPercentage >= 60) {
+// 	recommendation = "Strongly Recommended";
+// 	} else if (precisionPercentage >= 50 && precisionPercentage < 60) {
+// 	recommendation = "Recommended";
+// 	} else {
+// 	recommendation = "Better Keep Your Coins";
+// 	}
+// 	if (f1Percentage >= 60) {
+// 	recommendation = "Strongly Recommended";
+// 	} else if (f1Percentage >= 50 && f1Percentage < 60) {
+// 	recommendation = "Recommended";
+// 	} else {
+// 	recommendation = "Better Keep Your Coins";
+// 	}
 
-// Get the <p> element with class "status" from the table:
-let recommendationEl = document.querySelector(".status");
+// 	// Get the <p> element with class "status" from the table:
+// 	let recommendationEl = document.querySelector(".recommended");
+// 	console.log(recommendationEl);
 
-// Update the text content of the <p> element with the recommendation:
-recommendationEl.textContent = recommendation;
-
+// 	// Update the text content of the <p> element with the recommendation:
+// 	recommendationEl.textContent = recommendation;
+// });
   
