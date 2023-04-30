@@ -638,4 +638,14 @@ class NewController extends Controller
 
         return view('outputmenu')->with(compact('data', 'trend', 'low_data', 'low_trend', 'volume_data', 'volume_trend', 'date', 'output', 'outputb', 'akurasi', 'datei'));
     }
+    public function viewAccuracy()
+    {
+        $akurasi = $this->predict();
+        $recall = $this->recall();
+        $precision = $this->precision();
+        $f1Score = $this->f1Score();
+        // redirect to accuracy url
+        return view('outputAkurasi')->with(compact('akurasi', 'recall', 'precision', 'f1Score'));
+
+    }
 }

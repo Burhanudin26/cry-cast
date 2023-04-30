@@ -15,7 +15,7 @@ class loginController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials, false)) {
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
             // Set the verified flag in the user's session
