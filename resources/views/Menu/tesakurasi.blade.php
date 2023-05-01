@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Bitcoin')
+@section('title', 'Tes Akurasi')
 @section('content')
   <link rel="stylesheet" href="{{ url('css/menu-cry.css') }}">
   <!-- content -->
@@ -7,7 +7,7 @@
   <section class="container mt-5 pt-5 d-flex flex-column justify-content-center align-items-center" style="height: 80vh;">
     <div class="card" style="min-width: 700px;">
       <div class="card-header">
-        <h1 class="text-center">Bitcoin</h1>
+        <h1 class="text-center">Tes Akurasi</h1>
       </div>
       <div class="card-body p-4" style="background-color: rgba(255, 255, 255, 0);">
         <form method="POST" action="{{ route('import2') }}" enctype="multipart/form-data">
@@ -44,7 +44,7 @@
                   <div class="mb-3">
                     @csrf
                     <label for="fileInput" class="form-label">Select a file:</label>
-                    <input type="file" name="csv_input_bitcoin" class="form-control" id="fileInput"
+                    <input type="file" name="csv_input" class="form-control" id="fileInput"
                       accept=".csv,.xlsx">
                   </div>
                   <hr>
