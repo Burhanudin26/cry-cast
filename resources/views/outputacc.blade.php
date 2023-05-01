@@ -57,8 +57,8 @@
           <div class="output text-center mt-5 mb-5">
             <h3>Trend</h3>
             <p>Trend pada tanggal
-            {{-- select datei --}}
-            {{ $datei }}
+              {{-- select datei --}}
+              {{ $datei }}
             </p> <br>
             <div class="card px-4">
               <p class="pt-3">Trend cenderung {{ $output }}</p>
@@ -72,7 +72,6 @@
             <p>Hasil prediksi pada tanggal {{ $datei }}</p>
             <div class="card px-4">
               <p class="pt-3">{{ $outputb }} %</p>
-              <p> Akurasi: {{ $akurasi }} %</p>
             </div>
           </div>
         </div>
@@ -86,11 +85,12 @@
       {{-- back button biasa --}}
       <div class="tombol2 mt-3 mb-3 text-center">
         <a href="{{ url('/menu') }}" class="btn btn-primary" role="button" type="button"> Kembali</a>
+        <a href="{{ route('viewAccuracy') }}" class="btn btn-warning" type="button">Lihat Akurasi</a>
       </div>
 
     </div>
     {{-- swup js  --}}
-    
+
   </section>
   {{-- Chart.js --}}
   <script src="{{ url('js/chart.js/dist/chart.umd.js') }}"></script>
@@ -140,53 +140,53 @@
       chart.data.datasets[1].pointRadius = pointRadius; // dynamically set point radius based on number of data points
       chart.update(); // update the chart
     });
- const chart = new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: idv.slice(-numDataPoints),
-    datasets: [{
-        label: 'High',
-        data: highValues.slice(-numDataPoints),
-        borderWidth: 1,
-        pointRadius: pointRadius,
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: idv.slice(-numDataPoints),
+        datasets: [{
+            label: 'High',
+            data: highValues.slice(-numDataPoints),
+            borderWidth: 1,
+            pointRadius: pointRadius,
+          },
+          {
+            label: 'Moving Average',
+            data: trendValues.slice(-numDataPoints),
+            borderWidth: 1,
+            pointRadius: pointRadius,
+          }
+        ]
       },
-      {
-        label: 'Moving Average',
-        data: trendValues.slice(-numDataPoints),
-        borderWidth: 1,
-        pointRadius: pointRadius,
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    },
-    plugins: {
-      title: {
-        display: true,
-        text: 'High Values'
-      },
-      tooltip: {
-        mode: 'index',
-        intersect: false,
-        callbacks: {
-          label: function(context) {
-            const label = context.dataset.label || '';
-            const value = context.raw;
-            if (label) {
-              return `${label}: ${value}`;
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'High Values'
+          },
+          tooltip: {
+            mode: 'index',
+            intersect: false,
+            callbacks: {
+              label: function(context) {
+                const label = context.dataset.label || '';
+                const value = context.raw;
+                if (label) {
+                  return `${label}: ${value}`;
+                }
+                return `${value}`;
+              }
             }
-            return `${value}`;
           }
         }
       }
-    }
-  }
-});
+    });
 
 
     // chart 2
@@ -240,53 +240,53 @@
       chart2.update(); // update the chart
     });
 
-const chart2 = new Chart(ctx2, {
-  type: 'line',
-  data: {
-    labels: idv2.slice(-numDataPoints2),
-    datasets: [{
-        label: 'Low',
-        data: lowValues2.slice(-numDataPoints2),
-        borderWidth: 1,
-        pointRadius: pointRadius2,
+    const chart2 = new Chart(ctx2, {
+      type: 'line',
+      data: {
+        labels: idv2.slice(-numDataPoints2),
+        datasets: [{
+            label: 'Low',
+            data: lowValues2.slice(-numDataPoints2),
+            borderWidth: 1,
+            pointRadius: pointRadius2,
+          },
+          {
+            label: 'Moving Average',
+            data: trendValues2.slice(-numDataPoints2),
+            borderWidth: 1,
+            pointRadius: pointRadius2,
+          }
+        ]
       },
-      {
-        label: 'Moving Average',
-        data: trendValues2.slice(-numDataPoints2),
-        borderWidth: 1,
-        pointRadius: pointRadius2,
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    },
-    plugins: {
-      title: {
-        display: true,
-        text: 'Low Values'
-      },
-      tooltip: {
-        mode: 'index',
-        intersect: false,
-        callbacks: {
-          label: function(context) {
-            const label = context.dataset.label || '';
-            const value = context.raw;
-            if (label) {
-              return `${label}: ${value}`;
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Low Values'
+          },
+          tooltip: {
+            mode: 'index',
+            intersect: false,
+            callbacks: {
+              label: function(context) {
+                const label = context.dataset.label || '';
+                const value = context.raw;
+                if (label) {
+                  return `${label}: ${value}`;
+                }
+                return `${value}`;
+              }
             }
-            return `${value}`;
           }
         }
       }
-    }
-  }
-});
+    });
 
 
     // chart 3

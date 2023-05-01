@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Binance;
 use App\Http\Controllers\Bitcoin;
+use App\Http\Controllers\loginController;
+use App\Http\Controllers\registrationController;
 
 
 /*
@@ -26,12 +28,12 @@ Route::get('/', function () {
 });
 
 
-// Register & Login
-Route::get('/registerGet', [UserController::class, 'showRegistrationForm'])->name('registerGet');
-Route::post('/registerPost', [UserController::class, 'register'])->name('registerPost');
-Route::get('/loginGet', [UserController::class, 'showLoginForm'])->name('loginGet');
-Route::post('/loginPost', [UserController::class, 'login'])->name('loginPost');
-Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+// Register Controller route
+Route::post('/registerSend', [registrationController::class, 'register'])->name('registerPost');
+// Login Controller route
+Route::post('/loginSend', [loginController::class, 'authenticate'])->name('loginPost');
+// Logout Controller route
+Route::get('/logout', [loginController::class, 'logout'])->name('logout');
 
 
 // route to about page
@@ -48,102 +50,65 @@ Route::get('/registerPage', function () {
     return view('login.register');
 })->name('regis');
 
+Route::middleware(['auth.user'])->group(function () {
+    // your protected routes go here
 // route to register page
-Route::get('/menu-master', function () {
-    return view('menu-master');
-})->name('mmaster');
+    Route::get('/menu', function () {
+        return view('menu-master');
+    })->name('mmaster');
 
-// menu route
-Route::get('/menu', function () {
-    return view('menu');
-})->name('menu');
 
-//Menu group
-Route::prefix('menu')->group(function () {
-     // route to eth
-     Route::get('master', function () {
-        return view('menu.master');
-    });
-    // route to eth
-    Route::get('eth', function () {
-        return view('menu.eth');
+    //Menu group
+    Route::prefix('menu')->group(function () {
+        // route to bitcoin
+        Route::get('akurasi', [Bitcoin::class, 'index'])
+            ->name('akurasi.index');
+        // route to bianceconmtroller index
+        Route::get('prediksi', function () {
+            return view('menu.master');
+        })->name('prediksi.index');
     });
 
-    // route to bitcoin
-    Route::get('bitcoin', function () {
-        return view('menu.bitcoin');
-    });
+    // Route to controller
+    Route::post('/import', 'App\Http\Controllers\NewController@import');
+    // import 1 in controller Binance
+    Route::post('/import1', 'App\Http\Controllers\Binance@import1')->name('import1');
+    // import 2 in controller Bitcoin
+    Route::post('/import2', 'App\Http\Controllers\Bitcoin@import2')->name('import2');
 
-    // route to bianceconmtroller index
-    Route::get('binance', [Binance::class, 'index']);
 
-    // route to dogecoin
-    Route::get('dogecoin', function () {
-        return view('menu.dogecoin');
-    });
+    // Output
 
-    // route to iota
-    Route::get('iota', function () {
-        return view('menu.iota');
-    });
+    // Try Naive Bayes
+    Route::get('/naive', 'App\Http\Controllers\NewController@naiveBayes')->name('naive');
 
-    // route to solana
-    Route::get('solana', function () {
-        return view('menu.solana');
-    });
+    // redirect import1 to output
 
-    // route to stellar
-    Route::get('stellar', function () {
-        return view('menu.stellar');
-    });
+    // return controller naive
+    Route::get('/naiveb', 'App\Http\Controllers\binance@naive')->name('naiveb');
 
-    // route to tron
-    Route::get('tron', function () {
-        return view('menu.tron');
-    });
+    // route to controller predict
+    Route::get('/predict', 'App\Http\Controllers\NewController@predict')->name('predict');
+
+    // route to controller naive
+    Route::get('/naive', 'App\Http\Controllers\NewController@naive')->name('naive');
+
+    // route to controller accuracy
+    Route::get('/accuracy', 'App\Http\Controllers\NewController@accuracy')->name('accuracy');
+
+    // route to controller recall
+    Route::get('/recall', 'App\Http\Controllers\NewController@recall')->name('recall');
+
+    // route to controller precision
+    Route::get('/precision', 'App\Http\Controllers\NewController@precision')->name('precision');
+
+    // route to controller f1
+    Route::get('/f1', 'App\Http\Controllers\NewController@f1')->name('f1');
+
+    // route to controller errRate
+    Route::get('/errate', 'App\Http\Controllers\ErrRate@errate')->name('errate');
+    Route::get('/errate1', 'App\Http\Controllers\ErrRate@errate1')->name('errate1');
+
+        // Route to viewAccurary
+        Route::get('/outputAkurasi', 'App\Http\Controllers\NewController@viewAccuracy')->name('viewAccuracy');
 });
-
-// Route to controller
-Route::post('/import', 'App\Http\Controllers\NewController@import');
-// import 1 in controller Binance
-Route::post('/import1', 'App\Http\Controllers\Binance@import1')->name('import1');
-// import 2 in controller Bitcoin
-Route::post('/import2', 'App\Http\Controllers\Bitcoin@import2')->name('import2');
-Route::post('/import3', 'App\Http\Controllers\NewController@import3');
-Route::post('/import4', 'App\Http\Controllers\NewController@import4');
-Route::post('/import5', 'App\Http\Controllers\NewController@import5');
-Route::post('/import6', 'App\Http\Controllers\NewController@import6');
-Route::post('/import7', 'App\Http\Controllers\NewController@import7');
-Route::post('/import8', 'App\Http\Controllers\NewController@import8');
-
-// Output
-
-// Try Naive Bayes
-Route::get('/naive', 'App\Http\Controllers\NewController@naiveBayes')->name('naive');
-
-// redirect import1 to output
-
-// return controller naive
-Route::get('/naiveb', 'App\Http\Controllers\binance@naive')->name('naiveb');
-
-// route to controller predict
-Route::get('/predict', 'App\Http\Controllers\NewController@predict')->name('predict');
-
-// route to controller naive
-Route::get('/naive', 'App\Http\Controllers\NewController@naive')->name('naive');
-
-// route to controller accuracy
-Route::get('/accuracy', 'App\Http\Controllers\NewController@accuracy')->name('accuracy');
-
-// route to controller recall
-Route::get('/recall', 'App\Http\Controllers\NewController@recall')->name('recall');
-
-// route to controller precision
-Route::get('/precision', 'App\Http\Controllers\NewController@precision')->name('precision');
-
-// route to controller f1
-Route::get('/f1', 'App\Http\Controllers\NewController@f1')->name('f1');
-
-// route to controller errRate
-Route::get('/errate', 'App\Http\Controllers\ErrRate@errate')->name('errate');
-Route::get('/errate1', 'App\Http\Controllers\ErrRate@errate1')->name('errate1');
