@@ -1,12 +1,7 @@
 <?php
 
-use App\Http\Controllers\NewController;
-use App\Http\Controllers\ErrRate;
-use App\Http\Controllers\UserController;
-use App\Models\User;
+use App\Http\Controllers\TesAkurasiController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Binance;
-use App\Http\Controllers\Bitcoin;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\registrationController;
 
@@ -61,54 +56,52 @@ Route::middleware(['auth.user'])->group(function () {
     //Menu group
     Route::prefix('menu')->group(function () {
         // route to bitcoin
-        Route::get('akurasi', [Bitcoin::class, 'index'])
+        Route::get('akurasi', [TesAkurasiController::class, 'index'])
             ->name('akurasi.index');
         // route to bianceconmtroller index
         Route::get('prediksi', function () {
-            return view('menu.master');
+            return view('menu.prediksi');
         })->name('prediksi.index');
     });
 
     // Route to controller
-    Route::post('/import', 'App\Http\Controllers\NewController@import');
-    // import 1 in controller Binance
-    Route::post('/import1', 'App\Http\Controllers\Binance@import1')->name('import1');
+    Route::post('/import', 'App\Http\Controllers\PrediksiController@import');
     // import 2 in controller Bitcoin
-    Route::post('/import2', 'App\Http\Controllers\Bitcoin@import2')->name('import2');
+    Route::post('/import2', 'App\Http\Controllers\TesAkurasiController@import')->name('import2');
 
 
     // Output
 
     // Try Naive Bayes
-    Route::get('/naive', 'App\Http\Controllers\NewController@naiveBayes')->name('naive');
+    Route::get('/naive', 'App\Http\Controllers\PrediksiController@naiveBayes')->name('naive');
 
     // redirect import1 to output
 
     // return controller naive
-    Route::get('/naiveb', 'App\Http\Controllers\binance@naive')->name('naiveb');
+    Route::get('/naiveb', 'App\Http\Controllers\TesAkurasiController@naive')->name('naiveb');
 
     // route to controller predict
-    Route::get('/predict', 'App\Http\Controllers\NewController@predict')->name('predict');
+    Route::get('/predict', 'App\Http\Controllers\PrediksiController@predict')->name('predict');
 
     // route to controller naive
-    Route::get('/naive', 'App\Http\Controllers\NewController@naive')->name('naive');
+    Route::get('/naive', 'App\Http\Controllers\PrediksiController@naive')->name('naive');
 
     // route to controller accuracy
-    Route::get('/accuracy', 'App\Http\Controllers\NewController@accuracy')->name('accuracy');
+    Route::get('/accuracy', 'App\Http\Controllers\PrediksiController@accuracy')->name('accuracy');
 
     // route to controller recall
-    Route::get('/recall', 'App\Http\Controllers\NewController@recall')->name('recall');
+    Route::get('/recall', 'App\Http\Controllers\PrediksiController@recall')->name('recall');
 
     // route to controller precision
-    Route::get('/precision', 'App\Http\Controllers\NewController@precision')->name('precision');
+    Route::get('/precision', 'App\Http\Controllers\PrediksiController@precision')->name('precision');
 
     // route to controller f1
-    Route::get('/f1', 'App\Http\Controllers\NewController@f1')->name('f1');
+    Route::get('/f1', 'App\Http\Controllers\PrediksiController@f1')->name('f1');
 
     // route to controller errRate
     Route::get('/errate', 'App\Http\Controllers\ErrRate@errate')->name('errate');
     Route::get('/errate1', 'App\Http\Controllers\ErrRate@errate1')->name('errate1');
 
         // Route to viewAccurary
-        Route::get('/outputAkurasi', 'App\Http\Controllers\NewController@viewAccuracy')->name('viewAccuracy');
+        Route::get('/outputAkurasi', 'App\Http\Controllers\PrediksiController@viewAccuracy')->name('viewAccuracy');
 });
