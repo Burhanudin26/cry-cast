@@ -91,10 +91,9 @@
   <div
     class="container pt-5 d-flex flex-column vh-100 justify-content-center align-items-center pt-5 pt-md-0 p-5 p-md-0 px-md-5 "
     style="margin: 0 auto;">
-    <div class="row row-cols-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 justify-content-center align-items-center gy-2 p-md-5">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 justify-content-center align-items-center gy-2 p-md-5">
 
       {{--Custom input --}}
-
       <div class="col justify-content-center align-items-center d-flex flex-column">
         <div class="flip-card">
           <div class="flip-card-inner">
