@@ -13,7 +13,7 @@ class ErrRate extends Controller
         // truncate the table
         DB::table('err_rate')->truncate();
         // get date and high from Master
-        $master = DB::table('Master')->select('date', 'high')->get();
+        $master = DB::table('Prediksi')->select('date', 'high')->get();
         // get date and high value from sma
         $sma = DB::table('sma')->select('date', 'sma_high')->get();
         // loop through master and sma and compare the values based on date
@@ -40,7 +40,7 @@ class ErrRate extends Controller
         // truncate the table
         DB::table('err_rate')->truncate();
         // get date and high from Master
-        $master = DB::table('Binance')->select('date', 'high')->get();
+        $master = DB::table('tesakurasi')->select('date', 'high')->get();
         // get date and high value from sma
         $sma = DB::table('sma')->select('date', 'sma_high')->get();
         // loop through master and sma and compare the values based on date
