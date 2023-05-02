@@ -31,7 +31,8 @@ class crypto extends Migration
             $table->float('sma_high',20,10);
             $table->float('sma_low',20,10);
             $table->float('sma_volume',20 ,2);
-        });
+            $table->timestamps();
+            });
         //mencari Simple Moving Average
         Schema::create('Bullish_Berrish', function (Blueprint $table){
             $table->id();
