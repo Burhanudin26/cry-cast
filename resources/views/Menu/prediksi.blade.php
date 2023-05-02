@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Binance')
+@section('title', 'Prediksi')
 @section('content')
 
   <link rel="stylesheet" href="{{ url('css/menu-cry.css') }}">
@@ -8,7 +8,7 @@
   <section class="container mt-5 pt-5 d-flex flex-column justify-content-center align-items-center" style="height: 80vh;">
     <div class="card">
       <div class="card-header">
-        <h1 class="text-center">Binance</h1>
+        <h1 class="text-center">Prediksi</h1>
       </div>
       <div class="card-body p-4" style="background-color: rgba(255, 255, 255, 0);">
         <form method="POST" action="/import" enctype="multipart/form-data">
@@ -39,7 +39,7 @@
                   <div class="mb-3">
                     @csrf
                     <label for="fileInput" class="form-label">Select a file:</label>
-                    <input type="file" name="csv_input_master" class="form-control" id="fileInput" accept=".csv,.xlsx"
+                    <input type="file" name="csv_input" class="form-control" id="fileInput" accept=".csv,.xlsx"
                       draggable="true"> {{-- add dragable true --}}
                   </div>
                   <hr>

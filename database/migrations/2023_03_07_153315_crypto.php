@@ -8,72 +8,16 @@ class crypto extends Migration
 {
     public function up()
     {
-        //Master
-        Schema::create('Master', function (Blueprint $table){
+        //Prediksi
+        Schema::create('Prediksi', function (Blueprint $table){
             $table->id();
             $table->date('date');
             $table->float('high', 20, 10);
             $table->float('low' , 20, 10);
             $table->float('volume', 20, 2);
         });
-        //Binance
-        Schema::create('binance', function (Blueprint $table){
-            $table->id();
-            $table->date('date');
-            $table->float('high', 20, 10);
-            $table->float('low' , 20, 10);
-            $table->float('volume', 20, 2);
-        });
-        //Bitcoin
-        Schema::create('bitcoin', function (Blueprint $table){
-            $table->id();
-            $table->date('date');
-            $table->float('high', 20, 10);
-            $table->float('low' , 20, 10);
-            $table->float('volume', 20, 2);
-        });
-        //Dogecoin
-        Schema::create('dogecoin', function (Blueprint $table){
-            $table->id();
-            $table->date('date');
-            $table->float('high', 20, 10);
-            $table->float('low' , 20, 10);
-            $table->float('volume', 20, 2);
-        });
-        //Etherium
-        Schema::create('etherium', function (Blueprint $table){
-            $table->id();
-            $table->date('date');
-            $table->float('high', 20, 10);
-            $table->float('low' , 20, 10);
-            $table->float('volume', 20, 2);
-        });
-        //Iota
-        Schema::create('iota', function (Blueprint $table){
-            $table->id();
-            $table->date('date');
-            $table->float('high', 20, 10);
-            $table->float('low' , 20, 10);
-            $table->float('volume', 20, 2);
-        });
-        //Solana
-        Schema::create('solana', function (Blueprint $table){
-            $table->id();
-            $table->date('date');
-            $table->float('high', 20, 10);
-            $table->float('low' , 20, 10);
-            $table->float('volume', 20, 2);
-        });
-        //Stellar
-        Schema::create('stellar', function (Blueprint $table){
-            $table->id();
-            $table->date('date');
-            $table->float('high', 20, 10);
-            $table->float('low' , 20, 10);
-            $table->float('volume', 20, 2);
-        });
-        //Tron
-        Schema::create('tron', function (Blueprint $table){
+        //Tesakurasi
+        Schema::create('tesakurasi', function (Blueprint $table){
             $table->id();
             $table->date('date');
             $table->float('high', 20, 10);
@@ -146,15 +90,8 @@ class crypto extends Migration
     }
     public function down()
     {
-        Schema::dropIfExists('Master');
-        Schema::dropIfExists('binance');
-        Schema::dropIfExists('bitcoin');
-        Schema::dropIfExists('dogecoin');
-        Schema::dropIfExists('etherium');
-        Schema::dropIfExists('iota');
-        Schema::dropIfExists('solana');
-        Schema::dropIfExists('stellar');
-        Schema::dropIfExists('tron');
+        Schema::dropIfExists('prediksi');
+        Schema::dropIfExists('tesakurasi');
         Schema::dropIfExists('SMA');
         Schema::dropIfExists('Bullish_Berrish');
         Schema::dropIfExists('threshold');
