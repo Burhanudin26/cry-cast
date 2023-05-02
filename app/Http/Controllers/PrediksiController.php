@@ -522,8 +522,9 @@ class PrediksiController extends Controller
           $date = DB::table($table)->select('date')->get();
   
           // get oyutput in function BB
-          $output = $this->BB($table);
+        //   $output = $this->BB($table);
           // get output in function bayes
+          $output = DB::table('SMA')->select('sma_high')->latest()->value('sma_high');
   
           // select last high low and volume data from bayes
           $high = DB::table('bayes')->orderBy('id', 'desc')->value('high');
@@ -534,7 +535,6 @@ class PrediksiController extends Controller
           $recall = $this->recall();
           $precision = $this->precision();
           $f1Score = $this->f1Score();
-          //$this->predict();
           return view('output')->with(compact('data', 'trend', 'low_data', 'low_trend', 'volume_data', 'volume_trend', 'date', 'output', 'outputb', 'akurasi', 'recall', 'precision', 'f1Score'));
       }
   

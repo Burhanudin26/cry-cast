@@ -55,21 +55,21 @@
         <div class="col">
           {{-- sma --}}
           <div class="output text-center mt-5 mb-5">
-            <h3>Trend</h3>
-            <p>Trend pada tanggal
+            <h3>Hasil Prediksi</h3>
+            <p>Harga pada tanggal
               {{-- select datei --}}
               {{ $datei }}
             </p> <br>
             <div class="card px-4">
-              <p class="pt-3">Trend cenderung {{ $output }}</p>
+              <p class="pt-3">{{ $output }}</p>
             </div>
           </div>
         </div>
         <div class="col">
           {{-- bayes --}}
           <div class="output text-center mt-5 mb-5">
-            <h3>Hasil prediksi</h3>
-            <p>Hasil prediksi pada tanggal {{ $datei }}</p>
+            <h3>Hasil Prediksi</h3>
+            <p>Hasil Prediksi pada tanggal {{ $datei }}</p>
             <div class="card px-4">
               <p class="pt-3">{{ $outputb }} %</p>
             </div>

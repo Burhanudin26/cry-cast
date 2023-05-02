@@ -556,9 +556,8 @@ class TesAkurasiController extends Controller
             $date = DB::table($table)->select('date')->get();
     
             // get oyutput in function BB
-            $output = $this->BB($table);
+            // $output = $this->BB($table);
             // get output in function bayes
-    
             $datedecoy = DB::table('tesakurasi')->orderBy('id', 'asc')->take(100)->first();
             $datei = $request->date ?? $datedecoy->date;
             // validate date
@@ -567,6 +566,7 @@ class TesAkurasiController extends Controller
             // ]);
             // convert date to string
             $datei = date('Y/m/d', strtotime($datei));
+            $output = DB::table('SMA')->where('date', $datei)->value('sma_high');
             // select high and low and volume from table tesakurasi based on date
             $bayesData = DB::table('bayes')
                 ->where('date', '<', $datei) // Add condition to filter dates before $datei
