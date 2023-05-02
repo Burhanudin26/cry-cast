@@ -119,16 +119,16 @@
           <div class="card rounded-circle">
             <img src="/pictures/profil/1.jpg" class="img-fluid rounded-circle shadow" alt="">
             <div class="img-title">
-              <h4 class="text-center"> Alvalens </h4>
+              <h4 class="text-center"> Alvalen </h4>
             </div>
           </div>
         </div>
         {{-- p2 --}}
         <div class="col-6 col-md-3">
           <div class="card rounded-circle">
-            <img src="/pictures/guest.jpg" class="img-fluid rounded-circle shadow" alt="">
+            <img src="/pictures/profil/2.jpg" class="img-fluid rounded-circle shadow" alt="">
             <div class="img-title">
-              <h4 class="text-center"> Avanf </h4>
+              <h4 class="text-center"> Avan </h4>
             </div>
           </div>
         </div>
@@ -137,16 +137,16 @@
           <div class="card rounded-circle">
             <img src="/pictures/profil/3.jpg" class="img-fluid rounded-circle shadow" alt="">
             <div class="img-title">
-              <h4 class="text-center"> Azaryaa </h4>
+              <h4 class="text-center"> Azarya </h4>
             </div>
           </div>
         </div>
         {{-- p4 --}}
         <div class="col-6 col-md-3">
           <div class="card rounded-circle">
-            <img src="/pictures/guest.jpg" class="img-fluid rounded-circle shadow" alt="">
+            <img src="/pictures/profil/4.jpg" class="img-fluid rounded-circle shadow" alt="">
             <div class="img-title">
-              <h4 class="text-center"> Burhanuddiny </h4>
+              <h4 class="text-center"> Burhanuddin </h4>
             </div>
           </div>
         </div>
