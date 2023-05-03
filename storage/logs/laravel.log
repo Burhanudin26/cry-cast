@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 [2023-04-11 23:43:24] local.ERROR: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it {"exception":"[object] (PDOException(code: 2002): SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it at C:\\Laravel\\cry-cast\\app\\Http\\Controllers\\NewController.php:19)
 [stacktrace]
 #0 C:\\Laravel\\cry-cast\\app\\Http\\Controllers\\NewController.php(19): PDO->__construct()
@@ -27326,3 +27327,5 @@ Did you mean one of these?
 #48 E:\\Plus_Iso\\CODE\\WEB\\cry-cast\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('E:\\\\Plus_Iso\\\\COD...')
 #49 {main}
 "} 
+=======
+>>>>>>> ef02db14d61709fd8e91bc3e3e2be9a45993b6ad
